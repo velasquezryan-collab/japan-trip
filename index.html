@@ -1,0 +1,1413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Japan Family Adventure v2 — Velasquez + Kobayashi 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Inter', -apple-system, sans-serif; background: #f0f2f5; color: #1a1a2e; line-height: 1.6; }
+
+  .page { max-width: 960px; margin: 0 auto; padding: 40px 20px; }
+
+  /* HERO */
+  .hero {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    border-radius: 20px; padding: 60px 40px; text-align: center; color: white;
+    margin-bottom: 32px; position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+    background: radial-gradient(circle at 30% 70%, rgba(233,69,96,0.15) 0%, transparent 50%),
+                radial-gradient(circle at 70% 30%, rgba(86,171,228,0.15) 0%, transparent 50%);
+  }
+  .hero h1 { font-size: 2.8em; font-weight: 800; letter-spacing: -1px; position: relative; }
+  .hero .subtitle { font-size: 1.1em; opacity: 0.8; margin-top: 8px; font-weight: 300; position: relative; }
+  .hero .cities { margin-top: 20px; font-size: 1.2em; font-weight: 600; color: #e94560; position: relative; }
+  .hero .dates-badge {
+    display: inline-block; margin-top: 16px; padding: 8px 24px; border-radius: 30px;
+    background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2);
+    font-size: 0.95em; font-weight: 400; position: relative;
+  }
+
+  /* SECTIONS */
+  .section {
+    background: white; border-radius: 16px; padding: 36px; margin-bottom: 24px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  }
+  .section h2 {
+    font-size: 1.6em; font-weight: 700; color: #1a1a2e; margin-bottom: 8px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .section h2 .icon { font-size: 1.2em; }
+  .section h3 { font-size: 1.15em; font-weight: 600; color: #0f3460; margin: 24px 0 12px; }
+  .section h4 { font-size: 1.02em; font-weight: 600; color: #1a1a2e; margin: 14px 0 8px; }
+  .section p { color: #444; margin-bottom: 12px; }
+  .section .lead { font-size: 1.05em; color: #555; margin-bottom: 20px; }
+
+  /* OVERVIEW GRID */
+  .overview-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-top: 20px; }
+  .overview-card {
+    background: #f8f9fb; border-radius: 12px; padding: 16px; border-left: 4px solid #0f3460;
+  }
+  .overview-card .label { font-size: 0.8em; text-transform: uppercase; color: #888; font-weight: 600; letter-spacing: 0.5px; }
+  .overview-card .value { font-size: 1.05em; font-weight: 600; color: #1a1a2e; margin-top: 4px; }
+
+  /* ITINERARY */
+  .day-card {
+    border-left: 4px solid #e94560; border-radius: 12px; padding: 20px 20px 20px 24px;
+    margin-bottom: 16px; background: #fafbfc;
+  }
+  .day-card:nth-child(even) { border-left-color: #0f3460; }
+  .day-header { display: flex; align-items: baseline; gap: 12px; margin-bottom: 8px; flex-wrap: wrap; }
+  .day-num { font-size: 0.8em; font-weight: 700; color: #e94560; background: #fde8ec; padding: 3px 10px; border-radius: 6px; }
+  .day-card:nth-child(even) .day-num { color: #0f3460; background: #e0eaf5; }
+  .day-date { font-size: 0.85em; color: #888; }
+  .day-title { font-size: 1.1em; font-weight: 700; color: #1a1a2e; }
+  .day-activities { color: #555; margin-top: 6px; }
+  .day-cost { margin-top: 10px; font-size: 0.88em; color: #0f3460; font-weight: 600;
+    background: #f0f7ff; padding: 8px 12px; border-radius: 8px; display: inline-block; }
+
+  /* TABLES */
+  table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 0.92em; }
+  thead th {
+    background: #1a1a2e; color: white; padding: 12px 14px; text-align: left;
+    font-weight: 600; font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.3px;
+  }
+  thead th:last-child { text-align: right; }
+  tbody td { padding: 11px 14px; border-bottom: 1px solid #eee; color: #444; vertical-align: top; }
+  tbody tr:nth-child(even) { background: #f8f9fb; }
+  tbody td:last-child { text-align: right; font-weight: 500; }
+  tbody td.label-cell { font-weight: 600; color: #1a1a2e; }
+  tfoot td { padding: 14px; font-weight: 700; border-top: 2px solid #1a1a2e; }
+  .total-row td { background: #1a1a2e; color: white; font-size: 1.05em; }
+  .subtotal-row td { background: #e0eaf5; color: #0f3460; }
+
+  /* LODGING OPTIONS */
+  .option-card {
+    background: #fafbfc; border: 1px solid #e5e7eb; border-radius: 12px; padding: 20px;
+    margin-bottom: 14px;
+  }
+  .option-card.recommended { border: 2px solid #0f8a3c; background: #f0f9f2; }
+  .option-card h4 { display: flex; align-items: center; justify-content: space-between; }
+  .recommended-badge {
+    display: inline-block; background: #0f8a3c; color: white; font-size: 0.72em;
+    padding: 3px 10px; border-radius: 6px; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 700;
+  }
+  .option-meta { font-size: 0.88em; color: #666; margin: 6px 0 10px; }
+  .option-price { font-size: 1.05em; font-weight: 700; color: #0f3460; }
+
+  /* TIPS */
+  .tip-list { list-style: none; padding: 0; }
+  .tip-list li {
+    padding: 12px 16px; margin-bottom: 8px; background: #f8f9fb; border-radius: 10px;
+    border-left: 3px solid #0f3460;
+  }
+  .tip-list li strong { color: #0f3460; }
+
+  /* HIGHLIGHT BOX */
+  .highlight-box {
+    background: linear-gradient(135deg, #0f3460, #1a1a2e); color: white;
+    border-radius: 16px; padding: 32px; margin: 24px 0; text-align: center;
+  }
+  .highlight-box .big-number { font-size: 3em; font-weight: 800; }
+  .highlight-box .big-label { font-size: 1em; opacity: 0.8; margin-top: 4px; }
+  .highlight-box .breakdown { display: flex; justify-content: center; gap: 32px; margin-top: 20px; flex-wrap: wrap; }
+  .highlight-box .breakdown-item { text-align: center; }
+  .highlight-box .breakdown-item .num { font-size: 1.5em; font-weight: 700; color: #e94560; }
+  .highlight-box .breakdown-item .lbl { font-size: 0.8em; opacity: 0.7; }
+
+  /* WHY BOX */
+  .why-box {
+    background: #f0f7ff; border: 1px solid #c5ddf5; border-radius: 12px; padding: 20px; margin: 16px 0;
+  }
+  .why-box h4 { color: #0f3460; margin-bottom: 8px; }
+
+  .alert-box {
+    background: #fff8e6; border: 1px solid #f3d57b; border-radius: 12px; padding: 18px 22px; margin: 16px 0;
+  }
+  .alert-box h4 { color: #a15c00; margin-bottom: 8px; }
+
+  .split-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 16px; }
+  .split-card {
+    background: #fafbfc; border-radius: 12px; padding: 18px; border-top: 4px solid #e94560;
+  }
+  .split-card:nth-child(2) { border-top-color: #0f3460; }
+  .split-card .family-label { font-size: 0.8em; text-transform: uppercase; letter-spacing: 0.5px; color: #888; font-weight: 600; }
+  .split-card .family-amount { font-size: 1.8em; font-weight: 800; color: #1a1a2e; margin: 4px 0; }
+  .split-card .family-detail { font-size: 0.88em; color: #666; }
+
+  @media (max-width: 600px) {
+    .hero h1 { font-size: 1.8em; }
+    .hero { padding: 40px 20px; }
+    .section { padding: 24px 18px; }
+    .overview-grid { grid-template-columns: 1fr 1fr; }
+    .split-grid { grid-template-columns: 1fr; }
+    table { font-size: 0.82em; }
+    thead th, tbody td { padding: 8px 10px; }
+  }
+
+  @media print {
+    body { background: white; }
+    .page { max-width: 100%; padding: 0; }
+    .section { box-shadow: none; break-inside: avoid; }
+    .day-card { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- HERO -->
+<div class="hero">
+  <h1>JAPAN FAMILY ADVENTURE</h1>
+  <div class="subtitle">Velasquez + Kobayashi + Lala &nbsp;|&nbsp; 7 Adults · 4 Teens · 1 Baby &nbsp;|&nbsp; ZIPAIR LAX ↔ Narita</div>
+  <div class="cities">Tokyo &nbsp;•&nbsp; Kyoto &nbsp;•&nbsp; Disneyland &nbsp;•&nbsp; teamLab &nbsp;•&nbsp; Tsukiji</div>
+  <div class="dates-badge">June 26 – July 3, 2026 &nbsp;|&nbsp; 7 Nights · Two Stops</div>
+</div>
+
+<!-- PRE-TRIP TO-DO LIST -->
+<div class="section" style="background:#fffbe6; border: 3px solid #f59e0b; border-radius:12px; padding: 24px; margin-bottom: 28px;">
+  <h2 style="color:#92400e; border-bottom:2px solid #f59e0b; padding-bottom:8px;"><span class="icon">✅</span> Pre-Trip To-Do List · check off as you go</h2>
+  <p class="lead" style="color:#78350f;">Everything left to book, buy, or handle before wheels up — sorted by urgency. Departure: <strong>June 25, 2026 from LAX</strong> (ZIPAIR ZG023). Updated 2026-04-23.</p>
+
+  <h3 style="color:#b91c1c; margin-top:18px;">🔴 DO THIS WEEK (2 months out — the highest-friction stuff)</h3>
+  <ul class="tip-list">
+    <li>☐ <strong>International Driving Permits from AAA</strong> for all 5 Street Kart drivers: <strong>Ryan, Aileen, Reid, Darren, Rona</strong>. ~$20 each · takes 10–15 business days by mail · bring US license + passport photo · <strong>Japan requires IDP — US license alone won't work at Street Kart</strong> · <a href="https://www.aaa.com/vacation/idpf.html" target="_blank">aaa.com/vacation/idpf.html</a></li>
+    <li>☐ <strong>Check passport expiration dates</strong> for all 12 travelers — <strong>must be valid through Jan 2027</strong> (6+ months past July 3 return). If expiring: routine renewal takes 6–8 weeks, expedited 2–3 weeks for ~$60 extra.</li>
+    <li>☐ <strong>Confirm Kobayashi has all needed Richmond rooms booked for Jul 2–3.</strong> Room 1 is confirmed (5487359272, $338.89). Richmond rooms cap at 3 adults each — Kobayashi side is now 6 ppl (Darren, Rona, MB, Izzy, Sabrina, baby Kai, since Lala moved to Velasquez side), so likely needs 1–2 more rooms. Confirm and send any additional confirmations.</li>
+    <li>☐ <strong>Notify credit card companies of travel dates</strong> (June 25 – July 3 · Japan). Confirm no foreign transaction fees — if your card has them, consider Chase Sapphire, Cap One Venture, or Schwab for fee-free spend abroad.</li>
+    <li>☐ <strong>Decide on travel insurance</strong> — Allianz, Travel Guard, or Seven Corners. Worth considering for 81-yo Lala and baby Kai. ~$150–300/family for medical + trip-cancel.</li>
+  </ul>
+
+  <h3 style="color:#d97706; margin-top:22px;">🟠 LATE APRIL / EARLY MAY (~60 days out)</h3>
+  <ul class="tip-list">
+    <li>☐ <strong>Buy 11 Tokyo DisneySea 1-Day Passports</strong> — Monday June 29 weekday pricing · ~$75/person × 11 = <strong>$825</strong> · <a href="https://www.tokyodisneyresort.jp/en/" target="_blank">tokyodisneyresort.jp</a> · <strong>60-day window just opened</strong> — buy now before popular dates sell out. <em>Note: Fantasy Springs Premier Access is NOT pre-bookable — that happens in-app at 9 AM on Day 4 when you tap into the park.</em></li>
+    <li>☐ <strong>Book teamLab Planets Toyosu</strong> — Day 7 (Thursday July 2), afternoon slot ~2:30 PM · 11 × $25 = <strong>~$275</strong> · <a href="https://planets.teamlab.art/tokyo/" target="_blank">planets.teamlab.art/tokyo</a> · <strong>sells out weeks ahead — book ASAP</strong>.</li>
+    <li>☐ <strong>Book Shibuya Sky observation deck</strong> — Day 3 (Sunday June 28), 4:00 PM sunset slot · 11 × $18 = <strong>~$198</strong> · <a href="https://www.shibuya-sky.tokyo/" target="_blank">shibuya-sky.tokyo</a> · sunset slots go first.</li>
+    <li>☐ <strong>Start group restaurant reservations</strong> (12 people needs 30–60 days lead):
+      <ul style="margin-top:4px;">
+        <li><strong>Asakusa Imahan (sukiyaki)</strong> — Day 1 or Day 7 farewell dinner, reserve 2 tables of 6</li>
+        <li><strong>Sometaro (okonomiyaki on tatami)</strong> — Day 7 farewell option</li>
+        <li><strong>Yudofu Sagano or Shoraian (Arashiyama)</strong> — Day 6 lunch</li>
+        <li><strong>Magellan's at DisneySea</strong> — Day 4 lunch (book via Tokyo Disney Resort app, opens 1 month before)</li>
+        <li><strong>Gion Karyo or Gion Yata</strong> — Day 6 Gion dinner</li>
+      </ul>
+    </li>
+    <li>☐ <strong>Apply for Visit Japan Web</strong> (digital arrival card) — <a href="https://www.vjw.digital.go.jp/" target="_blank">vjw.digital.go.jp</a> · fills out immigration + customs forms ahead of time · speeds up the Day 1 arrival for Velasquez at Narita <strong>and the Day 2 5 AM arrival for Kobayashi at Haneda</strong>. Can submit 2 weeks before travel — both families need their own submissions.</li>
+    <li>☐ <strong>Kobayashi: pre-book 2 taxis from Haneda → Senju-Ohashi for Saturday 5–6 AM arrival</strong> — JapanTaxi app or arrange through the JAL inflight concierge. ¥10,000–15,000 per car (~$130–190 total for 2 cars / 6 ppl + luggage). Cheaper rail option (Keikyu + Toei Asakusa Line, ~75 min) exists but taxis are kinder on a tired family with a baby and luggage at that hour.</li>
+  </ul>
+
+  <h3 style="color:#ca8a04; margin-top:22px;">🟡 MID-MAY (~4 weeks out)</h3>
+  <ul class="tip-list">
+    <li>☐ <strong>Book Shinkansen seats</strong> via SmartEX app — opens 30 days before travel (so late May for Day 5 Tokyo→Kyoto, early June for Day 7 Kyoto→Tokyo). Reserve <strong>11 seats in one car</strong> on each leg · ~$95/person each way · <a href="https://smart-ex.jp/en/" target="_blank">smart-ex.jp</a>.</li>
+    <li>☐ <strong>Book Street Kart Asakusa</strong> — Saturday June 27, 4:00 PM slot, 5 drivers · <a href="https://kart.st/asakusa.html" target="_blank">kart.st/asakusa.html</a> · ~$34/driver × 5 = <strong>$170</strong> · bring passport + IDP to check-in.</li>
+    <li>☐ <strong>Book Ginza Hachigou (Michelin ramen)</strong> if doing the Day 3 detour · online booking + ¥500 (~$3) fee per person · <em>only 8 seats in the restaurant — book as soon as slots open</em>.</li>
+    <li>☐ <strong>Reserve Pocket Wi-Fi</strong> OR arrange eSIM/SIM (see "Connectivity" below).</li>
+    <li>☐ <strong>Book Iroriya Higashi-Ginza (ikura don)</strong> if doing the Day 3 viral food detour · min 2 guests for the ikura dish · <a href="https://tabelog.com/" target="_blank">tabelog.com</a> or phone.</li>
+  </ul>
+
+  <h3 style="color:#16a34a; margin-top:22px;">🟢 EARLY–MID JUNE (1–2 weeks out)</h3>
+  <ul class="tip-list">
+    <li>☐ <strong>Download apps</strong> (install AND sign in before you leave — some need US phone verification):
+      <ul style="margin-top:4px;">
+        <li><strong>Tokyo Disney Resort</strong> (for Fantasy Springs Premier Access on Day 4 morning)</li>
+        <li><strong>Google Maps</strong> — download offline maps for Tokyo + Kyoto + Osaka</li>
+        <li><strong>Google Translate</strong> — download Japanese offline pack + enable camera/live translate</li>
+        <li><strong>Suica/PASMO in Apple Wallet</strong> (iPhone only — add card before you fly, ¥2,000 minimum load) · Android users buy physical Suica at Narita</li>
+        <li><strong>Japan Travel by NAVITIME</strong> — best train-routing app for tourists</li>
+        <li><strong>Splitwise</strong> — for Velasquez ↔ Kobayashi cost reconciliation during the trip</li>
+        <li><strong>WhatsApp group</strong> with all 11 adults + Lala (free over Wi-Fi, replaces SMS when roaming)</li>
+        <li><strong>SmartEX</strong> (keep your Shinkansen tickets accessible)</li>
+      </ul>
+    </li>
+    <li>☐ <strong>Message Airbnb hosts to coordinate Yamato luggage forwarding:</strong>
+      <ul style="margin-top:4px;">
+        <li><strong>Senju-Ohashi host (HM9PP9WY3C):</strong> confirm crib + high chair + shower stool. Request <strong>Yamato pickup Day 5 (Tue Jun 30) morning ~10 AM</strong> to forward all 12 bags to HAYASHI Kyoto. Get the Japanese-formatted address sheet for HAYASHI from host Miki to give to Yamato.</li>
+        <li><strong>HAYASHI host Miki (TOUZAN HMB5NYXWKR + SOUKAI HMFCYEFMBF):</strong> confirm stair layout (ground-floor sleeping for Lala if possible). Confirm <strong>Yamato inbound delivery Day 5 (Tue) afternoon-evening</strong> (bags from Tokyo arriving while you're in Osaka — Miki accepts deliveries). Also coordinate <strong>Yamato pickup Day 7 (Thu Jul 2) morning ~9 AM</strong> to forward all 12 bags to Richmond Asakusa.</li>
+        <li><strong>Richmond Hotel Asakusa front desk:</strong> notify them that 12 Yamato bags will arrive Thu Jul 2 evening — they'll receive at the front desk and route to your specific rooms.</li>
+        <li><strong>Pre-print all destination addresses</strong> (in Japanese where possible) so you can hand them to Yamato counter agents — saves so much time.</li>
+      </ul>
+    </li>
+    <li>☐ <strong>Pack with Yamato in mind:</strong> after the Day 1 Narita drop-off, your suitcases will be delivered to the Airbnb same evening or next morning. Pack a <strong>day-of essentials backpack</strong> for each person with: passport + IDP + cards + cash, phone + chargers + power bank, 1 change of clothes, toiletries, meds (especially Lala), Kai's diapers/formula, anything you'd hate to lose. <strong>Same backpack approach for Days 5 and 7</strong> when bags ship Tokyo↔Kyoto.</li>
+    <li>☐ <strong>Print or PDF-save all confirmations</strong> — offline copies of: ZIPAIR 6KQC9C · Airbnb Senju-Ohashi HM9PP9WY3C · HAYASHI HMB5NYXWKR · Richmond Asakusa (both rooms) · DisneySea · teamLab · Shibuya Sky · Street Kart · Shinkansen. Store in a shared Google Drive folder for the whole group.</li>
+    <li>☐ <strong>Arrange home stuff</strong> — mail hold at USPS, pet/house sitter, neighbor check-in, trash pickup, any subscriptions to pause.</li>
+    <li>☐ <strong>Medications + prescriptions</strong> — bring 2x what you need in original bottles. Kids' fever meds, Tylenol/Advil, Dramamine for Shinkansen/airplane, electrolyte packets.</li>
+  </ul>
+
+  <h3 style="color:#0284c7; margin-top:22px;">📱 Connectivity — eSIM is the recommended pick</h3>
+  <div style="background:#dbeafe; padding:12px 16px; border-radius:8px; border-left:4px solid #0284c7; margin-bottom:10px;">
+    <p style="margin:0; font-size:0.95em;"><strong>✓ Recommended: eSIM for each phone.</strong> Your group splits up multiple times (Day 2 Street Kart vs Hanayashiki, DisneySea sub-groups, Day 8 two-route departure) — eSIM gives every person their own independent connection so you're not tethered to one hotspot-holder. iMessage + FaceTime work normally, and it's cheaper overall than pocket Wi-Fi for a family of 5.</p>
+  </div>
+  <ul class="tip-list">
+    <li>☐ <strong>Option A — eSIM (Recommended):</strong> <a href="https://www.airalo.com/" target="_blank">Airalo</a> Moshi Moshi 10 GB plan ~$18/phone · or <a href="https://holafly.com/" target="_blank">Holafly</a> unlimited ~$30/phone · install the eSIM BEFORE you fly, activate on arrival at Narita · works on iPhone XS+ (2018 or newer) and modern Androids. Your phone must be carrier-unlocked. Total for Velasquez 5 phones: <strong>~$90–150</strong>.</li>
+    <li>☐ <strong>Option B — Keep T-Mobile if you have Go5G+/Magenta Max:</strong> free high-speed data in Japan is built into those plans — skip the eSIM entirely for anyone on T-Mobile.</li>
+    <li>☐ <strong>Option C — Pocket Wi-Fi backup</strong> (optional, not necessary): <a href="https://ninjawifi.com/en/" target="_blank">Ninja WiFi</a> ~$50–80 for the whole trip, pickup at Narita · only worth it if you have a non-eSIM phone or want a single-device fallback.</li>
+    <li>☐ <strong>Option D — US carrier daily roaming:</strong> Verizon Travel Pass $10/day/line · AT&T Int'l Day Pass $12/day/line. <em>Math: for an 8-day trip that's $80–96 per phone — more expensive than eSIM.</em></li>
+    <li><em>Key point on US phone numbers: while abroad on eSIM, your home number receives iMessages (over data) but not regular SMS texts. If you expect SMS verification codes from US banks/services, either keep your US SIM also active in a dual-SIM phone, use T-Mobile's free roaming, or use Google Voice as an SMS backup.</em></li>
+  </ul>
+
+  <h3 style="color:#dc2626; margin-top:22px;">🚄 Why NOT a JR Pass (asked + answered)</h3>
+  <div style="background:#fef2f2; padding:12px 16px; border-radius:8px; border-left:4px solid #dc2626;">
+    <p style="margin:0; font-size:0.95em;"><strong>Skip the JR Pass for this trip.</strong> After the October 2023 price hike the 7-day JR Pass runs <strong>¥50,000 (~$333/person)</strong>. Your actual JR usage works out to roughly $210–220/person (mostly the Tokyo ↔ Kyoto Shinkansen round trip at ~$190, plus ~$20 in JR Yamanote / Keiyō / Nara Line hops). <strong>Gap: ~$110 per person over-spend × 11 people ≈ $1,200 wasted.</strong> Most of your Tokyo commuting is on non-JR lines (Tobu Skytree, Tokyo Metro Hibiya/Chiyoda/Ginza), your Narita arrival is Keisei Skyliner, your Osaka day is Keihan, your Fushimi morning is Keihan. Individual Shinkansen tickets (SmartEX) + Suica tap-to-pay for everything else is the right approach, and it's what's budgeted.</p>
+  </div>
+
+  <h3 style="color:#7c3aed; margin-top:22px;">💴 Money + cash</h3>
+  <ul class="tip-list">
+    <li>☐ <strong>Primary credit card with no foreign transaction fees</strong> — Chase Sapphire Preferred/Reserve, Cap One Venture, Schwab debit.</li>
+    <li>☐ <strong>Get ¥30,000–40,000 cash on arrival</strong> — 7-Eleven ATM at Narita Airport gives the best rates. Many small food stalls, temples, and older restaurants are cash-only in Japan.</li>
+    <li>☐ <strong>Download XE Currency or Revolut</strong> for quick JPY↔USD conversion.</li>
+  </ul>
+
+  <h3 style="color:#be185d; margin-top:22px;">⚪ PACKING — the stuff that'll actually matter</h3>
+  <ul class="tip-list">
+    <li>☐ <strong>Broken-in walking shoes</strong> — non-negotiable, 15–25k steps/day</li>
+    <li>☐ <strong>Slip-on shoes</strong> for temples, tatami restaurants, Airbnb entries</li>
+    <li>☐ <strong>Rain jacket or compact umbrella</strong> — late June / early July IS rainy season</li>
+    <li>☐ <strong>Portable power bank + USB-C cables</strong> — Anker or similar</li>
+    <li>☐ <strong>International adapter</strong> — Japan uses Type A/B (mostly same as US); you only need one if any device has a 3-prong plug</li>
+    <li>☐ <strong>Reusable water bottle</strong> — vending machines everywhere, but cheaper to refill at Airbnb</li>
+    <li>☐ <strong>Small daypack / cross-body bag</strong> for each person</li>
+    <li>☐ <strong>For Kai:</strong> extra formula + diapers (Japanese brands available if you run out), travel-size stroller (narrow streets), baby carrier (essential for teamLab water rooms and Fushimi Inari stairs)</li>
+    <li>☐ <strong>For Lala:</strong> walking stick if she uses one, supportive arch-insole shoes, meds in original bottles</li>
+    <li>☐ <strong>Drivers (Street Kart):</strong> closed-toe sneakers + IDP + US license + passport</li>
+  </ul>
+
+  <h3 style="color:#059669; margin-top:22px;">🛫 DAY BEFORE (June 24) + DAY OF DEPARTURE (June 25)</h3>
+  <ul class="tip-list">
+    <li>☐ <strong>Activate eSIM</strong> / confirm pocket Wi-Fi pickup code</li>
+    <li>☐ <strong>Charge everything</strong> — phones, power banks, Kindles, camera</li>
+    <li>☐ <strong>Check ZIPAIR confirmation 6KQC9C</strong> · online check-in opens 48 hrs out</li>
+    <li>☐ <strong>Arrive LAX by 7:25 AM</strong> (3 hrs before 10:25 AM departure) — ZIPAIR Terminal TBB</li>
+    <li>☐ <strong>Bring:</strong> passport + IDPs (drivers) + printed confirmations + ¥ if you got it early · kids' snacks + Kai's carry-on essentials</li>
+  </ul>
+
+  <h3 style="color:#475569; margin-top:22px;">🛬 ARRIVAL AT NARITA (June 26)</h3>
+  <ul class="tip-list">
+    <li>☐ Immigration + baggage claim (~60 min with group of 12)</li>
+    <li>☐ <strong>Pocket Wi-Fi pickup</strong> at airport counter if using</li>
+    <li>☐ <strong>Buy physical Suica cards</strong> (¥2,000 min) at the JR East counter · or activate mobile Suica in Wallet</li>
+    <li>☐ <strong>Cash from 7-Eleven ATM</strong> — ¥30–40k initial</li>
+    <li>☐ <strong>Reserve Keisei Skyliner</strong> seats at the Skyliner counter (if not pre-booked)</li>
+    <li>☐ Head to Senju-Ohashi Airbnb (~2h 40min door-to-door)</li>
+  </ul>
+</div>
+
+<!-- TRANSIT & NAVIGATION CHEAT SHEET -->
+<div class="section" style="background:#f0f9ff; border:2px solid #0284c7; border-radius:12px; padding:24px; margin-bottom:28px;">
+  <h2 style="color:#075985; border-bottom:2px solid #0284c7; padding-bottom:8px;"><span class="icon">🚆</span> Transit & Navigation Cheat Sheet</h2>
+  <p class="lead" style="color:#0c4a6e;">Read this once before your trip and the rest of the itinerary's transit shorthand will make sense. The Japanese train system looks complex but is just lots of named lines stacked together — once you know the line names, every direction in this doc reads like a recipe.</p>
+
+  <h3 style="color:#075985; margin-top:18px;">📲 Step 1: Google Maps is your friend</h3>
+  <p>For every transit instruction in this itinerary, you can plug the destination into <strong>Google Maps</strong> on your phone. It tells you exact platform numbers, live departure times, walking directions inside stations, and the fare. <strong>This is your primary navigation tool — every link in this doc opens Google Maps with the destination already loaded.</strong> Backups: <a href="https://maps.apple.com/" target="_blank">Apple Maps</a> (surprisingly good in Japan) and <a href="https://japantravel.navitime.com/" target="_blank">Japan Travel by NAVITIME</a> (Japanese-tourist-focused, shows alternate routes).</p>
+
+  <h3 style="color:#075985; margin-top:18px;">💳 Step 2: Suica is your magic tap-card</h3>
+  <p><strong>Suica</strong> (or PASMO — same thing, different brand) is a rechargeable plastic card or phone wallet card. <strong>Tap it on the gate at every station, and you never need to buy individual tickets for local trains.</strong> Buy one at any train station ticket machine for ¥2,000 (¥1,500 of that loads as travel value, ¥500 deposit). Top up at any machine with cash. Works on EVERY line below. Even better: add <strong>Mobile Suica to Apple Wallet before you fly</strong> (iPhone XS+) — then your phone is the card.</p>
+
+  <h3 style="color:#075985; margin-top:18px;">🚉 Step 3: The lines we'll actually use</h3>
+  <p>Japan's transit is organized by <strong>line names</strong>, not by destination. When the itinerary says "Tobu Skytree Line direct, 10 min," it means: get on the Tobu Skytree Line, ride it 10 min without transferring, get off at the named station. Here's a decoder for every line in this doc:</p>
+
+  <div style="background:#fff; padding:14px 18px; border-radius:8px; margin-top:10px;">
+    <p style="margin:0 0 8px 0;"><strong>JR (Japan Railways) — the national rail network</strong></p>
+    <ul style="margin:0; padding-left:22px;">
+      <li><strong>JR Yamanote Line (green)</strong> — Tokyo's iconic loop. Connects Tokyo Sta., Ueno, Akihabara, Shinjuku, Shibuya. You'll ride this constantly.</li>
+      <li><strong>JR Joban Line</strong> — runs north from Ueno through <strong>Kita-Senju</strong> (your Tokyo transit hub for the Senju-Ohashi Airbnb).</li>
+      <li><strong>JR Keiyō Line</strong> — Tokyo Sta. → Maihama (Disney parks). Used Day 4.</li>
+      <li><strong>JR Sagano Line</strong> (also called JR Sanin Line) — Kyoto Sta. → Arashiyama. Used Day 6.</li>
+      <li><strong>JR Nara Line</strong> — Kyoto Sta. → Fushimi-Inari. Used Day 6 morning (alternative to Keihan).</li>
+    </ul>
+    <p style="margin:14px 0 8px 0;"><strong>Tokyo Metro (the main subway)</strong></p>
+    <ul style="margin:0; padding-left:22px;">
+      <li><strong>Hibiya Line (silver "H")</strong> — runs Naka-Meguro ↔ Kita-Senju, hits Akihabara, Tsukiji, Hibiya. <strong>Your most-used subway from the Senju-Ohashi base.</strong></li>
+      <li><strong>Ginza Line (orange "G")</strong> — oldest subway in Asia. Connects Asakusa ↔ Ueno ↔ Shibuya. Used for Asakusa trips.</li>
+      <li><strong>Chiyoda Line (green "C")</strong> — runs through Kita-Senju, Otemachi (Tokyo Sta. area), Omote-Sandō.</li>
+      <li><strong>Marunouchi Line (red "M")</strong> — Tokyo Sta. ↔ Shinjuku.</li>
+    </ul>
+    <p style="margin:14px 0 8px 0;"><strong>Toei Subway (Tokyo's other municipal subway, separate from Metro)</strong></p>
+    <ul style="margin:0; padding-left:22px;">
+      <li><strong>Toei Asakusa Line (rose pink "A")</strong> — Asakusa Sta. → Narita Airport via Keisei Sky Access. <strong>Your Day 8 departure route.</strong></li>
+    </ul>
+    <p style="margin:14px 0 8px 0;"><strong>Tobu — a private (non-JR, non-Metro) railway</strong></p>
+    <ul style="margin:0; padding-left:22px;">
+      <li><strong>Tobu Skytree Line</strong> — runs from Asakusa Station up through <strong>Senju-Ohashi</strong> (your Airbnb's station) and onward to the suburbs. <strong>Your direct 10-minute ride between Senju-Ohashi and Asakusa with no transfers.</strong> "Tobu" (東武, "East-Side Railway") is just the company name. <em>Suica works on Tobu the same as on JR/Metro.</em></li>
+    </ul>
+    <p style="margin:14px 0 8px 0;"><strong>Keisei (KAY-say) — private railway connecting Tokyo to Narita Airport</strong></p>
+    <ul style="margin:0; padding-left:22px;">
+      <li><strong>Keisei Skyliner</strong> — premium nonstop airport train. Narita ↔ Nippori/Keisei Ueno in ~40 min. Reserved seats, comfortable, ¥2,580/pp. <strong>Velasquez Day 1 arrival route.</strong></li>
+      <li><strong>Keisei Access Express</strong> — cheaper express that runs Asakusa ↔ Narita with no transfers via the Toei Asakusa Line. ¥1,310/pp, ~67 min. <strong>Day 8 group departure route.</strong></li>
+    </ul>
+    <p style="margin:14px 0 8px 0;"><strong>Keihan (KAY-han) — private railway in Kyoto/Osaka</strong></p>
+    <ul style="margin:0; padding-left:22px;">
+      <li><strong>Keihan Main Line</strong> — runs Kyoto (Demachi-yanagi/Sanjō/Gion-Shijō/Kiyomizu-Gojō/Shichijō) all the way to Osaka (Yodoyabashi/Temmabashi). <strong>Direct service from your Kyoto Airbnb to both Fushimi Inari (Day 6 sunrise) and Osaka (Day 5).</strong> No transfers needed for either trip.</li>
+    </ul>
+    <p style="margin:14px 0 8px 0;"><strong>Other lines mentioned</strong></p>
+    <ul style="margin:0; padding-left:22px;">
+      <li><strong>Tokyu Toyoko Line</strong> — Shibuya ↔ Yokohama. Used once on Day 3 if you do the Wagyumafia detour to Naka-Meguro.</li>
+      <li><strong>Hankyu Arashiyama Line</strong> — Kyoto's other private line, fallback option for Arashiyama on Day 6 if you don't taxi.</li>
+      <li><strong>Shinkansen (新幹線)</strong> — Japan's bullet train. Tōkaidō Shinkansen runs Tokyo ↔ Kyoto. Reserved seats via SmartEX app, ~2h 40min, ~$95/pp each way.</li>
+    </ul>
+  </div>
+
+  <h3 style="color:#075985; margin-top:18px;">🧭 Step 4: How to read every transit instruction in this doc</h3>
+  <div style="background:#fff; padding:14px 18px; border-radius:8px;">
+    <p style="margin:0 0 8px 0;">When you see something like:</p>
+    <p style="margin:0; padding:8px 12px; background:#f1f5f9; border-radius:6px; font-family:monospace; font-size:0.92em;">Tobu to Kita-Senju 1 stop / 3 min + Hibiya Line Kita-Senju → Akihabara direct / 12 min · total ~20 min</p>
+    <p style="margin:8px 0 4px 0;">…read it as a step-by-step recipe:</p>
+    <ol style="margin:0; padding-left:22px;">
+      <li>Walk to <strong>Senju-Ohashi Station</strong> (the one nearest your Airbnb)</li>
+      <li>Tap your Suica on the gate · take the <strong>Tobu Skytree Line southbound</strong> (toward Asakusa)</li>
+      <li>Ride 1 stop (3 min) and get off at <strong>Kita-Senju Station</strong></li>
+      <li>Inside Kita-Senju, follow signs to the <strong>Hibiya Line</strong> (silver-colored "H"). Stations show a color + letter for every line. There may be a 2–5 min walk between platforms.</li>
+      <li>Tap your Suica again on the Hibiya Line gates · take the train toward Naka-Meguro (this is the southbound direction toward Akihabara)</li>
+      <li>Ride directly (no transfer) about 12 min to <strong>Akihabara Station</strong></li>
+      <li>Tap out · you've arrived</li>
+    </ol>
+    <p style="margin:8px 0 0 0;"><em>Total trip: ~20 min including transfer time. Just open Google Maps for the live, station-specific details.</em></p>
+  </div>
+
+  <h3 style="color:#075985; margin-top:18px;">🗾 Stations &amp; destinations — quick map links</h3>
+  <p style="margin:0 0 8px 0;">Tap any of these to open Google Maps directly:</p>
+  <p style="font-size:0.9em; line-height:1.8;">
+    <strong>Tokyo:</strong>
+    <a href="https://www.google.com/maps/place/Senju-Ohashi+Station" target="_blank">Senju-Ohashi Sta. (your home base)</a> ·
+    <a href="https://www.google.com/maps/place/Kita-Senju+Station" target="_blank">Kita-Senju Sta. (transit hub)</a> ·
+    <a href="https://www.google.com/maps/place/Asakusa+Station" target="_blank">Asakusa Sta.</a> ·
+    <a href="https://www.google.com/maps/place/Sens%C5%8D-ji" target="_blank">Sensō-ji Temple</a> ·
+    <a href="https://www.google.com/maps/place/Akihabara+Station" target="_blank">Akihabara Sta.</a> ·
+    <a href="https://www.google.com/maps/place/Nakano+Broadway" target="_blank">Nakano Broadway</a> ·
+    <a href="https://www.google.com/maps/place/Tsukiji+Outer+Market" target="_blank">Tsukiji Outer Market</a> ·
+    <a href="https://www.google.com/maps/place/Meiji+Jingu" target="_blank">Meiji Shrine</a> ·
+    <a href="https://www.google.com/maps/place/Takeshita+Street" target="_blank">Takeshita Street</a> ·
+    <a href="https://www.google.com/maps/place/Shibuya+Crossing" target="_blank">Shibuya Crossing</a> ·
+    <a href="https://www.google.com/maps/place/Shibuya+Sky" target="_blank">Shibuya Sky</a> ·
+    <a href="https://www.google.com/maps/place/Omoide+Yokocho" target="_blank">Omoide Yokochō</a> ·
+    <a href="https://www.google.com/maps/place/Tokyo+Station" target="_blank">Tokyo Station</a> ·
+    <a href="https://www.google.com/maps/place/Maihama+Station" target="_blank">Maihama Sta. (Disney)</a> ·
+    <a href="https://www.google.com/maps/place/Tokyo+DisneySea" target="_blank">Tokyo DisneySea</a> ·
+    <a href="https://www.google.com/maps/place/teamLab+Planets+TOKYO" target="_blank">teamLab Planets</a> ·
+    <a href="https://www.google.com/maps/place/Narita+International+Airport" target="_blank">Narita Airport (NRT)</a> ·
+    <a href="https://www.google.com/maps/place/Haneda+Airport" target="_blank">Haneda Airport (HND)</a> ·
+    <a href="https://www.google.com/maps/place/Street+Kart+Asakusa" target="_blank">Street Kart Asakusa garage</a> ·
+    <a href="https://www.google.com/maps/place/Hanayashiki" target="_blank">Hanayashiki</a>
+  </p>
+  <p style="font-size:0.9em; line-height:1.8;">
+    <strong>Kyoto / Osaka:</strong>
+    <a href="https://www.google.com/maps/place/Kyoto+Station" target="_blank">Kyoto Sta.</a> ·
+    <a href="https://www.google.com/maps/place/Kiyomizu-Goj%C5%8D+Station" target="_blank">Kiyomizu-Gojō Sta. (your Kyoto Airbnb's station)</a> ·
+    <a href="https://www.google.com/maps/place/Fushimi+Inari+Taisha" target="_blank">Fushimi Inari Taisha</a> ·
+    <a href="https://www.google.com/maps/place/Arashiyama+Bamboo+Forest" target="_blank">Arashiyama Bamboo Grove</a> ·
+    <a href="https://www.google.com/maps/place/Iwatayama+Monkey+Park" target="_blank">Monkey Park Iwatayama</a> ·
+    <a href="https://www.google.com/maps/place/Kinkaku-ji" target="_blank">Kinkaku-ji</a> ·
+    <a href="https://www.google.com/maps/place/Gion+Hanamikoji" target="_blank">Gion (Hanamikoji)</a> ·
+    <a href="https://www.google.com/maps/place/Yasaka+Shrine" target="_blank">Yasaka Shrine</a> ·
+    <a href="https://www.google.com/maps/place/Osaka+Castle" target="_blank">Osaka Castle</a> ·
+    <a href="https://www.google.com/maps/place/Dotonbori" target="_blank">Dotonbori</a>
+  </p>
+
+  <p style="margin-top:14px; font-size:0.92em; background:#fef9c3; padding:10px 14px; border-radius:6px; border-left:3px solid #ca8a04;"><strong>Pro tip:</strong> the night before each day, open Google Maps and pre-download offline maps for the area you'll be in (Tokyo, Kyoto, Osaka). Then transit directions still work even if your eSIM hiccups. Search the destination, then tap "..." → "Download offline map."</p>
+
+  <h3 style="color:#075985; margin-top:22px;">🧳 Luggage Strategy: Yamato Forwarding (your secret weapon)</h3>
+  <p>The single biggest quality-of-life upgrade for a family with multiple suitcases in Japan: <strong>Yamato Transport luggage forwarding</strong> (everyone calls it "Yamato" or its retail brand "<strong>TA-Q-BIN</strong>" — pronounced "TAH-cue-bin"). You drop your suitcases at a Yamato counter, they deliver to your next address overnight, and you ride trains with just a backpack. <strong>Recommended for every major lodging move on this trip</strong> — Day 1 Narita arrival, Day 5 Tokyo→Kyoto, Day 7 Kyoto→Tokyo.</p>
+
+  <div style="background:#fff; padding:14px 18px; border-radius:8px; margin-top:10px;">
+    <p style="margin:0 0 8px 0;"><strong>Why it matters for this group of 12:</strong> Each adult brings a checked roller suitcase + backpack. Lugging 12 suitcases through Nippori transfer + Kita-Senju transfer + the 9-min residential walk to the Senju-Ohashi Airbnb at the end of a 12-hour flight is brutal — for everyone, but especially Lala (81). Yamato eliminates this entirely.</p>
+
+    <p style="margin:8px 0 4px 0;"><strong>How it works:</strong></p>
+    <ol style="margin:0; padding-left:22px;">
+      <li>Drop your suitcase at a <strong>Yamato counter</strong> with the destination address (in Japanese ideally — your Airbnb host can email it to you)</li>
+      <li>Pay ¥2,000–2,500 per bag (~$13–16) for next-day delivery, ~¥3,500 (~$22) for in-Tokyo same-day</li>
+      <li>Get a tracking slip — your bag arrives at your next lodging by ~6 PM the next day (or ~6 PM same day for Tokyo→Tokyo)</li>
+      <li>Travel hands-free with just a backpack containing valuables, 1 change of clothes, toiletries, meds</li>
+    </ol>
+
+    <p style="margin:12px 0 4px 0;"><strong>Where to drop bags on this trip:</strong></p>
+    <ul style="margin:0; padding-left:22px;">
+      <li><strong>Narita Airport</strong> — Yamato counter on the Arrivals floor, after customs (look for orange "TA-Q-BIN" / "Yamato Transport" sign). Open ~7 AM – 9 PM. Counter agents speak basic English. <a href="https://www.kuronekoyamato.co.jp/en/airport/narita/" target="_blank">Yamato at Narita →</a></li>
+      <li><strong>Haneda Airport</strong> — same drill, on Arrivals floor. Open ~6:30 AM – 11 PM. <em>Note: Kobayashi's 5 AM arrival is BEFORE the counter opens — they'll need to use taxis (already in plan).</em> <a href="https://www.kuronekoyamato.co.jp/en/airport/haneda/" target="_blank">Yamato at Haneda →</a></li>
+      <li><strong>Senju-Ohashi Airbnb</strong> — message host the day before, they coordinate Yamato pickup ~10 AM</li>
+      <li><strong>HAYASHI Kyoto</strong> — host Miki handles Yamato pickup as routine; ask in your pre-trip message</li>
+      <li><strong>Richmond Hotel Asakusa</strong> — front desk arranges pickup (Day 8 to Narita is optional — see Day 8 notes)</li>
+    </ul>
+
+    <p style="margin:12px 0 4px 0;"><strong>What to keep with you (in your daypack/carry-on):</strong></p>
+    <ul style="margin:0; padding-left:22px;">
+      <li>Passport, IDP (drivers), cash, cards, phone, chargers, portable battery</li>
+      <li>1 change of clothes + toiletries (in case bag arrives a day late)</li>
+      <li>Medications, prescription bottles, baby essentials (Kai's formula/diapers/changes)</li>
+      <li>Valuables, electronics, cameras</li>
+      <li>Laptops if you brought any</li>
+    </ul>
+
+    <p style="margin:12px 0 4px 0;"><strong>Estimated Yamato cost for this trip (12 adult bags total, both families combined):</strong></p>
+    <table style="margin-top:6px; font-size:0.92em;">
+      <thead><tr><th>Leg</th><th>Bags</th><th>Approx cost</th><th>Recommended?</th></tr></thead>
+      <tbody>
+        <tr><td>Day 1: Narita → Senju-Ohashi (Velasquez+Lala only)</td><td>6</td><td>~$80–95</td><td>✅ Strongly</td></tr>
+        <tr><td>Day 2: Haneda → Senju-Ohashi (Kobayashi)</td><td>n/a — taxis door-to-door</td><td>—</td><td>Skip — taxis handle it</td></tr>
+        <tr><td>Day 5: Senju-Ohashi → Kyoto HAYASHI (everyone)</td><td>12</td><td>~$160–190</td><td>✅ Essential</td></tr>
+        <tr><td>Day 7: Kyoto HAYASHI → Richmond Asakusa (everyone)</td><td>12</td><td>~$160–190</td><td>✅ Essential</td></tr>
+        <tr><td>Day 8: Richmond → Narita (optional)</td><td>12</td><td>~$160–190</td><td>Optional — Access Express handles the bags fine if you skip</td></tr>
+      </tbody>
+      <tfoot><tr class="total-row"><td colspan="2"><strong>TOTAL (recommended legs only)</strong></td><td><strong>~$400–475</strong> (~$200–235/family)</td><td></td></tr></tfoot>
+    </table>
+    <p style="margin:8px 0 0 0; font-size:0.9em;"><em>Worth every yen. Compare to the alternative: dragging 12 suitcases through 3 train transfers + a 9-min residential walk with an 81-yo and a baby.</em></p>
+  </div>
+</div>
+
+<!-- OVERVIEW -->
+<div class="section">
+  <h2><span class="icon">✈</span> Trip Overview</h2>
+  <p class="lead">The traveling group: the <strong>Velasquez family</strong> (Ryan, Aileen, Reid 19, Raiden 16, Ella 12), the <strong>Kobayashi family</strong> (Darren, Rona, MB 16, Izzy 14, Sabrina 14, baby Kai 18 mo), and <strong>Lala</strong> (81, mother-in-law). 12 people total — 7 adults, 5 teens/kids, 1 baby. <strong>Two separate arrival paths:</strong> Velasquez + Lala fly ZIPAIR LAX→Narita (confirmation <strong>6KQC9C</strong>), arriving Day 1 (Fri Jun 26) at 14:10. Kobayashi flies a <strong>JAL Manila red-eye → Haneda</strong> after their Boracay leg, landing Day 2 (Sat Jun 27) at 5 AM and joining the group at the Akihabara morning block. Plan centers on Airbnb rentals so the whole group can be under one roof, adds Street Kart Tokyo for adult drivers, slots in a half-day Osaka side-trip at the Kobayashi family's request, and splits lodging 50/50 between the two families.</p>
+  <div class="overview-grid">
+    <div class="overview-card">
+      <div class="label">Velasquez Family (5)</div>
+      <div class="value">Ryan · Aileen · Reid (19, licensed) · Raiden (16, licensed) · Ella (12)</div>
+    </div>
+    <div class="overview-card">
+      <div class="label">Kobayashi Family (6)</div>
+      <div class="value">Darren · Rona · MB (16) · Izzy (14) · Sabrina (14) · Kai (18 mo baby)</div>
+    </div>
+    <div class="overview-card">
+      <div class="label">Plus</div>
+      <div class="value">Lala (81, mother-in-law) — costs covered 50/50 by both families</div>
+    </div>
+    <div class="overview-card">
+      <div class="label">Total Group</div>
+      <div class="value">12 people · 7 adults + 4 teens + Ella (12) + 1 baby</div>
+    </div>
+    <div class="overview-card">
+      <div class="label">Velasquez + Lala Inbound</div>
+      <div class="value">ZIPAIR ZG023 · Jun 25 10:25 LAX → Jun 26 14:10 NRT (conf 6KQC9C)</div>
+    </div>
+    <div class="overview-card">
+      <div class="label">Kobayashi Inbound</div>
+      <div class="value">JAL Manila → Tokyo Haneda · 11 PM Jun 26 → 5 AM Jun 27 HND (red-eye after Boracay leg)</div>
+    </div>
+    <div class="overview-card">
+      <div class="label">Velasquez + Lala Home</div>
+      <div class="value">ZIPAIR ZG024 · Jul 3 14:35 NRT → Jul 3 08:55 LAX</div>
+    </div>
+    <div class="overview-card">
+      <div class="label">Kobayashi Home</div>
+      <div class="value">Separate booking (departing post-Jul 2 hotel night) — confirm details</div>
+    </div>
+    <div class="overview-card">
+      <div class="label">Nights on Ground</div>
+      <div class="value">5 Tokyo + 2 Kyoto = 7 nights</div>
+    </div>
+    <div class="overview-card">
+      <div class="label">Highlights</div>
+      <div class="value">Tokyo Disneyland · teamLab Planets · Tsukiji Market</div>
+    </div>
+  </div>
+
+  <div class="why-box">
+    <h4>Why two base cities + a half-day Osaka hop?</h4>
+    <p>USJ is out (replaced by Tokyo Disneyland), so Osaka is no longer a full overnight — but the Kobayashi family wanted to at least see Osaka, so the revised plan does a <strong>half-day Osaka side-trip on Day 5</strong> after the Shinkansen lands in Kyoto. Osaka is only 15 min from Kyoto by Shinkansen or ~30 min by local rapid train, so we drop bags in Kyoto at 2 PM, hop over for Osaka Castle + Dotonbori + dinner, and are back by 10 PM. Sleeping arrangements stay two-stop (Tokyo → Kyoto → Tokyo) for 7 nights, which is still the right shape with a toddler in tow. Fushimi Inari moved from Day 5 to Day 6 sunrise (it's the best time of day for that shrine anyway).</p>
+  </div>
+
+  <div class="alert-box">
+    <h4>Planning with Lala (81) in mind</h4>
+    <p>A few notes so Lala can enjoy the trip at her own pace without pressure to do everything:</p>
+    <ul style="margin-top:6px; margin-bottom:0; padding-left:20px;">
+      <li><strong>Lodging:</strong> Both booked Airbnbs — the Senju-Ohashi 5BR in Tokyo (Listing 1309384035859974685) and the HAYASHI TOUZAN + SOUKAI machiya pair in Kyoto — are walk-up units with stairs inside (typical of Japanese homes). When messaging the hosts, ask about stair count and whether there's a ground-floor bedroom Lala can claim. Lala should probably take TOUZAN (the 3BR unit with more space) if there's a ground-floor room there; confirm a shower stool is available at both. The Senju-Ohashi host already provides crib + high chair; SOUKAI's host explicitly provides crib + high chair + baby bath for Kai.</li>
+      <li><strong>Day 2 Hanayashiki / Street Kart split:</strong> With Raiden (16) out of Street Kart (18+ minimum in Japan), the teen group at Hanayashiki is now <strong>5 teens/kids + baby Kai</strong> (Raiden, MB, Izzy, Sabrina, Ella, Kai) with Lala chaperoning. Supervising a baby on your feet for 2 hours is a lot at 81 — consider having <strong>Rona stay with Kai</strong> (dropping Street Kart drivers from 5 to 4) and letting Lala enjoy the carousel and the Nakamise shopping street at her own pace. Raiden is now the oldest teen in that group and can help with Kai's stroller.</li>
+      <li><strong>Day 6 Kyoto temples:</strong> The Monkey Park Iwatayama hike is a 20-minute uphill climb — <strong>skip this one for Lala</strong>. She can rest at a nearby café or at the Togetsukyo Bridge/Bamboo Grove entrance while the others hike up.</li>
+      <li><strong>Day 7 teamLab Planets:</strong> the "water rooms" are knee-deep and require rolling up pants or wearing provided shorts. She can opt for the "dry route" (staff can direct you) or sit out and meet at the exit café. teamLab is stroller-unfriendly so she's not expected to help with Kai here either.</li>
+      <li><strong>Day 8 Tsukiji:</strong> the early-morning 5:30 AM wake-up is optional for her — she can sleep in, and meet the group at the airport or at the hotel for the Narita Express. Totally fine to skip.</li>
+      <li><strong>Transit:</strong> on Shinkansen days book her a window seat with luggage space behind (Car 11 last row), and use Yamato luggage forwarding so she's never wheeling a bag through stations.</li>
+      <li><strong>Senior discounts:</strong> most Japanese attractions don't offer foreigner senior discounts, but <strong>Hanayashiki has a senior admission of ¥600 (65+)</strong> vs ¥1,200 standard — bring her passport to prove age.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- LODGING — BOOKED -->
+<div class="section">
+  <h2><span class="icon">🏡</span> Lodging — BOOKED ✓</h2>
+  <p class="lead">Both Airbnbs and the Tokyo return-night Richmond rooms are locked in. Costs below split 50/50 between Velasquez and Kobayashi (with Lala absorbed) for the shared Tokyo Airbnb; per-family direct for everything else.</p>
+
+  <div style="background:#f0f9f2; padding:14px 18px; border-radius:8px; border-left:4px solid #0f8a3c; margin:16px 0 22px 0;">
+    <h4 style="margin:0 0 8px 0; color:#0f3460;">📍 Quick-reference: every booked address</h4>
+    <table style="margin:6px 0 0 0; font-size:0.92em;">
+      <thead>
+        <tr><th style="text-align:left;">Stay</th><th style="text-align:left;">Address</th><th style="text-align:left;">Map</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Tokyo main · Senju-Ohashi 5BR</strong> (Jun 26–30)</td><td>2-chōme-23-9 Senjumidorichō, ONLY YOU HOTEL, Adachi City, Tokyo 120-0044</td><td><a href="https://www.google.com/maps/place/2-ch%C5%8Dme-23-9+Senjumidorich%C5%8D,+Adachi+City,+Tokyo+120-0044" target="_blank">Open</a></td></tr>
+        <tr><td><strong>Kyoto · HAYASHI TOUZAN</strong> (Velasquez · Jun 30–Jul 2)</td><td>599 Nushiyachō, Higashiyama Ward, Kyoto 605-0934 (same complex as SOUKAI)</td><td><a href="https://www.google.com/maps/place/599+Nushiyach%C5%8D,+Higashiyama+Ward,+Kyoto" target="_blank">Open</a></td></tr>
+        <tr><td><strong>Kyoto · HAYASHI SOUKAI</strong> (Kobayashi · Jun 30–Jul 2)</td><td>599 Nushiyachō, Higashiyama Ward, Kyoto 605-0934</td><td><a href="https://www.google.com/maps/place/599+Nushiyach%C5%8D,+Higashiyama+Ward,+Kyoto" target="_blank">Open</a></td></tr>
+        <tr><td><strong>Richmond Hotel Asakusa</strong> (both families · Jul 2–3)</td><td>2-6-7 Asakusa, Taitō-ku, Tokyo · <em>verify all 3 Richmond bookings show same address</em></td><td><a href="https://www.google.com/maps/place/2-6-7+Asakusa,+Taito+City,+Tokyo" target="_blank">Open</a></td></tr>
+      </tbody>
+    </table>
+    <p style="margin:10px 0 0 0; font-size:0.88em; color:#555;"><em>Save these to your phone's Notes app or share to the family WhatsApp group — taxi drivers and Yamato luggage forwarding all need the exact street addresses in Japanese characters when possible. Each Google Maps link above will also let you generate a "Share location" message.</em></p>
+  </div>
+
+  <div class="option-card recommended">
+    <h4>Tokyo Main Stay — Senju-Ohashi 5BR "Family-Friendly" <span class="recommended-badge">✓ BOOKED</span></h4>
+    <div class="option-meta">5 bedrooms · 10 beds · sleeps 16 · 177 m² · <strong>2 shower rooms + 3 separate toilets + 2 washrooms</strong> · crib + high chair + kids' dinnerware included · 9-min walk to Senju-Ohashi Station · Adachi-ku · 4.88★ (57 reviews)</div>
+    <div class="option-price"><strong>$1,929.98 for 4 nights</strong> (Jun 26 – Jun 30) · $482.50/night · <strong>$964.99/family</strong></div>
+    <p style="margin-top:12px; font-size:0.9em;"><strong>Reservation: HM9PP9WY3C</strong> · <strong>Listing ID: 1309384035859974685</strong> · <a href="https://www.airbnb.com/rooms/1309384035859974685" target="_blank"><strong>→ View listing on Airbnb</strong></a><br>
+      <strong>Payment status:</strong> $1,021.76 paid Apr 19 · <strong>$908.22 due Jun 11</strong></p>
+    <p style="margin-top:8px; font-size:0.9em;"><strong>📍 Exact address:</strong> 2-chōme-23-9 Senjumidorichō, ONLY YOU HOTEL, Adachi City, Tokyo Prefecture 120-0044, Japan · <a href="https://www.google.com/maps/place/2-ch%C5%8Dme-23-9+Senjumidorich%C5%8D,+Adachi+City,+Tokyo+120-0044" target="_blank">Open in Google Maps</a> · <em>"ONLY YOU HOTEL" is the building/property brand the host operates under.</em></p>
+    <p style="margin-top:6px; font-size:0.9em;"><strong>Stations:</strong> <strong>Senju-Ohashi Sta.</strong> (Tobu Skytree Line) ~9-min walk · <strong>Kita-Senju Sta.</strong> (JR Joban + Tokyo Metro Hibiya + Chiyoda + Tsukuba Express) ~12-min walk south or 1 Tobu stop / 3 min from Senju-Ohashi. North of the Arakawa river in Adachi-ku.</p>
+  </div>
+
+  <div class="option-card recommended">
+    <h4>Kyoto Stay — Kyoran HAYASHI TOUZAN + SOUKAI (Pair B, True Next-Door Sister Machiya) <span class="recommended-badge">✓ BOTH UNITS BOOKED</span></h4>
+    <div class="option-meta">Combined: 6BR / 14 beds · sleeps up to 19 · <strong>both units literally next door</strong> in the same Kyoran HAYASHI complex at <strong>599 Nushiyachō, Higashiyama Ward, Kyoto 605-0934</strong> · ~10 min on foot from Kiyomizu-dera and Gion · both Guest Favorites · same Kyoran operator (host: Miki)</div>
+    <div class="option-price"><strong>$1,625.36 total</strong> for both units, 2 nights (Jun 30 – Jul 2) · Velasquez pays $741.04 direct · Kobayashi pays $884.32 direct · <strong>checkout 11:00 AM Thu Jul 2</strong></div>
+
+    <div style="background:#f0f9f2; padding:10px 14px; margin-top:12px; border-radius:8px; border-left:3px solid #0f8a3c;">
+      <p style="margin:0; font-size:0.95em;"><strong>📍 Address (both units, same complex):</strong> 599 Nushiyachō, Higashiyama Ward, Kyoto, Kyoto 605-0934, Japan · <a href="https://www.google.com/maps/place/599+Nushiyach%C5%8D,+Higashiyama+Ward,+Kyoto" target="_blank">Open in Google Maps</a></p>
+      <p style="margin:6px 0 0 0; font-size:0.9em;"><strong>Nearest station:</strong> <strong>Kiyomizu-Gojō</strong> (Keihan Main Line) — <strong>5-min walk</strong> per the Airbnb listing (the title literally calls out "京阪「七条駅」徒歩5分" — 5 min from Keihan Shichijō Sta., though Kiyomizu-Gojō is the closer one for sightseeing). Bus stop: <strong>Gojōzaka</strong> (routes 80, 100, 202, 206, 207). Walking: Gion ~10 min · Yasaka Shrine ~12 min · Kiyomizu-dera ~8 min uphill.</p>
+    </div>
+
+    <p style="margin-top:14px; font-size:0.95em;"><strong>Velasquez unit — HAYASHI · TOUZAN (東山, "East Mountain")</strong></p>
+    <ul style="margin:4px 0 0 18px; font-size:0.9em;">
+      <li><strong>Reservation: HMB5NYXWKR</strong> · 3BR, 11 beds · 4.93★ (83 reviews)</li>
+      <li><strong>$741.04 total</strong> for 2 nights · <strong>Payment status:</strong> $379.69 paid Apr 19 · $361.35 due Jun 15</li>
+      <li><strong>Sleepers (6):</strong> Ryan, Aileen, Reid, Raiden, Ella + Lala — 11-bed capacity gives everyone room</li>
+      <li><a href="https://www.airbnb.com/rooms/1335172566596170163" target="_blank">→ View TOUZAN listing</a></li>
+    </ul>
+
+    <p style="margin-top:12px; font-size:0.95em;"><strong>Kobayashi unit — HAYASHI · SOUKAI (蒼海, "Blue Sea")</strong></p>
+    <ul style="margin:4px 0 0 18px; font-size:0.9em;">
+      <li><strong>Reservation: HMFCYEFMBF</strong> · 3BR, sleeps 8 · 4.95★ · <strong>host Miki</strong></li>
+      <li><strong>$884.32 total</strong> for 2 nights · <strong>Payment status:</strong> $453.02 paid Apr 19 · $431.30 due Jun 15 · paid on Amex 9006</li>
+      <li><strong>Sleepers (6):</strong> Darren, Rona, MB, Izzy, Sabrina, baby Kai — <strong>host explicitly provides crib + high chair + baby bath</strong> (the reason this unit was assigned to the Kobayashi family)</li>
+      <li><a href="https://www.airbnb.com/rooms/1335190660865823702" target="_blank">→ View SOUKAI listing</a></li>
+    </ul>
+
+    <p style="margin-top:10px; font-size:0.9em; background:#dbeafe; padding:8px 12px; border-radius:6px; border-left:3px solid #0284c7;"><strong>Both families literally next door:</strong> shared meals, baby check-ins, group photos all happen in 30 seconds of walking. One Kyoran operator (Miki) handles both bookings — single point of contact for issues, key handoff, late check-in coordination.</p>
+
+    <p style="margin-top:10px; font-size:0.95em; background:#fef9c3; padding:10px 14px; border-radius:6px; border-left:3px solid #ca8a04;"><strong>💸 50/50 reconciliation for Kyoto:</strong> Combined Kyoto cost = $741.04 (TOUZAN) + $884.32 (SOUKAI) = <strong>$1,625.36</strong> · fair-share per family = <strong>$812.68</strong>. Kobayashi paid the higher-cost SOUKAI (overpaid by $71.64), Velasquez paid the lower-cost TOUZAN (underpaid by $71.64). <strong>Velasquez owes Kobayashi $71.64</strong> to true up. Settle via Splitwise/Venmo/Zelle — easiest at trip-end when reconciling food + transit too.</p>
+  </div>
+
+  <div class="option-card recommended">
+    <h4>Tokyo Return Night — Velasquez at Richmond Hotel Asakusa <span class="recommended-badge">✓ BOOKED</span></h4>
+    <div class="option-meta">Jul 2 → Jul 3 · <strong>2 rooms for 6 people now</strong> (Ryan, Aileen, Reid, Raiden, Ella + <strong>Lala</strong>) · Asakusa location, 3 min walk to Sensō-ji · <strong>✓ Buffet breakfast included</strong> · <strong>~7 min walk to Asakusa Station</strong></div>
+    <div class="option-price"><strong>$587.43 for the night</strong> for the 2 booked rooms · Velasquez pays direct · <strong>no cross-payment with Kobayashi for the return night</strong> (each family handles their own return-night rooms separately, including Lala's share) · Address: 2-6-7 Asakusa, Taitō-ku</div>
+    <p style="margin-top:8px; font-size:0.88em; background:#fff3e0; padding:8px 12px; border-radius:6px; border-left:3px solid #e94560;"><strong>⚠️ Capacity issue with Lala added:</strong> 2 rooms × max occupancy = 5 people total (Triple 3 + Double 2). Adding Lala makes it 6, which doesn't fit cleanly. <strong>Three options:</strong>
+      <ul style="margin:6px 0 0 18px;">
+        <li><strong>Best — book a 3rd small room for Lala</strong>: a Moderate Single (1 person) at Richmond is ~¥18,000–22,000 (~$115–140). Gives her privacy + her own bathroom. Recommended for an 81-yo's last night before a long flight.</li>
+        <li><strong>Squeeze:</strong> Lala joins Ryan+Aileen+Ella in the Premier View Triple as a 4th person (Ella sleeps with a parent). Possible against policy — call hotel to ask if a rollaway can be added (often ¥3,000–5,000 extra fee).</li>
+        <li><strong>Reshuffle:</strong> Lala+Aileen+Ella in the Triple, Ryan+Reid+Raiden need to split a Twin/Double — the booked Moderate Double caps at 2, so this doesn't quite work without a room change.</li>
+      </ul>
+    </p>
+    <p style="margin-top:12px; font-size:0.9em;">
+      <strong>Room 1 — Premier View Triple</strong> (Non-smoking, Skytree + Sensō-ji Temple view) for 3 adults · <strong>$368.64</strong> · breakfast included · tripla.ai confirmation from Apr 19 · hotel: 03-5806-3155<br>
+      <strong>Room 2 — Precious Moderate Double (Renovated)</strong> (Non-smoking) for 2 adults · <strong>$218.79</strong> · breakfast included · tripla.ai confirmation from Apr 19 · hotel: 03-5806-0255<br>
+      <em>Room assignments (5 people, 3+2):</em> 3 adults in the Premier View Triple · 2 adults in the Moderate Double · final pairing up to you.
+    </p>
+    <p style="margin-top:8px; font-size:0.88em; background:#f0f9f2; padding:8px 12px; border-radius:6px; border-left:3px solid #0f8a3c;"><strong>Bonus from the actual booking:</strong> buffet breakfast is included in both rooms — <strong>replaces the Day 8 breakfast line-item</strong> (no need for Pelican Café or konbini). Saves ~$80 on Day 8. Day 8 schedule can push departure slightly later since breakfast is in-house.</p>
+    <p style="margin-top:8px; font-size:0.9em;"><strong>Cancellation:</strong> Free until check-in day 6 PM · 50% after 6 PM same day · 100% after 10 PM / no-show.</p>
+    <p style="margin-top:8px; font-size:0.9em;"><strong>Booking links:</strong> <a href="https://booking.richmondhotel.jp/" target="_blank"><strong>→ richmondhotel.jp</strong></a> · <a href="https://www.google.com/maps/place/2-6-7+Asakusa,+Taito+City,+Tokyo" target="_blank">Map to 2-6-7 Asakusa</a></p>
+  </div>
+
+  <div class="option-card recommended">
+    <h4>Tokyo Return Night — Kobayashi at Richmond Hotel Asakusa (Lala now with Velasquez) <span class="recommended-badge">✓ FIRST ROOM BOOKED — MORE LIKELY NEEDED</span></h4>
+    <div class="option-meta">Jul 2 → Jul 3 · same hotel as Velasquez · check-in after 2:00 PM · breakfast included · <strong>Lala now stays with Velasquez</strong>, so Kobayashi side is back to 6 people (Darren, Rona, MB, Izzy, Sabrina, baby Kai) · Address: <strong>2-6-7 Asakusa, Taitō-ku</strong></div>
+    <div class="option-price"><strong>$338.89 confirmed for Room 1</strong> (Priceline) · <strong>likely 1–2 more rooms needed for 6 people</strong> (down from 7 since Lala moved over to Velasquez)</div>
+    <p style="margin-top:12px; font-size:0.9em;">
+      <strong>Room 1 (booked): Richmond Hotel Asakusa</strong> · Confirmation <strong>5487359272</strong> · Priceline trip # <strong>322-132-183-96</strong> · billed to <strong>Ronalyn Drobot · American Express (9006)</strong> · purchased Apr 19, 2026 · 1 night · subtotal $308.08 + tax/fees $30.81 = <strong>$338.89 total</strong>
+    </p>
+    <p style="margin-top:8px; font-size:0.88em; background:#fff3e0; padding:8px 12px; border-radius:6px; border-left:3px solid #e94560;"><strong>⚠️ Heads-up — 6 people, 1 room booked so far:</strong> Richmond rooms cap at 3 adults each (children sharing don't count, baby Kai shares with parents). For Darren, Rona, MB, Izzy, Sabrina, baby Kai (6 ppl), <strong>plan on 1–2 more rooms</strong> for the night — likely a triple (3 adults) + a double or twin (2 adults). At ~$220–340/room, expect <strong>~$300–600 more</strong> on top of the $338.89 already booked, putting the Kobayashi return-night total at <strong>roughly $640–940</strong>. Confirm whether more bookings are coming.</p>
+    <p style="margin-top:8px; font-size:0.9em;"><strong>Booking links for additional rooms:</strong> <a href="https://booking.richmondhotel.jp/" target="_blank"><strong>→ richmondhotel.jp direct</strong></a> · <a href="https://www.booking.com/hotel/jp/richmond-asakusa.html" target="_blank">Booking.com</a> · <a href="https://www.priceline.com/" target="_blank">Priceline</a></p>
+    <p style="margin-top:8px; font-size:0.9em; background:#dbeafe; padding:8px 12px; border-radius:6px; border-left:3px solid #0284c7;"><strong>Both families now end the trip in the same hotel</strong> — makes the Day 7 farewell dinner + Day 8 departure logistics much simpler. Both groups will use the same Asakusa Station → Keisei Access Express → Narita route (no more split-route departure on Day 8 — see Day 8 schedule).</p>
+  </div>
+
+  <h3 style="margin-top:30px;">Booked Lodging — Cost Summary</h3>
+  <table>
+    <thead>
+      <tr><th>Stay</th><th>Listing(s)</th><th>Nights</th><th>Total</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="label-cell">Tokyo main · Senju-Ohashi 5BR (12 ppl, shared 50/50) · <em>res HM9PP9WY3C</em></td><td>1309384035859974685</td><td>4</td><td><strong>$1,929.98</strong> ✓</td></tr>
+      <tr><td class="label-cell">Kyoto · HAYASHI · TOUZAN (Velasquez + Lala, 6 ppl, direct) · <em>res HMB5NYXWKR</em></td><td>1335172566596170163</td><td>2</td><td><strong>$741.04</strong> ✓</td></tr>
+      <tr><td class="label-cell">Kyoto · HAYASHI · SOUKAI (Kobayashi, 6 ppl, direct) · <em>res HMFCYEFMBF · host Miki</em></td><td>1335190660865823702</td><td>2</td><td><strong>$884.32</strong> ✓</td></tr>
+      <tr><td class="label-cell"><strong>Velasquez return night · Richmond Asakusa (5 ppl, Velasquez-direct)</strong> · <em>breakfast incl.</em></td><td>Richmond Asakusa — 2 rooms</td><td>1</td><td><strong>$587.43</strong> ✓</td></tr>
+      <tr><td class="label-cell">Kobayashi+Lala return night · Richmond Asakusa Room 1 (Priceline) · <em>conf 5487359272</em></td><td>Richmond Asakusa</td><td>1</td><td><strong>$338.89</strong> ✓ <em>(of est. $990–1,360 total — 2–3 more rooms needed)</em></td></tr>
+    </tbody>
+    <tfoot>
+      <tr class="total-row"><td colspan="3"><strong>LODGING TOTAL (5 of ~7 line items confirmed)</strong></td><td><strong>~$5,150 est. (currently $4,481.66 confirmed)</strong></td></tr>
+    </tfoot>
+  </table>
+
+  <h3 style="margin-top:26px;">Split — Velasquez ↔ Kobayashi (using actual confirmed totals)</h3>
+  <p>Tokyo main Airbnb splits 50/50 with Lala absorbed. Kyoto is split 50/50 with a small trueup. <strong>Tokyo return night is treated separately — each family pays their own Richmond rooms, no cross-payment.</strong> Single cross-payment to settle: <strong>Velasquez owes Kobayashi $71.64 for the Kyoto 50/50 trueup</strong>. Just Splitwise it at trip end.</p>
+
+  <div class="split-grid">
+    <div class="split-card">
+      <div class="family-label">Velasquez Family + Lala</div>
+      <div class="family-amount">~$2,365 est</div>
+      <div class="family-detail">$964.99 Tokyo share + $812.68 Kyoto effective (after $71.64 reimb to Kobayashi for 50/50 trueup) + $587.43 Richmond Velasquez rooms ✓ (no return-night cross-payment with Kobayashi)</div>
+    </div>
+    <div class="split-card">
+      <div class="family-label">Kobayashi Family</div>
+      <div class="family-amount">~$2,567 est</div>
+      <div class="family-detail">$964.99 Tokyo share + $812.68 Kyoto effective (after $71.64 received from Velasquez) + $338.89 Richmond Room 1 ✓ + <strong>~$450 est for 1–2 more Richmond rooms</strong> (no return-night cross-payment with Velasquez)</div>
+    </div>
+  </div>
+
+  <table style="margin-top:22px;">
+    <thead>
+      <tr><th>Stay</th><th>Full Lodging Cost</th><th>Velasquez Pays</th><th>Kobayashi Pays</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="label-cell">Tokyo main (4 nights — Senju-Ohashi 5BR) ✓</td><td>$1,929.98</td><td>$964.99</td><td>$964.99</td></tr>
+      <tr><td class="label-cell">Kyoto Velasquez TOUZAN (2 nights) ✓</td><td>$741.04</td><td>$741.04</td><td>$0.00</td></tr>
+      <tr><td class="label-cell">Kyoto Kobayashi SOUKAI (2 nights) ✓</td><td>$884.32</td><td>$0.00</td><td>$884.32</td></tr>
+      <tr><td class="label-cell"><em>Kyoto 50/50 reconciliation — Velasquez owes Kobayashi</em></td><td>—</td><td><em>+$71.64</em></td><td><em>−$71.64</em></td></tr>
+      <tr><td class="label-cell">Velasquez+Lala return night — Richmond Asakusa (2 rooms, 6 ppl with Lala) ✓</td><td>$587.43</td><td>$587.43</td><td>$0.00</td></tr>
+      <tr><td class="label-cell">Kobayashi Richmond Room 1 (Priceline) ✓ — 6 ppl, no Lala</td><td>$338.89</td><td>$0.00</td><td>$338.89</td></tr>
+      <tr><td class="label-cell">Kobayashi Richmond additional rooms (est. 1–2 more, for 6 ppl)</td><td>~$450</td><td>$0.00</td><td>~$450.00</td></tr>
+    </tbody>
+    <tfoot>
+      <tr class="total-row"><td><strong>TOTAL (5 confirmed + 1 est.)</strong></td><td><strong>~$4,931.66</strong></td><td><strong>~$2,365.10</strong></td><td><strong>~$2,566.56</strong></td></tr>
+    </tfoot>
+  </table>
+  <p style="font-size:0.88em; color:#555; margin-top:8px;"><em>✓ = confirmed booking with exact total. <strong>Tokyo return night is each family's separate responsibility</strong> — no Lala-share reimbursement, no cross-payment. Lala stays with Velasquez physically; Velasquez covers her room cost as part of their direct Richmond bill.</em></p>
+
+  <div class="why-box" style="margin-top:24px;">
+    <h4>What to do next with the hosts</h4>
+    <ul style="margin:6px 0 0 0; padding-left:20px;">
+      <li><strong>Senju-Ohashi host:</strong> message to confirm crib + high chair for Kai, ask about ground-floor sleeping for Lala (stairs inside), request shower stool if available, and coordinate Yamato luggage pickup for Day 5 (to Kyoto) and Day 7 (return to Tokyo hotel).</li>
+      <li><strong>HAYASHI SOUKAI host:</strong> confirm crib, high chair, and baby bath for Kai (explicitly advertised — this is why SOUKAI is the Kobayashi unit). Ask about fold-out futons for the 5th/6th sleeper since SOUKAI only shows 3 beds for 8-guest capacity.</li>
+      <li><strong>HAYASHI TOUZAN host:</strong> confirm stair count (Kyoto machiya typically have steep narrow stairs), ground-floor sleeping for Lala, and Yamato luggage inbound timing on Day 5 afternoon.</li>
+      <li><strong>Coordinate all three Kyoran HAYASHI items through one Kyoran contact</strong> — same operator handles both SOUKAI and TOUZAN bookings, so you only need one conversation.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- DAY BY DAY ITINERARY -->
+<div class="section">
+  <h2><span class="icon">🗓</span> Day-by-Day Itinerary</h2>
+  <p class="lead">Eight days, biggest attractions hit in the mornings. Each day below shows the approximate daily spend for the whole group (food + activities + local transit, <em>excluding</em> lodging which is broken out separately above).</p>
+
+  <div class="day-card">
+    <div class="day-header"><span class="day-num">DAY 1</span><span class="day-date">Friday, June 26</span></div>
+    <div class="day-title">Velasquez + Lala Arrive Narita · Sensō-ji at Dusk <span style="background:#0284c7; color:#fff; font-size:0.7em; padding:2px 8px; border-radius:4px; margin-left:6px;">VELASQUEZ + LALA ONLY</span></div>
+    <div class="day-activities"><strong>6 of 12 arrive today:</strong> Velasquez family (5) + Lala on ZIPAIR ZG023 land at Narita 14:10. The <strong>Kobayashi family is in Manila tonight</strong> — they fly the JAL 11 PM red-eye Manila → Haneda after their Boracay leg, arriving Day 2 morning at 5 AM. Tonight is Velasquez+Lala settling in: Skyliner to Senju-Ohashi, check in, easy evening walk to Sensō-ji at dusk, early dinner in Asakusa, lights out for jet lag.</div>
+
+    <div style="margin-top:10px; font-size:0.88em; background:#eef2ff; padding:10px 14px; border-radius:8px; border-left:3px solid #4338ca;"><strong>⏱️ Time-block schedule (arrival day — keep it light):</strong>
+      <ul style="margin:6px 0 0 0; padding-left:18px;">
+        <li><strong>2:10–3:45 PM</strong> — Narita arrival: land, immigration, pocket Wi-Fi + Suica, Skyliner tickets · <strong>drop 6 suitcases at the Yamato/TA-Q-BIN counter for delivery to the Airbnb</strong> (see Luggage box below)</li>
+        <li><strong>3:55–5:00 PM</strong> — <a href="https://www.google.com/maps/dir/Narita+International+Airport/2-ch%C5%8Dme-23-9+Senjumidorich%C5%8D,+Adachi+City,+Tokyo" target="_blank"><strong>Airport → Senju-Ohashi Airbnb</strong></a> (Keisei Skyliner + JR + Tobu — see step-by-step below)</li>
+        <li><strong>5:00–6:15 PM</strong> — Airbnb check-in, unpack, freshen up</li>
+        <li><strong>6:15–7:45 PM</strong> — <a href="https://www.google.com/maps/place/Sens%C5%8D-ji" target="_blank"><strong>Sensō-ji Temple</strong></a> at dusk (Tobu Skytree Line direct from Senju-Ohashi to Asakusa, 3 stops / 10 min, free admission)</li>
+        <li><strong>7:45–9:30 PM</strong> — Dinner in Asakusa (see food picks below)</li>
+        <li><strong>9:30–10:00 PM</strong> — Back to Airbnb (Tobu direct, 10 min), lights out</li>
+      </ul>
+    </div>
+
+    <div style="margin-top:10px; font-size:0.88em; background:#fef9c3; padding:12px 16px; border-radius:8px; border-left:3px solid #ca8a04;">
+      <strong>🧳 Luggage strategy for Day 1 — bringing bags on the train (Yamato won't deliver in time for Friday night)</strong>
+      <p style="margin:8px 0 4px 0;"><strong>Decision made:</strong> bringing all 6 suitcases with you on the Skyliner + JR + Tobu route. Yamato is off the table because next-day delivery means bags wouldn't arrive at the Airbnb until ~6 PM Saturday — too late. Cost: <strong>~$110 in train fares for 6 ppl</strong>. Below is how to make the bags-on-trains experience as painless as possible.</p>
+      <p style="margin:8px 0 4px 0;"><strong>Tactical tips for bags on this route:</strong></p>
+      <ul style="margin:0; padding-left:22px;">
+        <li><strong>Skyliner</strong> is fine — it's a reserved-seat airport train with luggage racks at both ends of each car. Get in early to claim rack space; in a pinch, your bag rides at your feet.</li>
+        <li><strong>Nippori transfer (3-5 min walk + stairs)</strong> — there ARE elevators between Keisei platforms and JR platforms; follow the lift signs (a wheelchair icon). Slower than escalators but spares everyone the suitcase-on-stairs juggle.</li>
+        <li><strong>JR Joban Rapid</strong> — only a 6-min ride. Stand near the doorway with bags upright; locals expect tourists with luggage at this hour.</li>
+        <li><strong>Kita-Senju transfer (5–10 min)</strong> — large station, multiple line transfers. Use the elevators (signed in English). Allow the full 10 min to avoid rushing.</li>
+        <li><strong>Tobu Skytree Line</strong> 1 stop = 3 min, easy.</li>
+        <li><strong>Senju-Ohashi exit → Airbnb</strong> — split the group here, see the step-by-step below. Lala/Aileen/Ella take a cab; the boys (Ryan, Reid, Raiden) walk with their bags.</li>
+      </ul>
+      <p style="margin:8px 0 0 0;"><strong>Backup if it gets ugly:</strong> if at any point the transfers are too rough (e.g., elevators broken, rush hour hellish), bail to a taxi from whichever station you're at — Tokyo cabs are everywhere and fares are reasonable. <strong>Worst case:</strong> 2 cabs from Nippori → Airbnb is ~¥6,000-8,000 (~$40-55 total) and takes ~30 min. Keep that as your "abort plan."</p>
+      <p style="margin:6px 0 0 0;"><em>If anyone wants to reconsider before the trip: the <strong>Keisei Airport Limousine Bus</strong> (Narita → Kita-Senju Marui direct, ~90 min, ¥1,800/pp + bags in cargo hold) is still on the table for ~$140 total — gets bags to the Airbnb same evening with zero train transfers. But if "bring bags on trains" is the call, the playbook above is the way.</em></p>
+    </div>
+
+    <div style="margin-top:10px; font-size:0.88em; background:#ecfccb; padding:12px 16px; border-radius:8px; border-left:3px solid #65a30d;">
+      <strong>🥐 Konbini breakfast run — stock up before Sensō-ji</strong>
+      <p style="margin:8px 0 4px 0;">After dropping bags at the Airbnb (~5:10 PM), do a quick stop at a nearby <strong>convenience store (konbini)</strong> to stock the Airbnb kitchen with Saturday breakfast for 6 + extras for the Kobayashi family arriving 5 AM Saturday. Konbini are EVERYWHERE in Tokyo (~1 every 200-300m), all open 24 hours, all carry the same staples.</p>
+      <p style="margin:8px 0 4px 0;"><strong>Nearest options to the Airbnb (search Google Maps as you walk over):</strong></p>
+      <ul style="margin:0; padding-left:22px;">
+        <li><strong><a href="https://www.google.com/maps/search/7-Eleven+near+2-23-9+Senjumidoricho+Adachi+Tokyo" target="_blank">7-Eleven near 2-23-9 Senjumidorichō</a></strong> — multiple within 5-min walk. Best for hot food (warm rice balls, sandwiches, fried chicken)</li>
+        <li><strong><a href="https://www.google.com/maps/search/FamilyMart+near+2-23-9+Senjumidoricho+Adachi+Tokyo" target="_blank">FamilyMart near the Airbnb</a></strong> — usually 1–2 minutes further. Best snacks + bento</li>
+        <li><strong><a href="https://www.google.com/maps/search/Lawson+near+2-23-9+Senjumidoricho+Adachi+Tokyo" target="_blank">Lawson near the Airbnb</a></strong> — best baked goods + their Karaage-kun (cheap fried chicken bites the kids will love)</li>
+        <li><strong><a href="https://www.google.com/maps/search/supermarket+near+Senju-Ohashi+station" target="_blank">Maruetsu / Life supermarket near Senju-Ohashi</a></strong> — bigger grocery stop if you want a full breakfast spread (cereal, milk, fresh fruit, yogurt) at lower per-unit prices than konbini. ~10-min walk from the Airbnb. Worth it for a family of 6 + Kobayashi's 6 arriving the next morning.</li>
+      </ul>
+      <p style="margin:8px 0 4px 0;"><strong>What to grab for breakfast (6 ppl Velasquez Sat AM + 6 ppl Kobayashi arriving 7-8 AM Sat):</strong></p>
+      <ul style="margin:0; padding-left:22px;">
+        <li><strong>Onigiri (rice balls)</strong> — ¥120-180 each, every flavor (salmon, tuna mayo, kombu). Kid-friendly. Get 18-24.</li>
+        <li><strong>Tamago sando (egg salad sandwiches)</strong> — Japanese specialty, fluffy and addictive. ¥250-300 each. Get 6-8.</li>
+        <li><strong>Pastries</strong> — melon pan, cream pan, an pan, croissants. ¥150-250 each. Get a dozen mixed.</li>
+        <li><strong>Fruit cups</strong> — small but fresh. ¥250-400 each.</li>
+        <li><strong>Yogurt + drinks</strong> — Yakult, milk tea, coffee in cans, orange juice. Tropicana works fine.</li>
+        <li><strong>Bananas / apples</strong> — for Kai + Lala</li>
+        <li><strong>Hot coffee</strong> for the morning (Boss, Tully's, Family Mart's brewed) — most konbini have a coffee machine at the counter, ¥150-200 a cup, brewed fresh</li>
+        <li><strong>Bottled water</strong> (everyone) — 6 large bottles for the kitchen</li>
+      </ul>
+      <p style="margin:8px 0 0 0;"><strong>Estimated cost:</strong> ~¥6,000–8,000 (~$40–55) for a hearty breakfast spread that covers both families through Saturday morning. Cash or Suica works. <em>Tip: konbini cashiers are fast and English-friendly — if you don't recognize what something is, just point and they'll help.</em></p>
+    </div>
+
+    <div style="margin-top:10px; font-size:0.88em; background:#f0f7ff; padding:12px 16px; border-radius:8px; border-left:3px solid #0f3460;">
+      <strong>🚆 Step-by-step: Narita Airport → Senju-Ohashi Airbnb (~2h 40min door-to-door incl. immigration buffer)</strong>
+      <ol style="margin:8px 0 0 0; padding-left:22px;">
+        <li><strong>2:10–3:10 PM — Land + immigration + baggage</strong> at <a href="https://www.google.com/maps/place/Narita+International+Airport" target="_blank">Narita Airport (NRT)</a>. ZIPAIR ZG023 lands at Terminal 1.</li>
+        <li><strong>3:10–3:45 PM — Inside the airport, do these errands in this order:</strong>
+          <ul style="margin-top:4px;">
+            <li>Pick up <strong>pocket Wi-Fi</strong> (if you reserved one) at the rental counter in arrivals</li>
+            <li>Buy <strong>Suica cards</strong> (¥2,000 each, ¥1,500 loaded as fare + ¥500 deposit) at the JR East ticket counter — or activate Mobile Suica in your phone wallet</li>
+            <li><strong>Reserve Skyliner seats</strong> at the Keisei Skyliner counter (signs will guide you — it's the dedicated airport-train counter, not JR or Narita Express). 6 reserved seats. ¥2,580/pp.</li>
+            <li>Grab cash from the <strong>7-Eleven ATM</strong> if anyone wants ¥30,000–40,000 starting cash</li>
+          </ul>
+        </li>
+        <li><strong>3:55 PM — Board the Keisei Skyliner</strong> (Narita → Nippori). You're looking for the <em>Skyliner</em> — not the Keisei Main Line, not the Narita Express. Platform signs say "Skyliner" in English. Modern blue/white reserved-seat train.</li>
+        <li><strong>4:35 PM — Get off at <a href="https://www.google.com/maps/place/Nippori+Station" target="_blank">Nippori Station</a></strong> (~36 min ride). DO NOT go all the way to Keisei Ueno — you want the Nippori transfer for Senju-Ohashi.</li>
+        <li><strong>4:35–4:45 PM — Transfer at Nippori from Keisei platforms to JR platforms.</strong> Follow signs to "JR Lines" (~3-5 min walk inside the station, includes a couple of staircases or escalators). Tap your Suica on the JR gates.</li>
+        <li><strong>4:45 PM — Board JR Joban Line</strong> heading <strong>NORTHBOUND</strong> (toward Toride/Mito/Tsuchiura — i.e., AWAY from Tokyo's center). Joban Rapid trains skip Mikawashima and stop at Kita-Senju directly. Local trains also work but take longer.</li>
+        <li><strong>4:50 PM — Get off at <a href="https://www.google.com/maps/place/Kita-Senju+Station" target="_blank">Kita-Senju Station</a></strong> (1 stop / ~6 min from Nippori on Rapid). Kita-Senju is a major hub — JR Joban, Tokyo Metro Hibiya, Tokyo Metro Chiyoda, Tobu Skytree Line, and Tsukuba Express all meet here. Follow signs to <strong>"Tobu Skytree Line"</strong> (yellow signage).</li>
+        <li><strong>4:55 PM — Tap Suica on Tobu gates, board the Tobu Skytree Line</strong> heading <strong>NORTHBOUND</strong> (toward Tobu-Dōbutsu-Kōen/Kuki — i.e., further away from Asakusa). Yes, you're going one stop the "wrong" way. Just 1 stop / 3 min.</li>
+        <li><strong>4:58 PM — Get off at <a href="https://www.google.com/maps/place/Senju-Ohashi+Station" target="_blank">Senju-Ohashi Station</a></strong>. <strong>Split the group here</strong> — bringing all 6 bags makes the 9-min walk hard, so divide and conquer:
+          <ul style="margin-top:4px;">
+            <li><strong>🚕 Group A — Cab (3 ppl + 3 bags):</strong> Lala, Aileen, and Ella head to the taxi rank right outside the station exit. <strong>Wait for a JPN Taxi</strong> (the boxy, taller Toyota van-style cabs) since you'll need trunk space for 3 large suitcases — a regular Tokyo sedan-cab might not fit all 3 bags. ~¥1,200–1,800 (~$8–12) for the 5-min ride. Goes directly to <a href="https://www.google.com/maps/place/2-ch%C5%8Dme-23-9+Senjumidorich%C5%8D,+Adachi+City,+Tokyo+120-0044" target="_blank">2-23-9 Senjumidorichō, ONLY YOU HOTEL</a>. <em>Pro tip: install the <strong>GO app</strong> before you fly — pin the Airbnb address and the cab comes to you, no language barrier.</em> Lala especially will appreciate this after a 12-hr flight.</li>
+            <li><strong>🚶‍♂️ Group B — Walk (3 ppl + 3 bags):</strong> Ryan, Reid (19), Raiden (16) take their own suitcases for the 9-min walk to the Airbnb. ~700 m of residential Tokyo streets. Manageable for 3 fit guys with rollers. Quiet residential area, mostly flat. Free.</li>
+          </ul>
+        </li>
+        <li><strong>5:05–5:10 PM — Both groups arrive Airbnb.</strong> Cab gets there first (~5 min ride vs 9-min walk), so Aileen can be handling check-in details by the time the boys arrive. ~3h from touchdown total.</li>
+        <li><strong>5:30–6:00 PM — Konbini run for Saturday breakfast supplies (before Sensō-ji)</strong>. Drop your bags at the Airbnb, then 1–2 people make a 5-min walk to the nearest convenience store to load up on Day 2 breakfast for 6 (and Saturday morning treats for the Kobayashi family arrival). See the breakfast-stop box below for what to grab + nearest stores.</li>
+      </ol>
+      <p style="margin:10px 0 0 0;"><strong>Alternate (skip the transfers):</strong> <strong>Keisei Airport Limousine Bus</strong> Narita → Kita-Senju Marui — direct, ~90 min, ¥1,800/pp, luggage in hold, NO transfers. Then 12-min walk to the Airbnb. Costs about the same total time but is way easier with luggage + Lala. <a href="https://www.limousinebus.co.jp/en/" target="_blank">Limousine Bus schedule</a>.</p>
+    </div>
+
+    <div style="margin-top:10px; font-size:0.88em; background:#f0f7ff; padding:12px 16px; border-radius:8px; border-left:3px solid #0f3460;">
+      <strong>🚆 Step-by-step: Senju-Ohashi Airbnb → Sensō-ji Temple (~10 min, no transfers)</strong>
+      <ol style="margin:8px 0 0 0; padding-left:22px;">
+        <li><strong>6:15 PM — Walk 9 min</strong> from the Airbnb to <a href="https://www.google.com/maps/place/Senju-Ohashi+Station" target="_blank">Senju-Ohashi Station</a></li>
+        <li><strong>6:25 PM — Tap Suica, board the Tobu Skytree Line</strong> heading <strong>SOUTHBOUND</strong> (toward Asakusa). Trains run every 5–10 min.</li>
+        <li><strong>6:35 PM — Get off at <a href="https://www.google.com/maps/place/Asakusa+Station" target="_blank">Asakusa Station</a></strong> (3 stops / ~10 min direct, no transfers). Tap out.</li>
+        <li><strong>6:40 PM — Walk 5 min</strong> through <a href="https://www.google.com/maps/place/Kaminarimon" target="_blank">Kaminarimon (the giant red-lantern gate)</a> + <a href="https://www.google.com/maps/place/Nakamise+Shopping+Street" target="_blank">Nakamise Street</a> (souvenir + snack alley) to <a href="https://www.google.com/maps/place/Sens%C5%8D-ji" target="_blank">Sensō-ji Temple's main hall</a></li>
+        <li><strong>6:45–7:45 PM — Sensō-ji at dusk.</strong> Free. The temple is lit up beautifully at night. Iconic photo spots: Kaminarimon gate, the 5-story pagoda, and the smoking incense urn (waft the smoke onto yourself for good fortune).</li>
+        <li><strong>7:45 PM — Walk to dinner</strong> at one of the Asakusa restaurants below (all within 5–10 min walk of Sensō-ji).</li>
+        <li><strong>9:30 PM — Reverse the route</strong>: Asakusa Sta. → Tobu Skytree Line northbound (toward Kita-Senju/Tobu-Dōbutsu-Kōen) → Senju-Ohashi (3 stops / 10 min) → 9-min walk home.</li>
+      </ol>
+    </div>
+
+    <div style="margin-top:10px; font-size:0.88em; background:#f0f7ff; padding:10px 14px; border-radius:8px; border-left:3px solid #0f3460;"><strong>🚆 Travel times Day 1 (totals, Velasquez + Lala / 6 ppl):</strong> Narita → Airbnb ~2h 40min door-to-door (incl. ~75 min arrival buffer) · Sensō-ji round-trip ~30 min on the Tobu Skytree Line (~10 min each way + walking).</div>
+
+    <div style="margin-top:10px; font-size:0.88em; background:#fef3c7; padding:10px 14px; border-radius:8px; border-left:3px solid #b45309;"><strong>🏠 Airbnb Night 1 — Velasquez + Lala only:</strong> Senju-Ohashi 5BR is checked in by Velasquez (5) + Lala = 6 people Night 1. Pick whichever bedrooms work best for tonight (the Kobayashi family will sort their rooms when they arrive Saturday morning). Stock the kitchen with breakfast staples + konbini snacks for the Kobayashi arrival in the morning — they'll be exhausted and hungry. <strong>Lodging cost:</strong> Per Velasquez's call, the Tokyo Airbnb stays split 50/50 even though Kobayashi only sleeps 3 of the 4 nights — no Night-1 discount being claimed. Already documented in the cost table above.</div>
+
+    <div style="margin-top:10px; font-size:0.9em;"><strong>🍜 Food for the day (Asakusa, dinner 7:45 PM):</strong>
+      <ul style="margin:6px 0 0 0; padding-left:18px;">
+        <li><strong>Sit-down dinner picks:</strong>
+          <ul style="margin-top:4px;">
+            <li><strong><a href="https://www.google.com/maps/search/?api=1&query=Asakusa+Unana+unagi" target="_blank">Asakusa Unana</a></strong> · ★ 3.8 · sit-down · <strong>$$ · ¥3,000–5,000 (~$19–31) /pp</strong> · famous specialist for unagi (grilled freshwater eel) over rice — historic Asakusa institution · <a href="https://www.instagram.com/explore/search/keyword/?q=asakusa%20unana" target="_blank">IG</a></li>
+            <li><strong><a href="https://www.google.com/maps/search/?api=1&query=Daikokuya+Tempura+Asakusa" target="_blank">Daikokuya Tempura</a></strong> · ★ 4.0 · sit-down · <strong>$$ · ¥2,000–3,500 (~$13–22) /pp</strong> · 100+ year-old tempura institution · iconic ten-don (tempura over rice) · expect a line · <a href="https://www.instagram.com/explore/search/keyword/?q=daikokuya%20asakusa" target="_blank">IG</a></li>
+            <li><strong><a href="https://www.google.com/maps/search/?api=1&query=Asakusa+Imahan+Honten" target="_blank">Asakusa Imahan Honten</a></strong> · ★ 4.2 · sit-down (private rooms available) · <strong>$$$$ · ¥10,000–25,000 (~$63–157) /pp</strong> · sukiyaki + shabu-shabu, splurge tier · works for groups with private tatami rooms — <strong>reserve in advance for 6</strong> · <a href="https://www.instagram.com/asakusaimahan_honten/" target="_blank">@asakusaimahan_honten</a></li>
+          </ul>
+        </li>
+        <li><strong>Casual / outdoor:</strong>
+          <ul style="margin-top:4px;">
+            <li><strong><a href="https://www.google.com/maps/search/?api=1&query=Hoppy+Street+Asakusa" target="_blank">Hoppy Street</a></strong> · ★ 4.1 · outdoor izakaya alley with covered seating · <strong>$ · ¥1,500–3,000 (~$9–19) /pp</strong> · drinks + small plates (motsuni, edamame, grilled meats) at standing or short-bench tables · great vibe with kids if you grab a sit-down place · <a href="https://www.instagram.com/explore/search/keyword/?q=hoppy%20street%20asakusa" target="_blank">IG</a></li>
+          </ul>
+        </li>
+        <li><strong>Walking snacks (grab-and-go):</strong>
+          <ul style="margin-top:4px;">
+            <li><strong><a href="https://www.google.com/maps/search/?api=1&query=Asakusa+Kagetsudo+melon+pan" target="_blank">Asakusa Kagetsudo</a></strong> · ★ 4.2 · takeout / counter · <strong>¥250 (~$1.60)</strong> per piece · the famous oversized crispy-sweet melon pan — Asakusa's signature street snack · <a href="https://www.instagram.com/explore/search/keyword/?q=asakusa%20kagetsudo" target="_blank">IG</a></li>
+            <li><strong><a href="https://www.google.com/maps/search/?api=1&query=Kibi+Dango+Azuma+Asakusa" target="_blank">Kibi Dango Azuma</a></strong> · ★ 4.1 · takeout (eat by the stall) · <strong>¥150–300 (~$1–2)</strong> · skewered millet dumplings rolled in kinako (roasted soybean flour) — kid favorite · <a href="https://www.instagram.com/explore/search/keyword/?q=kibi%20dango%20azuma" target="_blank">IG</a></li>
+          </ul>
+        </li>
+      </ul>
+      <p style="margin:8px 0 0 0; font-size:0.88em;"><em>Group of 6 dinner budget tonight: $$ tier (Daikokuya/Unana) ≈ ¥18,000–30,000 (~$113–189) · $$$$ tier (Imahan) ≈ ¥60,000–150,000 (~$377–943). Snack stops add ~¥1,500 (~$9) per round. Imahan needs a reservation for 6 in advance — most other places walk-in works. Star ratings are approximate Google/Tabelog-equivalent — verify on Google Maps before going.</em></p>
+    </div>
+
+    <div class="day-cost">Est. daily spend: ~$465 (Keisei Skyliner 6×$18 = $108 + JR Joban + Tobu 6×$2.50 = $15 + dinner for 6 ~$225 + snacks/water + breakfast stock-up for Kobayashi arrival ~$110 + pocket Wi-Fi rental pickup $4 + breakfast supplies $3). <em>Updated for the Velasquez+Lala-only arrival (6 ppl on Day 1 instead of 12). Kobayashi has their own Day 2 arrival cost line (~$160 for 2 taxis Haneda → Airbnb).</em></div>
+  </div>
+
+  <div class="day-card">
+    <div class="day-header"><span class="day-num">DAY 2</span><span class="day-date">Saturday, June 27</span></div>
+    <div class="day-title">Kobayashi Arrives 5 AM at Haneda · Anime Day + Street Kart</div>
+    <div class="day-activities"><strong>Two arrivals on Day 2:</strong> the <strong>Velasquez family + Lala</strong> wake at the Senju-Ohashi Airbnb after Day 1 arrival, while the <strong>Kobayashi family lands at Haneda 5 AM</strong> from the Manila red-eye (Boracay → Manila JAL leg). Kobayashi joins the group at Akihabara around 9:30 AM (or naps and joins for lunch — see options below). Same group plan from Akihabara onward: anime-immersion morning, maid-café lunch, Nakano Broadway, then late-afternoon split for Street Kart vs. Hanayashiki, regrouping in Asakusa for dinner.</div>
+
+    <div style="margin-top:10px; font-size:0.88em; background:#fef3c7; padding:10px 14px; border-radius:8px; border-left:3px solid #b45309;"><strong>✈️ Kobayashi family arrival schedule (Sat Jun 27):</strong>
+      <ul style="margin:6px 0 0 0; padding-left:18px;">
+        <li><strong>11:00 PM Fri Jun 26</strong> — JAL flight Manila (MNL) → Tokyo Haneda (HND), red-eye. <em>Boracay → Manila domestic leg done earlier in the day.</em></li>
+        <li><strong>5:00 AM Sat Jun 27</strong> — Touchdown at Haneda (HND, Terminal 3 / international)</li>
+        <li><strong>5:00–6:00 AM</strong> — Immigration, baggage, customs (~60 min for family of 6 with baby; faster at this hour with light passenger load) · pick up pocket Wi-Fi or activate eSIM</li>
+        <li><strong>6:00–7:00 AM</strong> — <strong>2 taxis Haneda → Senju-Ohashi Airbnb</strong> (~45 min via Shuto Expressway, no traffic at this hour · ~¥10,000–15,000 per taxi = <strong>~$130–190 total for 2 cars / 6 ppl + luggage</strong>) · cheaper rail option exists (Keikyu → Toei Asakusa Line + transfer, ~¥600/pp, 75 min) but taxis are kinder on a tired family with a baby and luggage</li>
+        <li><strong>7:00–8:00 AM</strong> — Arrive Airbnb · drop bags · freshen up · light konbini breakfast (Velasquez has one stocked from Day 1) · Kai gets a quick nap if possible</li>
+        <li><strong>8:30–9:30 AM</strong> — Head to Akihabara: Tobu Skytree Line Senju-Ohashi → Kita-Senju (3 min) + Hibiya Line Kita-Senju → Akihabara (12 min) = ~20 min total</li>
+        <li><strong>9:30 AM</strong> — <strong>Reunite with Velasquez at Akihabara (Radio Kaikan or Super Potato)</strong> for the start of the regular Day 2 plan</li>
+      </ul>
+      <p style="margin:8px 0 0 0;"><strong>🧳 Luggage for Kobayashi arrival:</strong> Yamato counter at Haneda doesn't open until ~6:30 AM, after your 5 AM landing. Plus, since you're going straight to the Airbnb (not directly into a transit-heavy day), the 2 taxis already in the plan handle door-to-door luggage just fine — no Yamato needed for this leg. Your real Yamato moment is Day 5 when everyone moves to Kyoto.</p>
+      </ul>
+      <p style="margin:10px 0 0 0;"><strong>If the Kobayashis are too wrecked to start at 9:30 AM</strong>, fall-back options:
+      <ul style="margin:4px 0 0 18px;">
+        <li><strong>Plan B (most likely):</strong> Rona stays at Airbnb with sleeping Kai while Darren + the 3 teens (MB, Izzy, Sabrina) join Velasquez at Akihabara 10–11 AM. Rona/Kai meet up at the @Home Cafe maid lunch (12:30 PM) or skip to Nakano Broadway window (2 PM).</li>
+        <li><strong>Plan C (full rest):</strong> entire Kobayashi family sleeps until 12 PM, joins for the afternoon — meet Velasquez at Nakano Broadway at 2 PM, or directly in Asakusa at 4 PM for the Street Kart / Hanayashiki split.</li>
+      </ul></p>
+    </div>
+
+    <div style="margin-top:10px; font-size:0.88em; background:#eef2ff; padding:10px 14px; border-radius:8px; border-left:3px solid #4338ca;"><strong>⏱️ Time-block schedule (Velasquez + reunited group):</strong>
+      <ul style="margin:6px 0 0 0; padding-left:18px;">
+        <li><strong>8:00–9:30 AM</strong> — Velasquez breakfast at Airbnb, head to Akihabara · <em>Kobayashi arriving and freshening up at the same time</em></li>
+        <li><strong>9:30 AM–12:30 PM</strong> — <strong>Akihabara</strong> (Radio Kaikan, Super Potato, gachapon halls) · <strong>full group reunites here</strong></li>
+        <li><strong>12:30–1:45 PM</strong> — Maid café lunch at @Home Cafe</li>
+        <li><strong>2:00–3:30 PM</strong> — <strong>Nakano Broadway</strong> (anime/manga shopping)</li>
+        <li><strong>4:00–5:30 PM</strong> — <strong>Group splits in Asakusa</strong>: Group A Street Kart (1 hr ride) · Group B Hanayashiki (1.5 hrs)</li>
+        <li><strong>5:30–6:30 PM</strong> — Nakamise + melon pan stroll · regroup</li>
+        <li><strong>6:30–8:30 PM</strong> — Group dinner in Asakusa</li>
+        <li><strong>8:45 PM</strong> — Back to Airbnb (Tobu direct 10 min), in bed by 10 PM <em>(Kobayashi will probably crash hard tonight after the red-eye)</em></li>
+      </ul>
+    </div>
+
+    <div style="margin-top:10px; font-size:0.88em; background:#fff3e0; padding:10px 14px; border-radius:8px; border-left:3px solid #e94560;"><strong>🏎️ Group A — Street Kart Asakusa (5 drivers: Ryan, Aileen, Reid, Darren, Rona):</strong> <strong>Location:</strong> 3-25-31 Nishi-Asakusa, Taitō-ku · 8-min walk from Asakusa Station · <a href="https://kart.st/asakusa.html" target="_blank">kart.st/asakusa.html</a> · <strong>Course:</strong> "Samurai-S" — 45 min to 1 hour, past Kaminarimon Gate & Sensō-ji · <strong>Slot:</strong> <strong>4:00 PM Saturday</strong> (arrive 3:45 PM for sign-in/costume), back at the garage by ~5:15 PM · <strong>Price:</strong> ¥5,000 (~$34) per driver · <strong>Hard requirement:</strong> driver must be <strong>18+</strong> with a valid <strong>International Driving Permit (IDP)</strong> from home country — every US driver should get an IDP from AAA (~$20) BEFORE the trip, bring passport too · <strong>Why Raiden is out:</strong> he's 16 and Street Kart's age minimum in Japan is 18 (no exceptions, even with a US license) — he joins Hanayashiki instead. Street Kart is also one driver per kart with <strong>no passengers</strong>, so the younger teens couldn't ride along regardless. · Book 1–2 weeks ahead.</div>
+
+    <div style="margin-top:10px; font-size:0.88em; background:#f0f9f2; padding:10px 14px; border-radius:8px; border-left:3px solid #0f8a3c;"><strong>🎡 Group B — Hanayashiki Amusement Park (Raiden, MB, Izzy, Sabrina, Ella, baby Kai + Lala — 7 people):</strong> <strong>Location:</strong> 2-28-1 Asakusa, Taitō-ku · <strong>5-min walk from the Street Kart garage</strong> — families can literally wave at each other · <a href="https://www.hanayashiki.net/en" target="_blank">hanayashiki.net</a> · Tokyo's <strong>oldest amusement park</strong> (opened 1853) with Japan's oldest roller coaster — retro rides, Ferris wheel, haunted house, carousel, all kid-friendly scale that suits 14–16 year olds and baby Kai in a stroller. · <strong>Schedule:</strong> arrive 4:00 PM, ride window 4:00–5:30 PM, walk Nakamise + melon pan 5:30–6:30 PM. · <strong>Admission:</strong> ¥1,200/adult, ¥600/child 5–12, free under 5 · <strong>All-day ride pass:</strong> ¥3,500/adult, ¥3,100/teen, ¥2,800/child · <strong>Budget:</strong> ~$120 total for admission + light ride pack for 7 people (Kai free, Lala senior ¥600). · Raiden is now the oldest in this group and can help push Kai's stroller/keep an eye on Ella so Lala isn't running point alone.</div>
+
+    <div style="margin-top:10px; font-size:0.88em; background:#f0f7ff; padding:10px 14px; border-radius:8px; border-left:3px solid #0f3460;"><strong>🚆 Travel times Day 2 (totals):</strong> ~1h 20min in transit across the whole day (Senju-Ohashi shortens the Asakusa return to 10 min on the Tobu Line · longest single leg is still Nakano → Asakusa at ~30 min). Everything within Asakusa is on foot. Pocket Wi-Fi or Suica essential.</div>
+
+    <div style="margin-top:10px; font-size:0.9em;"><strong>🍜 Food for the day (Akihabara / Asakusa):</strong>
+      <ul style="margin:6px 0 0 0; padding-left:18px;">
+        <li><strong>Lunch picks (12:30 PM, Akihabara area):</strong>
+          <ul style="margin-top:4px;">
+            <li><strong><a href="https://www.google.com/maps/search/?api=1&query=At+Home+Cafe+Akihabara" target="_blank">@Home Cafe</a></strong> · ★ 3.8 · sit-down themed café · <strong>$$ · ¥2,500–4,000 (~$16–25) /pp</strong> incl. table charge · iconic maid café experience with kawaii performances · touristy but the kids/teens will remember it forever · <a href="https://www.instagram.com/athomecafe_official/" target="_blank">@athomecafe_official</a></li>
+            <li><strong><a href="https://www.google.com/maps/search/?api=1&query=Gogyo+Ramen+burnt+miso+Shinjuku" target="_blank">Gogyō</a></strong> · ★ 4.2 · sit-down ramen counter · <strong>$ · ¥1,200–1,800 (~$8–11) /pp</strong> · their signature is "kogashi" burnt miso ramen — smoky, deep, unique · <a href="https://www.instagram.com/explore/search/keyword/?q=gogyo%20ramen" target="_blank">IG</a></li>
+            <li><strong><a href="https://www.google.com/maps/search/?api=1&query=Kanda+Matsuya+soba+Tokyo" target="_blank">Kanda Matsuya</a></strong> · ★ 4.1 · sit-down · <strong>$ · ¥1,000–1,800 (~$6–11) /pp</strong> · 130-year-old handmade-soba institution near Akihabara · classic, no-frills, perfect for adults wanting "real" Japanese · <a href="https://www.instagram.com/explore/search/keyword/?q=kanda%20matsuya%20soba" target="_blank">IG</a></li>
+          </ul>
+        </li>
+        <li><strong>Dinner in Asakusa after regroup (6:30 PM):</strong>
+          <ul style="margin-top:4px;">
+            <li><strong><a href="https://www.google.com/maps/search/?api=1&query=Asakusa+Imahan+Honten" target="_blank">Asakusa Imahan Honten</a></strong> · ★ 4.2 · sit-down with private rooms · <strong>$$$$ · ¥10,000–25,000 (~$63–157) /pp</strong> · sukiyaki + shabu-shabu splurge, group-friendly with private tatami rooms (reserve in advance for 12) · <a href="https://www.instagram.com/asakusaimahan_honten/" target="_blank">@asakusaimahan_honten</a></li>
+            <li><strong><a href="https://www.google.com/maps/search/?api=1&query=Sometaro+Asakusa+okonomiyaki" target="_blank">Sometaro</a></strong> · ★ 4.3 · sit-down on tatami · <strong>$ · ¥1,500–2,500 (~$9–16) /pp</strong> · 100-year-old okonomiyaki spot · cook your own at the table, kids love it, fun group experience · <a href="https://www.instagram.com/explore/search/keyword/?q=sometaro%20asakusa" target="_blank">IG</a></li>
+            <li><strong><a href="https://www.google.com/maps/search/?api=1&query=Sushiro+Asakusa" target="_blank">Sushiro</a></strong> · ★ 3.8 · sit-down conveyor sushi · <strong>$ · ¥1,500–2,500 (~$9–16) /pp</strong> · budget chain, ¥120–500 per plate, touchscreen ordering, fast and dependable · kids' paradise · <a href="https://www.instagram.com/sushiro_official/" target="_blank">@sushiro_official</a></li>
+            <li><strong><a href="https://www.google.com/maps/search/?api=1&query=Kura+Sushi+Asakusa" target="_blank">Kura Sushi</a></strong> · ★ 3.8 · sit-down conveyor sushi · <strong>$ · ¥1,500–2,500 (~$9–16) /pp</strong> · same idea as Sushiro with the gimmick of prize capsules every 5 plates · <a href="https://www.instagram.com/kurasushi_official/" target="_blank">@kurasushi_official</a></li>
+          </ul>
+        </li>
+      </ul>
+      <p style="margin:8px 0 0 0; font-size:0.88em;"><em>Group of 12 budgeting: conveyor sushi/Sometaro = ¥18,000–30,000 (~$113–189) · Imahan splurge = ¥120,000–300,000 (~$755–1,887).</em></p>
+    </div>
+
+    <div style="margin-top:10px; font-size:0.88em; background:#fffbe6; padding:10px 14px; border-radius:8px; border-left:3px solid #d97706;"><strong>🎬 Optional viral-reel detour (Day 2 has best opportunities):</strong>
+      <ul style="margin:6px 0 0 0; padding-left:18px;">
+        <li><strong><a href="https://www.google.com/maps/search/?api=1&query=Benizuru+Asakusa+souffle+pancake" target="_blank">Benizuru</a></strong> (Asakusa · soufflé pancakes) · ★ 4.5 · sit-down · <strong>$$ · ¥2,000–2,400 (~$13–15) /pp + ¥1,000 (~$6) cash deposit</strong> that goes toward your bill · <strong>morning-only ticket system</strong>, grab a slot at 9 AM before heading to Akihabara · 5-min walk from Asakusa Station · ~10 min from Airbnb on Tobu Skytree Line direct · the deposit is held until you order so bring cash · <a href="https://www.instagram.com/benizuru_asakusa/" target="_blank">@benizuru_asakusa</a></li>
+        <li><strong><a href="https://www.google.com/maps/search/?api=1&query=ANDRA+Ueno+smash+burger" target="_blank">American Diner ANDRA</a></strong> (Ueno · smash burger) · ★ 4.4 · sit-down counter · <strong>$$ · ¥1,800–2,300 (~$11–15) /burger</strong> + ~¥250 (~$1.50) for drink/fries set · natural <strong>lunch alternative</strong> to @Home Cafe · ~8 min from Akihabara (JR Yamanote 1 stop to Ueno + 4-min walk) · Reid and Raiden would love it · <a href="https://www.instagram.com/explore/search/keyword/?q=andra%20ueno%20burger" target="_blank">IG</a></li>
+      </ul>
+    </div>
+
+    <div class="day-cost">Est. daily spend: ~$1,350 (Suica $110 + Street Kart 5 drivers × $34 = $170 + Hanayashiki ~$120 + food $550 + gachapon/souvenir buffer $240 + <strong>Kobayashi airport-to-Airbnb 2 taxis ~$160</strong>). <em>Kobayashi taxi is a Kobayashi-only line item (not split with Velasquez).</em></div>
+  </div>
+
+  <div class="day-card">
+    <div class="day-header"><span class="day-num">DAY 3</span><span class="day-date">Sunday, June 28</span></div>
+    <div class="day-title">Tsukiji Sushi Breakfast · Meiji · Harajuku · Shibuya</div>
+    <div class="day-activities"><strong>Early-ish start (7 AM wake-up):</strong> head to <strong>Tsukiji Outer Market</strong> for sushi breakfast and a walk through the iconic food stalls. Back on the train mid-morning for Meiji Shrine. Midday: Takeshita Street crêpes in Harajuku. Afternoon: Shibuya Crossing and Shibuya Sky observation deck. Evening: yakitori at Omoide Yokochō in Shinjuku.</div>
+
+    <div style="margin-top:10px; font-size:0.88em; background:#eef2ff; padding:10px 14px; border-radius:8px; border-left:3px solid #4338ca;"><strong>⏱️ Time-block schedule:</strong>
+      <ul style="margin:6px 0 0 0; padding-left:18px;">
+        <li><strong>7:00–8:00 AM</strong> — Wake, Airbnb → Tsukiji (Hibiya Line, 28 min)</li>
+        <li><strong>8:00–10:00 AM</strong> — <strong>Tsukiji Outer Market</strong> (sushi breakfast + food stalls)</li>
+        <li><strong>10:30 AM–12:00 PM</strong> — <strong>Meiji Shrine</strong> (forested walk to main hall, free)</li>
+        <li><strong>12:15–1:45 PM</strong> — <strong>Takeshita Street / Harajuku</strong> (Marion Crepes, kawaii shopping)</li>
+        <li><strong>2:00–4:00 PM</strong> — <strong>Shibuya</strong> (Hachiko, Crossing, Shibuya 109)</li>
+        <li><strong>4:00–5:30 PM</strong> — <strong>Shibuya Sky</strong> observation deck (book the 4:00 PM slot for sunset)</li>
+        <li><strong>5:40–7:30 PM</strong> — Shinjuku: Golden Gai peek, stroll toward Omoide Yokochō</li>
+        <li><strong>7:30–9:30 PM</strong> — <strong>Dinner at Omoide Yokochō</strong> yakitori alley</li>
+        <li><strong>9:30–10:05 PM</strong> — Back to Senju-Ohashi Airbnb (~35 min via Hibiya/Tobu)</li>
+      </ul>
+    </div>
+
+    <div style="margin-top:10px; font-size:0.88em; background:#f0f7ff; padding:10px 14px; border-radius:8px; border-left:3px solid #0f3460;"><strong>🚆 Travel times Day 3 (totals):</strong> ~1h 55min in transit across the day (Senju-Ohashi base adds ~15 min vs central Tokyo; morning Tsukiji run is ~28 min · evening Shinjuku return is ~35 min) · bulk of the day is walking Harajuku + Shibuya so comfortable shoes are mandatory (expect ~20,000 steps).</div>
+    <div style="margin-top:10px; font-size:0.9em;"><strong>🍣 Tsukiji Outer Market food picks (8–10 AM window):</strong>
+      <ul style="margin:6px 0 0 0; padding-left:18px;">
+        <li><strong>Sushi breakfast (sit-down or counter):</strong>
+          <ul style="margin-top:4px;">
+            <li><strong><a href="https://www.google.com/maps/search/?api=1&query=Sushidai+Tsukiji" target="_blank">Sushidai Tsukiji</a></strong> · ★ 4.3 · sit-down counter · <strong>$$$ · ¥4,500–6,500 (~$28–41) /pp</strong> · the famous omakase that moved from the old inner market · expect a 1-2 hr line for breakfast — go at 6:30 AM open · <a href="https://www.instagram.com/explore/search/keyword/?q=sushidai%20tsukiji" target="_blank">IG</a></li>
+            <li><strong><a href="https://www.google.com/maps/search/?api=1&query=Sushizanmai+Honten+Tsukiji" target="_blank">Sushizanmai Honten</a></strong> · ★ 4.0 · sit-down · <strong>$$ · ¥2,500–4,500 (~$16–28) /pp</strong> · 24-hour reliable chain, the easiest "good Tsukiji sushi without a line" · group-friendly · <a href="https://www.instagram.com/sushizanmai_official/" target="_blank">@sushizanmai_official</a></li>
+            <li><strong><a href="https://www.google.com/maps/search/?api=1&query=Itadori+Bakudanya+Tsukiji" target="_blank">Itadori Bakudanya</a></strong> · ★ 4.0 · standing-only counter · <strong>$ · ¥1,500–2,500 (~$9–16) /pp</strong> · affordable standing-sushi institution, fast in-and-out · <a href="https://www.instagram.com/explore/search/keyword/?q=itadori%20tsukiji" target="_blank">IG</a></li>
+          </ul>
+        </li>
+        <li><strong>Stall snacks (takeout / standing while you walk):</strong>
+          <ul style="margin-top:4px;">
+            <li><strong><a href="https://www.google.com/maps/search/?api=1&query=Tsukiji+Sanokiya+tamagoyaki" target="_blank">Tsukiji Sanokiya</a></strong> · ★ 4.4 · takeout stall · <strong>¥150–300 (~$1–2)</strong> per skewer · sweet-savory rolled-egg omelet on a stick · <a href="https://www.instagram.com/explore/search/keyword/?q=sanokiya%20tsukiji" target="_blank">IG</a></li>
+            <li><strong><a href="https://www.google.com/maps/search/?api=1&query=Yamacho+Tsukiji+scallops" target="_blank">Yamacho Kadohachi</a></strong> · ★ 4.2 · standing/takeout · <strong>¥600–1,200 (~$4–8)</strong> per scallop · grilled-scallop skewers, cracked open in front of you · <a href="https://www.instagram.com/explore/search/keyword/?q=yamacho%20tsukiji" target="_blank">IG</a></li>
+            <li><strong><a href="https://www.google.com/maps/search/?api=1&query=Marutake+Tsukiji+strawberry+daifuku" target="_blank">Marutake</a></strong> · ★ 4.5 · takeout stall · <strong>¥450–600 (~$3–4)</strong> · strawberry daifuku (fresh strawberry wrapped in mochi + red-bean) — viral on TikTok · <a href="https://www.instagram.com/explore/search/keyword/?q=marutake%20tsukiji%20daifuku" target="_blank">IG</a></li>
+            <li><strong><a href="https://www.google.com/maps/search/?api=1&query=Tsukiji+Kitsuneya+gyudon" target="_blank">Tsukiji Kitsuneya</a></strong> · ★ 4.3 · standing-only counter · <strong>$ · ¥1,000–1,500 (~$6–9) /pp</strong> · cult-favorite gyudon and motsuni · <strong>cash only</strong> · opens 6 AM, often gone by 9 AM · <a href="https://www.instagram.com/explore/search/keyword/?q=kitsuneya%20tsukiji" target="_blank">IG</a></li>
+          </ul>
+        </li>
+        <li><strong>Take-home shops:</strong>
+          <ul style="margin-top:4px;">
+            <li><strong><a href="https://www.google.com/maps/search/?api=1&query=Aritsugu+Tsukiji+knives" target="_blank">Aritsugu</a></strong> · ★ 4.6 · knife shop / souvenirs · <strong>$$–$$$$ · ¥3,000–50,000+ (~$19–315+)</strong> · 460-year-old knife maker · also dried bonito, matcha, kitchen tools · they engrave names on knives in 5 min · <a href="https://www.instagram.com/explore/search/keyword/?q=aritsugu%20tsukiji" target="_blank">IG</a></li>
+          </ul>
+        </li>
+      </ul>
+      <p style="margin:8px 0 0 0; font-size:0.88em;"><em>Most stalls open 5–6 AM and close by 11 AM. Expect to spend ¥3,000–6,000 (~$19–38) per person grazing the market — call it $25/pp average for the group.</em></p>
+    </div>
+    <div style="margin-top:10px; font-size:0.9em;"><strong>🍜 Other food today (Harajuku / Shibuya / Shinjuku):</strong>
+      <ul style="margin:6px 0 0 0; padding-left:18px;">
+        <li><strong>Harajuku street snacks (takeout while strolling Takeshita Street):</strong>
+          <ul style="margin-top:4px;">
+            <li><strong><a href="https://www.google.com/maps/search/?api=1&query=Marion+Crepes+Harajuku" target="_blank">Marion Crepes</a></strong> · ★ 3.8 · takeout · <strong>¥600–900 (~$4–6)</strong> per crepe · iconic Harajuku crepe stand since 1976 — strawberry-cream is the classic · <a href="https://www.instagram.com/marion_crepes/" target="_blank">@marion_crepes</a></li>
+            <li><strong><a href="https://www.google.com/maps/search/?api=1&query=Totti+Candy+Factory+Harajuku" target="_blank">Totti Candy Factory</a></strong> · ★ 3.9 · takeout · <strong>¥1,000 (~$6)</strong> for a head-sized rainbow cotton candy · pure Instagram-fodder · <a href="https://www.instagram.com/totti_candy/" target="_blank">@totti_candy</a></li>
+          </ul>
+        </li>
+        <li><strong>Lunch (Shibuya area):</strong>
+          <ul style="margin-top:4px;">
+            <li><strong><a href="https://www.google.com/maps/search/?api=1&query=Ichiran+Ramen+Shibuya" target="_blank">Ichiran Ramen Shibuya</a></strong> · ★ 4.1 · sit-down private-booth ramen · <strong>$ · ¥1,200–1,800 (~$8–11) /pp</strong> · tonkotsu in solo booths — kids find it hilarious · vending-machine ordering · <a href="https://www.instagram.com/ichiran_official/" target="_blank">@ichiran_official</a></li>
+            <li><strong><a href="https://www.google.com/maps/search/?api=1&query=Uobei+Sushi+Shibuya+Dogenzaka" target="_blank">Uobei Sushi Shibuya</a></strong> · ★ 3.9 · sit-down touchscreen conveyor · <strong>$ · ¥1,000–1,800 (~$6–11) /pp</strong> · ¥110 (~$0.70) per plate, sushi delivered by mini-train, kids' paradise · <a href="https://www.instagram.com/explore/search/keyword/?q=uobei%20sushi" target="_blank">IG</a></li>
+          </ul>
+        </li>
+        <li><strong>Dinner (Shinjuku, 7:30 PM):</strong>
+          <ul style="margin-top:4px;">
+            <li><strong><a href="https://www.google.com/maps/search/?api=1&query=Omoide+Yokocho+Shinjuku" target="_blank">Omoide Yokochō</a></strong> · ★ 4.3 · outdoor yakitori alley with tiny shopfronts · <strong>$$ · ¥2,500–4,000 (~$16–25) /pp</strong> · "Memory Lane" — postwar-vibe yakitori alley with smoke + lanterns · split across 2 tables of 6 since each shop only seats 4-8 · drinks essential to the experience · <a href="https://www.instagram.com/explore/search/keyword/?q=omoide%20yokocho" target="_blank">IG</a></li>
+            <li><strong><a href="https://www.google.com/maps/search/?api=1&query=Shinjuku+Tsunahachi+tempura" target="_blank">Shinjuku Tsunahachi</a></strong> · ★ 4.1 · sit-down · <strong>$$ · ¥3,000–5,000 (~$19–31) /pp</strong> · tempura institution since 1923 · cleaner alternative to Omoide if anyone in the group wants comfort over vibe · <a href="https://www.instagram.com/explore/search/keyword/?q=tsunahachi%20shinjuku" target="_blank">IG</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+
+    <div style="margin-top:10px; font-size:0.88em; background:#fffbe6; padding:10px 14px; border-radius:8px; border-left:3px solid #d97706;"><strong>🎬 Optional viral-reel detours (Day 3 is the big food day):</strong>
+      <ul style="margin:6px 0 0 0; padding-left:18px;">
+        <li><strong><a href="https://www.google.com/maps/search/?api=1&query=Ginza+Hachigou+ramen" target="_blank">Ginza Hachigou</a></strong> (Michelin Bib Gourmand ramen · Ginza) · ★ 4.6 · sit-down counter (8 seats only) · <strong>$ · ¥1,700–1,900 (~$11–12) /pp</strong> incl. ¥500 (~$3) online booking fee · best slot <strong>right after Tsukiji</strong> (opens 11 AM weekdays) · 5-min walk from Tsukiji · <strong>book in advance</strong> — Tokyo's best price-to-prestige ramen, shoyu broth · would shift Meiji to noon · <a href="https://www.instagram.com/explore/search/keyword/?q=ginza%20hachigou" target="_blank">IG</a></li>
+        <li><strong><a href="https://www.google.com/maps/search/?api=1&query=Iroriya+Higashi-Ginza+ikura+don" target="_blank">Iroriya Higashi-Ginza</a></strong> (kobore ikura don) · ★ 4.3 · sit-down izakaya · <strong>$$$$ · ¥9,500–14,000 (~$60–88) /pp</strong> with drinks · 5-min walk from Tsukiji · viral "overflowing ikura" ceremony — small ¥4,048 (~$25) / large ¥5,808 (~$37) per person plus mandatory drinks · <strong>min 2 guests</strong> for the ikura dish · Instagram money shot · <a href="https://www.instagram.com/explore/search/keyword/?q=iroriya%20higashi%20ginza" target="_blank">IG</a></li>
+        <li><strong><a href="https://www.google.com/maps/search/?api=1&query=Age.3+Ginza+cream+sandwich" target="_blank">Age.3</a></strong> (fried cream sandwich · Ginza) · ★ 4.2 · takeout · <strong>¥450–850 (~$3–6) /sandwich</strong> · perfect <strong>quick snack</strong> between Tsukiji and Meiji · 8-min walk from Tsukiji or 3-min from Ginza Hachigou · low-friction add · <a href="https://www.instagram.com/explore/search/keyword/?q=age3%20ginza" target="_blank">IG</a></li>
+        <li><strong><a href="https://www.google.com/maps/search/?api=1&query=Wagyumafia+Nakameguro" target="_blank">Wagyumafia</a></strong> (wagyu cutlet sando · Nakameguro) · ★ 4.5 · sit-down · <strong>$–$$$$ · ¥1,000–20,000+ (~$6–125+) /pp</strong> · slot between <strong>Shibuya and Shibuya Sky</strong> (3 min from Shibuya, 1 Tokyu Toyoko stop to Nakameguro + 5-min walk) · entry "Gigolo" sando ¥1,000 (~$6) · mid-tier cuts ¥5,000–18,000 (~$31–113) · Kobe Chateaubriand ¥20,000+ (~$125+) · accessible at low end, wallet territory above · <a href="https://www.instagram.com/wagyumafia/" target="_blank">@wagyumafia</a></li>
+        <li><strong><a href="https://www.google.com/maps/search/?api=1&query=Luke%27s+Lobster+Omotesando+Cat+Street" target="_blank">Luke's Lobster Omotesando · Cat Street</a></strong> <em>(easiest add)</em> · ★ 4.2 · sit-down/takeout · <strong>$$ · ¥2,000–2,800 (~$13–18) /pp</strong> · NY-style lobster rolls, right next to Takeshita Street / Harajuku · zero extra travel — already on the Harajuku route · walk-up, no reservation · easy <strong>12:15–1:45 PM lunch slot</strong> between Meiji and Shibuya · Reid and Raiden will be into it · <a href="https://www.instagram.com/lukeslobsterjp/" target="_blank">@lukeslobsterjp</a></li>
+        <li><strong><a href="https://www.google.com/maps/search/?api=1&query=LUXIS+Ebisu+aquarium" target="_blank">LUXIS Ebisu</a></strong> <em>(adults sub-group only)</em> · ★ 4.0 · sit-down dining bar with sea-turtle aquarium · <strong>$$$ · ¥4,000–7,000 (~$25–44) /pp</strong> with drinks · open until 5 AM · 3 min from Shibuya (1 JR Yamanote stop to Ebisu + 2-min walk) · small capacity — <strong>too tight for 12</strong>, works as a 4–6 person adults-only dinner alternate to Omoide Yokochō · <a href="https://www.instagram.com/explore/search/keyword/?q=luxis%20ebisu" target="_blank">IG</a></li>
+      </ul>
+    </div>
+    <div class="day-cost">Est. daily spend: ~$1,200 (Suica $110 + Tsukiji breakfast ~$330 + Shibuya Sky 11×$18 = $198 + other food $520 + misc $40)</div>
+  </div>
+
+  <div class="day-card">
+    <div class="day-header"><span class="day-num">DAY 4</span><span class="day-date">Monday, June 29</span></div>
+    <div class="day-title">Tokyo DisneySea · Fantasy Springs <span style="background:#0284c7; color:#fff; font-size:0.7em; padding:2px 8px; border-radius:4px; margin-left:6px;">SWAPPED FROM DISNEYLAND</span></div>
+    <div class="day-activities">Full day at <strong>Tokyo DisneySea</strong> in Urayasu — the unique-to-Tokyo nautical park with 8 themed "Ports of Call." Big hitters: Tower of Terror, Journey to the Center of the Earth, Soaring: Fantastic Flight, plus the new <strong>Fantasy Springs</strong> land (opened June 2024) with Frozen, Tangled, and Peter Pan rides. Monday is a weekday = cheaper tickets and shorter lines. <strong>Fantasy Springs Premier Access is essential</strong> — without it, those three rides are 2–3 hour waits.</div>
+
+    <div style="margin-top:10px; font-size:0.88em; background:#eef2ff; padding:10px 14px; border-radius:8px; border-left:3px solid #4338ca;"><strong>⏱️ Time-block schedule:</strong>
+      <ul style="margin:6px 0 0 0; padding-left:18px;">
+        <li><strong>7:00–8:45 AM</strong> — Wake, breakfast, Airbnb → Maihama (~55 min via Chiyoda + JR Keiyō · same station serves DisneySea, free resort monorail from Maihama to park gates)</li>
+        <li><strong>8:45–9:00 AM</strong> — Arrive park gate, stroller rental for Kai · <strong>open the Tokyo Disney Resort app the moment you're inside to buy Premier Access for the 3 Fantasy Springs rides</strong></li>
+        <li><strong>9:00 AM–1:00 PM</strong> — Park opens: <strong>morning ride sprint</strong> — rope drop <strong>Tower of Terror</strong> (American Waterfront) or <strong>Soaring: Fantastic Flight</strong> (Mediterranean Harbor), then Journey to the Center of the Earth + 20,000 Leagues (Mysterious Island), then Indiana Jones + Raging Spirits (Lost River Delta)</li>
+        <li><strong>1:00–2:30 PM</strong> — Lunch at <strong>Magellan's</strong> (Mediterranean Harbor, splurge/themed, reserve ahead) or <strong>Casbah Food Court</strong> (Arabian Coast, easy group option)</li>
+        <li><strong>2:30–4:30 PM</strong> — <strong>Fantasy Springs via Premier Access</strong> — Anna & Elsa's Frozen Journey → Peter Pan's Never Land Adventure → Rapunzel's Lantern Festival · this is the heart of the day for MB/Izzy/Sabrina/Ella</li>
+        <li><strong>4:30–6:00 PM</strong> — <strong>Gentle rides</strong> for Kai in carrier + anyone recharging: Sindbad's Storybook Voyage, Venetian Gondolas, Jasmine's Flying Carpets, Mermaid Lagoon indoor area · Lala can sit at Cape Cod Cook-Off with coffee</li>
+        <li><strong>6:00–8:00 PM</strong> — Light dinner (Gyoza Dog, Little Green Alien Mochi, Popcorn buckets — the famous chocolate + curry flavors are DisneySea-only) · evening rides with shorter lines · souvenir sweep</li>
+        <li><strong>8:00–8:30 PM</strong> — <strong>"Believe! Sea of Dreams"</strong> nighttime harbor show (projection mapping + fireworks on Mediterranean Harbor — the signature DisneySea experience, don't miss)</li>
+        <li><strong>8:30–9:55 PM</strong> — Exit crowd, back to Senju-Ohashi Airbnb (~55 min)</li>
+        <li><em>Tip: Lala/Kai can anchor at Mediterranean Harbor (flat, scenic) and skip Mysterious Island's hills. Rona can peel off after lunch with Kai if he needs a real nap — easy solo JR Keiyō back.</em></li>
+      </ul>
+    </div>
+
+    <div style="margin-top:10px; font-size:0.88em; background:#fff3e0; padding:10px 14px; border-radius:8px; border-left:3px solid #e94560;"><strong>🎢 Fantasy Springs Premier Access — essential plan:</strong> The three Fantasy Springs rides (Frozen Journey, Peter Pan, Rapunzel) are the entire reason to pick DisneySea over Disneyland — but they sell out their standby queues fast and hit 2–3 hour waits. <strong>Open the Tokyo Disney Resort app the moment you tap into the park at 9:00 AM</strong> and book all three Premier Access slots immediately · ¥2,000/ride for Peter Pan + Rapunzel, ¥4,500 for Frozen Journey (most in demand) · <strong>~¥28,500 total for 11 people × 3 rides ≈ $180</strong> group spend on Premier Access · worst case if Frozen sells out: skip the Premier Access on Rapunzel (¥2,000 × 11 ≈ $140 less) and try standby at 8 PM when waits collapse.</div>
+
+    <div style="margin-top:10px; font-size:0.88em; background:#f0f7ff; padding:10px 14px; border-radius:8px; border-left:3px solid #0f3460;"><strong>🚆 Travel times Day 4 (totals):</strong> <strong>Door-to-gate ~55 min each way</strong> from Senju-Ohashi (same Maihama Station as Disneyland, free resort monorail to DisneySea gate or 15-min walk) · ~1h 50min in transit round-trip · park itself is ~15,000–18,000 steps day (hillier than Disneyland around Mysterious Island).</div>
+
+    <div style="margin-top:10px; font-size:0.9em;"><strong>🍜 Food for the day (DisneySea in-park):</strong>
+      <ul style="margin:6px 0 0 0; padding-left:18px;">
+        <li><strong>Sit-down restaurants (reservations help):</strong>
+          <ul style="margin-top:4px;">
+            <li><strong><a href="https://www.tokyodisneyresort.jp/en/tds/dining/detail/358/" target="_blank">Magellan's</a></strong> · ★ 4.4 · sit-down themed fine dining · <strong>$$$ · ¥4,500–8,000 (~$28–50) /pp</strong> · Mediterranean cuisine in an explorer's-library setting · the most photogenic in-park restaurant · <strong>book ahead via the Tokyo Disney Resort app</strong> · <a href="https://www.instagram.com/explore/search/keyword/?q=magellans%20disneysea" target="_blank">IG</a></li>
+            <li><strong><a href="https://www.tokyodisneyresort.jp/en/tds/dining/detail/366/" target="_blank">S.S. Columbia Dining Room</a></strong> · ★ 4.2 · sit-down American · <strong>$$ · ¥3,000–5,000 (~$19–31) /pp</strong> · upscale-American comfort food in a steamship-themed dining room · easier reservation for a group of 11 · <a href="https://www.instagram.com/explore/search/keyword/?q=ss%20columbia%20disneysea" target="_blank">IG</a></li>
+            <li><strong><a href="https://www.tokyodisneyresort.jp/en/tds/dining/detail/367/" target="_blank">Casbah Food Court</a></strong> · ★ 4.0 · counter service · <strong>$ · ¥1,200–2,000 (~$8–13) /pp</strong> · Arabian-themed curries + naan + tandoori, kid-friendly · no reservation needed · <a href="https://www.instagram.com/explore/search/keyword/?q=casbah%20food%20court" target="_blank">IG</a></li>
+          </ul>
+        </li>
+        <li><strong>Iconic DisneySea-only treats (takeout / standing):</strong>
+          <ul style="margin-top:4px;">
+            <li><strong>Gyoza Dog</strong> (Mysterious Island, Nautilus Galley) · ★ 4.5 · takeout · <strong>¥600 (~$4)</strong> · park-famous gyoza wrapped in a hot-dog bun, the cult favorite · <a href="https://www.instagram.com/explore/search/keyword/?q=gyoza%20dog%20disneysea" target="_blank">IG</a></li>
+            <li><strong>Little Green Alien Mochi</strong> · ★ 4.4 · takeout · <strong>¥390 (~$2.50)</strong> for 3-pack · strawberry / chocolate / custard mochi shaped like Toy Story aliens · <a href="https://www.instagram.com/explore/search/keyword/?q=little%20green%20alien%20mochi" target="_blank">IG</a></li>
+            <li><strong>Popcorn buckets</strong> · ★ 4.4 · takeout (refills cheap) · <strong>¥2,400–3,000 (~$15–19)</strong> bucket + ¥600 (~$4) refills · DisneySea has chocolate, curry, black pepper, milk tea, salt — collect 'em all, kids' top souvenir · <a href="https://www.instagram.com/explore/search/keyword/?q=disneysea%20popcorn%20bucket" target="_blank">IG</a></li>
+            <li><strong>Tipo Tortas</strong> (Lost River Delta, Miguel's El Dorado Cantina) · ★ 4.2 · takeout · <strong>¥400 (~$2.50)</strong> · pressed sandwich-cookie things · <a href="https://www.instagram.com/explore/search/keyword/?q=tipo%20tortas%20disneysea" target="_blank">IG</a></li>
+            <li><strong>Seafood Pizza at Zambini Brothers</strong> · ★ 4.1 · sit-down counter · <strong>$ · ¥1,400–2,000 (~$9–13) /pp</strong> · solid pizza + pasta in Mediterranean Harbor · group-friendly · <a href="https://www.instagram.com/explore/search/keyword/?q=zambini%20brothers%20pizza" target="_blank">IG</a></li>
+          </ul>
+        </li>
+        <li><strong>Off-park on the way home:</strong>
+          <ul style="margin-top:4px;">
+            <li><strong><a href="https://www.google.com/maps/search/?api=1&query=Ikspiari+Maihama" target="_blank">Ikspiari mall</a></strong> · ★ 4.1 · multiple sit-down + counter · <strong>$ · ¥1,000–2,500 (~$6–16) /pp</strong> · large food court at Maihama Station — backup if everyone's still hungry after the park · <a href="https://www.instagram.com/explore/search/keyword/?q=ikspiari" target="_blank">IG</a></li>
+          </ul>
+        </li>
+      </ul>
+      <p style="margin:8px 0 0 0; font-size:0.88em;"><em>Group of 11 in-park food budget: 1 sit-down lunch + treats ≈ ¥35,000–55,000 (~$220–346). Already baked into the Day 4 cost.</em></p>
+    </div>
+
+    <div class="day-cost">Est. daily spend: ~$1,680 (tickets 11×$75 = $825 + <strong>Premier Access Fantasy Springs 11 ppl × 3 rides ≈ $180</strong> + transit $110 + in-park food 11×$30 = $330 + treats/souvenirs $235). <em>Swap cost vs. Disneyland: +$180 for Premier Access.</em></div>
+  </div>
+
+  <div class="day-card">
+    <div class="day-header"><span class="day-num">DAY 5</span><span class="day-date">Tuesday, June 30</span></div>
+    <div class="day-title">Bullet Train to Kyoto · Half-Day Osaka Hop (Kobayashi Request)</div>
+    <div class="day-activities">Morning Shinkansen Tokyo → Kyoto, drop bags at the Kyoto machiya, then <strong>half-day Osaka side-trip</strong> for the Kobayashi family's ask: Osaka Castle grounds, Dotonbori neon + street food crawl, back to Kyoto by bedtime. This swaps the old Fushimi Inari afternoon, which moves to Day 6 sunrise (better crowd timing anyway).</div>
+
+    <div style="margin-top:10px; font-size:0.88em; background:#eef2ff; padding:10px 14px; border-radius:8px; border-left:3px solid #4338ca;"><strong>⏱️ Time-block schedule:</strong>
+      <ul style="margin:6px 0 0 0; padding-left:18px;">
+        <li><strong>7:30–9:00 AM</strong> — Wake, pack, luggage handoff to Yamato, Airbnb → Tokyo Station</li>
+        <li><strong>9:10 AM–12:00 PM</strong> — <strong>Shinkansen Tokyo → Kyoto</strong> (~2h 40min · ekiben lunch on board)</li>
+        <li><strong>12:00–1:30 PM</strong> — Kyoto Sta. → HAYASHI (3 taxis, ~$30) · check-in, drop daypacks · <em>Kobayashi → SOUKAI, Velasquez + Lala → TOUZAN</em></li>
+        <li><strong>1:30–2:30 PM</strong> — <strong>HAYASHI → Osaka via Keihan direct</strong> (Kiyomizu-Gojō → Temmabashi, ~1 hr, ¥640/pp)</li>
+        <li><strong>2:30–4:30 PM</strong> — <strong>Osaka Castle</strong> (grounds + optional keep entry ¥600)</li>
+        <li><strong>5:00–7:30 PM</strong> — <strong>Dotonbori</strong>: Glico sign, Ebisu-bashi, takoyaki crawl, okonomiyaki dinner at Mizuno/Chibo</li>
+        <li><strong>7:30–8:30 PM</strong> — Final snacks (551 Horai pork buns, Daruma kushikatsu, Pablo)</li>
+        <li><strong>8:40–9:55 PM</strong> — <strong>Keihan back to HAYASHI</strong> (Yodoyabashi → Gion-Shijō direct, ~55 min + 15-min walk)</li>
+        <li>In bed by 10:30 PM</li>
+      </ul>
+    </div>
+
+    <div style="margin-top:10px; font-size:0.88em; background:#fef9c3; padding:12px 16px; border-radius:8px; border-left:3px solid #ca8a04;">
+      <strong>🧳 Luggage strategy for Day 5 — ESSENTIAL: Yamato everything from Senju-Ohashi to Kyoto HAYASHI</strong>
+      <p style="margin:8px 0 4px 0;">This is the trip's biggest single luggage move: <strong>~12 suitcases for 11 people moving Tokyo → Kyoto</strong>. Trying to drag 12 bags through Senju-Ohashi → Kita-Senju → Tokyo Station + onto a packed Shinkansen + off at Kyoto Sta. + into 3 taxis + into the HAYASHI machiya is genuinely terrible. <strong>Worse:</strong> the Shinkansen 160 cm oversized-luggage rule (Tokaido line) requires reserved oversized-baggage seats for any bag with L+W+H ≥ 160 cm — most large US suitcases qualify. Without those reservations it's a ¥1,000 penalty per bag at the conductor.</p>
+      <p style="margin:8px 0 4px 0;"><strong>The plan:</strong></p>
+      <ul style="margin:0; padding-left:22px;">
+        <li><strong>Night before (Mon Jun 29):</strong> message Senju-Ohashi host to confirm Yamato pickup for Tuesday morning ~10 AM. Print or screenshot the HAYASHI Kyoto address: <em>599 Nushiyachō, Higashiyama Ward, Kyoto 605-0934</em> — give it to the Yamato driver.</li>
+        <li><strong>Tuesday 7:30–8:30 AM (Day 5 morning):</strong> pack everything into your suitcases EXCEPT what you need on the train + first night in Kyoto. Tag bags with the destination — host can help write Japanese.</li>
+        <li><strong>~10 AM:</strong> Yamato courier arrives at Airbnb, takes 12 bags. ~¥2,000–2,500 per bag (~$160–190 total for 12 bags, split 50/50 = $80–95/family).</li>
+        <li><strong>You travel</strong> to Kyoto with just <strong>backpacks/daypacks</strong> — Shinkansen no oversized-luggage hassle, no struggle through Tokyo Station crowds, no taxi luggage Tetris on arrival.</li>
+        <li><strong>Bags arrive at HAYASHI by ~6 PM Tue evening</strong> (next-day delivery is the typical service; same-day Tokyo→Kyoto is rare for this distance). You'll be back from Osaka at ~10 PM and the bags will be waiting at the machiya. Host Miki accepts deliveries.</li>
+      </ul>
+      <p style="margin:6px 0 0 0;"><strong>Daypack must-haves for the day:</strong> passport, cash, phone + chargers, 1 outfit + toiletries (in case bag arrives Wednesday morning instead of Tuesday night), Lala's meds, Kai's diapers + formula for the day, anything you'd want for the Osaka outing.</p>
+      <p style="margin:6px 0 0 0;"><em>Cost reality: $160–190 for 12 bags is way cheaper than the $200+ in oversized-luggage Shinkansen fines + 3 extra taxis on the Kyoto end + everyone's back pain. Already baked into the Day 5 cost line.</em></p>
+    </div>
+
+    <div style="margin-top:10px; font-size:0.88em; background:#fff3e0; padding:10px 14px; border-radius:8px; border-left:3px solid #e94560;"><strong>🏯 Osaka half-day picks:</strong> <strong>Osaka Castle</strong> (<a href="https://www.osakacastle.net/english/" target="_blank">osakacastle.net</a>) — the reconstructed keep is touristy but the grounds and moat are stunning; a 2-hour window covers the best of it. <strong>Dotonbori</strong> — Osaka's neon food street, iconic for the group photos and for kuidaore ("eat yourself broke"). Must-try stalls: takoyaki at <a href="https://www.google.com/maps/search/?api=1&query=Takoyaki+Wanaka+Dotonbori" target="_blank"><strong>Wanaka</strong></a>, kushikatsu at <a href="https://www.google.com/maps/search/?api=1&query=Daruma+Dotonbori+kushikatsu" target="_blank"><strong>Daruma</strong></a>, crab at <a href="https://www.google.com/maps/search/?api=1&query=Kani+Doraku+Dotonbori" target="_blank"><strong>Kani Doraku</strong></a>, okonomiyaki at <a href="https://www.google.com/maps/search/?api=1&query=Mizuno+okonomiyaki+Dotonbori" target="_blank"><strong>Mizuno</strong></a>. <strong>Skip for this trip:</strong> Umeda Sky Building (we have Shibuya Sky on Day 3) and USJ (we have Disneyland on Day 4). If the group is running ahead of schedule, swap in <strong>Kuromon Ichiba Market</strong> for the 4:30 PM window instead of going straight to Dotonbori — it's Osaka's answer to Tsukiji.</div>
+
+    <div style="margin-top:10px; font-size:0.88em; background:#f0f7ff; padding:10px 14px; border-radius:8px; border-left:3px solid #0f3460;"><strong>🚆 Travel times Day 5 (totals):</strong> Senju-Ohashi → Tokyo Sta. ~25 min · Shinkansen Tokyo → Kyoto 2h 40min · Kyoto Sta. → HAYASHI ~12 min (3 taxis, ~$30) · <strong>HAYASHI ↔ Osaka round-trip on Keihan ~2h total (direct, no Shinkansen needed from your location)</strong> · in-Osaka transit ~30 min · <em>Total transit: ~5h 20min including the Shinkansen.</em> <strong>Why Keihan beats Shinkansen from Higashiyama:</strong> HAYASHI is already 10 min from Kiyomizu-Gojō Station on the Keihan Line, which runs express service direct to Osaka (Temmabashi + Yodoyabashi) in 50–55 min for ¥500–640 — no need to backtrack to Kyoto Sta. for the bullet train. Saves ~$21/person each way.</div>
+
+    <div style="margin-top:10px; font-size:0.9em;"><strong>🍜 Food for the day (Kyoto quick-stop + Osaka feast):</strong>
+      <ul style="margin:6px 0 0 0; padding-left:18px;">
+        <li><strong>Shinkansen lunch (on train, 11 AM):</strong>
+          <ul style="margin-top:4px;">
+            <li><strong><a href="https://www.google.com/maps/search/?api=1&query=Ekibenya+Matsuri+Tokyo+Station" target="_blank">Ekibenya Matsuri (Tokyo Station)</a></strong> · ★ 4.3 · takeout ekiben (train bento) · <strong>$ · ¥800–2,000 (~$5–13) /pp</strong> · 50+ ekiben options from across Japan, all in one shop on the Shinkansen concourse · grab before boarding · <a href="https://www.instagram.com/explore/search/keyword/?q=ekibenya%20matsuri" target="_blank">IG</a></li>
+          </ul>
+        </li>
+        <li><strong>Osaka dinner crawl (5–7:30 PM, Dotonbori):</strong>
+          <ul style="margin-top:4px;">
+            <li><strong><a href="https://www.google.com/maps/search/?api=1&query=Mizuno+okonomiyaki+Dotonbori" target="_blank">Mizuno Okonomiyaki</a></strong> · ★ 4.4 · sit-down · <strong>$$ · ¥2,000–3,500 (~$13–22) /pp</strong> · Michelin Bib Gourmand · classic Osaka okonomiyaki cooked at your table · <strong>book for 12 as 2 tables</strong> · <a href="https://www.instagram.com/explore/search/keyword/?q=mizuno%20okonomiyaki" target="_blank">IG</a></li>
+            <li><strong><a href="https://www.google.com/maps/search/?api=1&query=Chibo+Dotonbori+okonomiyaki" target="_blank">Chibo</a></strong> · ★ 4.0 · sit-down chain · <strong>$$ · ¥1,800–3,000 (~$11–19) /pp</strong> · large Dotonbori chain, easier reservations than Mizuno · same okonomiyaki experience · <a href="https://www.instagram.com/chibo_okonomiyaki/" target="_blank">@chibo_okonomiyaki</a></li>
+            <li><strong><a href="https://www.google.com/maps/search/?api=1&query=Takoyaki+Wanaka+Dotonbori" target="_blank">Wanaka takoyaki</a></strong> · ★ 4.4 · standing/takeout · <strong>¥600–1,000 (~$4–6) /6-pack</strong> · legendary Osaka takoyaki (octopus balls) · 2-min walk from Mizuno · always lines but moves fast · <a href="https://www.instagram.com/explore/search/keyword/?q=wanaka%20takoyaki" target="_blank">IG</a></li>
+            <li><strong><a href="https://www.google.com/maps/search/?api=1&query=551+Horai+Namba" target="_blank">551 Horai</a></strong> · ★ 4.5 · takeout counter · <strong>¥210 (~$1.30) /pork bun</strong> · Osaka's iconic butaman pork buns — buy a 4-pack to share, the smell is the city · <a href="https://www.instagram.com/551_horai_official/" target="_blank">@551_horai_official</a></li>
+            <li><strong><a href="https://www.google.com/maps/search/?api=1&query=Daruma+Dotonbori+kushikatsu" target="_blank">Daruma Kushikatsu</a></strong> · ★ 4.3 · sit-down counter · <strong>$$ · ¥2,000–3,500 (~$13–22) /pp</strong> · Dotonbori institution, fried-skewer specialist with the famous "no double-dipping" sauce rule · <a href="https://www.instagram.com/explore/search/keyword/?q=daruma%20kushikatsu" target="_blank">IG</a></li>
+          </ul>
+        </li>
+        <li><strong>Late-night Kyoto (back at HAYASHI):</strong>
+          <ul style="margin-top:4px;">
+            <li><strong>Lawson / 7-Eleven onigiri run</strong> · ★ 4.0 · takeout · <strong>¥150–300 (~$1–2)</strong> per onigiri · konbini stop on the walk back from the station for anyone still peckish</li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+
+    <div class="day-cost">Est. daily spend: ~$2,170 (Shinkansen Tokyo→Kyoto 11×$95 = $1,045 + Kyoto Sta.→HAYASHI 3 taxis ~$30 + <strong>Keihan HAYASHI↔Osaka round-trip 11×$8 = $88</strong> + in-Osaka subway transit $25 + Osaka Castle grounds free / keep 7×$4 = $28 + food (ekiben + Osaka dinner crawl) $720 + luggage forwarding $200 + buffer $34). <em>Savings vs. Shinkansen-to-Osaka routing: ~$200.</em></div>
+
+    <div style="margin-top:10px; font-size:0.88em; background:#fef9c3; padding:10px 14px; border-radius:8px; border-left:3px solid #ca8a04;"><strong>💸 Kyoto lodging 50/50 reconciliation (kicks in today since Kyoto check-in is Day 5):</strong> Combined Kyoto cost = $741.04 TOUZAN (Velasquez paid) + $884.32 SOUKAI (Kobayashi paid) = $1,625.36 · fair-share per family = $812.68. <strong>Velasquez owes Kobayashi $71.64</strong> to true up the split. Easiest to handle through Splitwise as part of the trip-end group reconciliation rather than a one-off transfer.</div>
+  </div>
+
+  <div class="day-card">
+    <div class="day-header"><span class="day-num">DAY 6</span><span class="day-date">Wednesday, July 1</span></div>
+    <div class="day-title">Classic Kyoto — Fushimi Inari Sunrise, Bamboo, Monkeys, Golden Temple</div>
+    <div class="day-activities">Early wake for <strong>Fushimi Inari at sunrise</strong> — orange torii gates in golden light with no crowds, the whole reason to do it this hour. Breakfast in central Kyoto, then Arashiyama Bamboo Grove, the Monkey Park hike, and Kinkaku-ji (Golden Temple) in the afternoon. Slow evening stroll through Gion's wooden lanes and dinner there.</div>
+
+    <div style="margin-top:10px; font-size:0.88em; background:#eef2ff; padding:10px 14px; border-radius:8px; border-left:3px solid #4338ca;"><strong>⏱️ Time-block schedule:</strong>
+      <ul style="margin:6px 0 0 0; padding-left:18px;">
+        <li><strong>5:30–6:20 AM</strong> — Early wake, konbini breakfast, HAYASHI → Fushimi Inari (Keihan direct, 10 min)</li>
+        <li><strong>6:20–8:30 AM</strong> — <strong>Fushimi Inari sunrise</strong> — torii gate tunnels to Yotsutsuji lookout (free) <em>· Lala can skip the early start</em></li>
+        <li><strong>9:00–10:00 AM</strong> — Breakfast in Higashiyama at % Arabica Kyoto</li>
+        <li><strong>10:30–11:30 AM</strong> — <strong>Arashiyama Bamboo Grove + Tenryu-ji</strong> gardens</li>
+        <li><strong>11:30 AM–12:30 PM</strong> — <strong>Monkey Park Iwatayama</strong> (20-min uphill hike; <em>Lala waits at Togetsukyo Bridge</em>)</li>
+        <li><strong>12:30–2:00 PM</strong> — Arashiyama lunch (Yudofu Sagano or Shoraian)</li>
+        <li><strong>2:45–3:45 PM</strong> — <strong>Kinkaku-ji</strong> (Golden Pavilion)</li>
+        <li><strong>4:30–6:30 PM</strong> — <strong>Gion slow walk</strong> (Hanamikoji, Yasaka Shrine, Kiyomizu-zaka, Kasagi-ya matcha)</li>
+        <li><strong>6:30–8:30 PM</strong> — <strong>Gion dinner</strong> (Gion Yata or Tempura Yasaka Endo)</li>
+        <li><strong>8:45 PM</strong> — 10-min walk home to HAYASHI</li>
+      </ul>
+    </div>
+
+    <div style="margin-top:10px; font-size:0.88em; background:#f0f7ff; padding:10px 14px; border-radius:8px; border-left:3px solid #0f3460;"><strong>🚆 Travel times Day 6 (totals):</strong> ~2h in transit across the day (HAYASHI's Higashiyama location is a win here: Fushimi is a 20-min round-trip instead of 50 min, and Gion is a 10-min walk home in the evening). Longest leg is Higashiyama → Arashiyama at 30 min by taxi. Monkey Park hike is the most physical thing all week (skippable for Lala). Bring a stroller fold-up plan for Fushimi — the gate path is paved but has stairs.</div>
+
+    <div style="margin-top:10px; font-size:0.9em;"><strong>🍜 Food for the day (Fushimi / Arashiyama / Gion):</strong>
+      <ul style="margin:6px 0 0 0; padding-left:18px;">
+        <li><strong>Fushimi area (sunrise breakfast, ~8:30 AM):</strong>
+          <ul style="margin-top:4px;">
+            <li><strong><a href="https://www.google.com/maps/search/?api=1&query=Vermillion+Cafe+Fushimi+Inari" target="_blank">Vermillion Café</a></strong> · ★ 4.2 · sit-down café · <strong>$ · ¥600–1,500 (~$4–9) /pp</strong> · proper coffee + light breakfast after the torii-gate walk · opens 7 AM weekdays · the only "real" café near Fushimi Inari · <a href="https://www.instagram.com/explore/search/keyword/?q=vermillion%20cafe%20fushimi" target="_blank">IG</a></li>
+          </ul>
+        </li>
+        <li><strong>Arashiyama lunch (12:30 PM):</strong>
+          <ul style="margin-top:4px;">
+            <li><strong><a href="https://www.google.com/maps/search/?api=1&query=Shoraian+tofu+Arashiyama" target="_blank">Shoraian</a></strong> · ★ 4.4 · sit-down kaiseki with riverside views · <strong>$$$ · ¥4,000–8,000 (~$25–50) /pp</strong> · tofu kaiseki overlooking the Hozugawa river — peak Kyoto refinement · reserve for 12 as 2 tables · <a href="https://www.instagram.com/explore/search/keyword/?q=shoraian%20arashiyama" target="_blank">IG</a></li>
+            <li><strong><a href="https://www.google.com/maps/search/?api=1&query=Yudofu+Sagano+Arashiyama" target="_blank">Yudofu Sagano</a></strong> · ★ 4.3 · sit-down · <strong>$$ · ¥3,500–5,500 (~$22–35) /pp</strong> · famous hot-tofu set meal in a quiet garden setting · easier than Shoraian for a 12-pax group · <a href="https://www.instagram.com/explore/search/keyword/?q=yudofu%20sagano" target="_blank">IG</a></li>
+            <li><strong><a href="https://www.google.com/maps/search/?api=1&query=Arabica+Coffee+Arashiyama" target="_blank">% Arabica Arashiyama</a></strong> · ★ 4.3 · takeout coffee · <strong>¥600–900 (~$4–6) /drink</strong> · the Insta-famous riverside coffee stand, line moves fast · perfect for the Bamboo Grove walk · <a href="https://www.instagram.com/arabica_kyoto/" target="_blank">@arabica_kyoto</a></li>
+            <li><strong><a href="https://www.google.com/maps/search/?api=1&query=Arinco+matcha+roll+Arashiyama" target="_blank">Arinco Kyoto</a></strong> · ★ 4.4 · takeout · <strong>¥800–1,200 (~$5–8) /slice</strong> · iconic matcha roll cake (whole rolls available too) · 2-min walk from the Bamboo Grove · <a href="https://www.instagram.com/explore/search/keyword/?q=arinco%20matcha" target="_blank">IG</a></li>
+          </ul>
+        </li>
+        <li><strong>Central Kyoto afternoon (Kiyomizu area):</strong>
+          <ul style="margin-top:4px;">
+            <li><strong><a href="https://www.google.com/maps/search/?api=1&query=Kasagi-ya+Kiyomizu+Kyoto" target="_blank">Kasagi-ya</a></strong> · ★ 4.4 · sit-down · <strong>$ · ¥800–1,500 (~$5–9) /pp</strong> · 100-year-old wagashi (Japanese sweets) house on the Sannenzaka slope · matcha + warabi mochi · <a href="https://www.instagram.com/explore/search/keyword/?q=kasagiya%20kyoto" target="_blank">IG</a></li>
+          </ul>
+        </li>
+        <li><strong>Dinner in Gion (6:30 PM):</strong>
+          <ul style="margin-top:4px;">
+            <li><strong><a href="https://www.google.com/maps/search/?api=1&query=Gion+Yata+izakaya+Kyoto" target="_blank">Gion Yata</a></strong> · ★ 4.2 · sit-down izakaya · <strong>$$ · ¥3,500–6,000 (~$22–38) /pp</strong> with drinks · classic Kyoto izakaya tucked off Hanamikoji · group-friendly · <a href="https://www.instagram.com/explore/search/keyword/?q=gion%20yata" target="_blank">IG</a></li>
+            <li><strong><a href="https://www.google.com/maps/search/?api=1&query=Tempura+Yasaka+Endo+Gion" target="_blank">Tempura Yasaka Endo</a></strong> · ★ 4.4 · sit-down counter · <strong>$$$$ · ¥10,000–18,000 (~$63–113) /pp</strong> · Michelin-starred tempura omakase · bigger spend, better experience · reserve well in advance · <a href="https://www.instagram.com/explore/search/keyword/?q=tempura%20yasaka%20endo" target="_blank">IG</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+
+    <div class="day-cost">Est. daily spend: ~$900 (Keihan to Fushimi 11×$1.50 = $17 + Higashiyama→Arashiyama 3 taxis $70 + Arashiyama→Kinkaku-ji bus 11×$1.60 = $18 + Kinkaku-ji→Gion 3 taxis $50 + Fushimi Inari free + Tenryu-ji 11×$3.50 = $39 + Monkey Park 11×$6 = $66 + Kinkaku-ji 11×$5 = $55 + food $650 – buffer savings $65). <em>Proximity to Gion + Keihan direct to Fushimi saves ~$50 vs. the Nakagyo baseline.</em></div>
+  </div>
+
+  <div class="day-card">
+    <div class="day-header"><span class="day-num">DAY 7</span><span class="day-date">Thursday, July 2</span></div>
+    <div class="day-title">Return to Tokyo — teamLab Planets & Farewell Dinner</div>
+    <div class="day-activities">Morning Shinkansen Kyoto → Tokyo. Drop bags at the Tokyo hotel (or use station coin lockers if too early for check-in). Lunch. Afternoon: <strong>teamLab Planets Toyosu</strong> — immersive digital art, walk barefoot through water and light rooms. Evening: farewell group dinner in Asakusa.</div>
+
+    <div style="margin-top:10px; font-size:0.88em; background:#eef2ff; padding:10px 14px; border-radius:8px; border-left:3px solid #4338ca;"><strong>⏱️ Time-block schedule:</strong>
+      <ul style="margin:6px 0 0 0; padding-left:18px;">
+        <li><strong>7:30–8:45 AM</strong> — Wake, pack, HAYASHI check-out, 3 taxis to Kyoto Sta.</li>
+        <li><strong>9:00–11:40 AM</strong> — <strong>Shinkansen Kyoto → Tokyo</strong> (~2h 40min · breakfast ekiben on board)</li>
+        <li><strong>11:40 AM–12:30 PM</strong> — Tokyo Sta. → <strong>Richmond Hotel Asakusa (BOTH families now)</strong> via JR Yamanote → Ueno (8 min) + Ginza Line Ueno → Asakusa (4 min) + 5-min walk, ~25 min total. Drop daypacks at the front desk (rooms might not be ready until 2 PM check-in), regroup for lunch.</li>
+        <li><strong>12:30–1:30 PM</strong> — Lunch near hotel (Sushiro or Uobei)</li>
+        <li><strong>2:30–4:30 PM</strong> — <strong>teamLab Planets Toyosu</strong> (~2 hrs inside: water rooms, garden, infinite crystal)</li>
+        <li><strong>5:15–6:00 PM</strong> — Back to Asakusa · final Nakamise + Suzukien matcha gelato stop</li>
+        <li><strong>6:00–8:30 PM</strong> — <strong>Farewell dinner</strong> (Sometaro okonomiyaki or Asakusa Imahan sukiyaki)</li>
+        <li><strong>9:00 PM</strong> — Back to Richmond Hotel Asakusa (both families now in the same hotel), pack for 9:30 AM Day 8 departure</li>
+      </ul>
+    </div>
+
+    <div style="margin-top:10px; font-size:0.88em; background:#f0f7ff; padding:10px 14px; border-radius:8px; border-left:3px solid #0f3460;"><strong>🚆 Travel times Day 7 (totals):</strong> ~4h 20min in transit across the day (HAYASHI → Kyoto Sta. 12 min by taxi · Shinkansen Kyoto → Tokyo 2h 40min · Tokyo Sta. → APA Ueno 11 min · APA → teamLab 35 min · teamLab → Asakusa 40 min · Asakusa → APA 20 min). Shinkansen is the bulk.</div>
+
+    <div style="margin-top:10px; font-size:0.88em; background:#fef9c3; padding:12px 16px; border-radius:8px; border-left:3px solid #ca8a04;">
+      <strong>🧳 Luggage strategy for Day 7 — ESSENTIAL: Yamato everything from HAYASHI to Richmond Asakusa</strong>
+      <p style="margin:8px 0 4px 0;">Same playbook as Day 5, in reverse. <strong>~12 suitcases moving Kyoto → Tokyo.</strong> Without Yamato you'd be dragging bags from HAYASHI through Higashiyama streets + 3 taxis + Kyoto Sta. + Shinkansen + Tokyo Sta. + JR Yamanote + Ginza Line + 5-min walk to Richmond. With teamLab Planets at 2:30 PM you'd also be lugging suitcases to the museum or paying for big station coin lockers. Just Yamato.</p>
+      <p style="margin:8px 0 4px 0;"><strong>The plan:</strong></p>
+      <ul style="margin:0; padding-left:22px;">
+        <li><strong>Wed evening (Day 6 night):</strong> message host Miki to confirm Yamato pickup Thursday morning ~9 AM at HAYASHI. Have the Richmond Asakusa address ready: <em>2-6-7 Asakusa, Taitō-ku, Tokyo 111-0032</em>. The Velasquez and Kobayashi families will need to make sure their bags are tagged for the right Richmond rooms (Velasquez Premier View Triple + Precious Moderate Double, Kobayashi Room 1 — front desk will hold them at check-in).</li>
+        <li><strong>Thursday 8 AM (Day 7 morning):</strong> pack and tag all 12 bags at HAYASHI. Keep day-of essentials in backpacks (passport, change of clothes, toiletries, Lala's meds, Kai's gear, anything for teamLab — note Planets is barefoot and water-room-friendly so easy clothes are best).</li>
+        <li><strong>~9 AM:</strong> Yamato courier picks up. ~$160–190 total, split 50/50 = <strong>$80–95/family</strong>.</li>
+        <li><strong>You travel</strong> with backpacks only — Shinkansen is comfortable, Richmond drop-off is a 5-min walk from Asakusa Station with no luggage hauling, teamLab is easy.</li>
+        <li><strong>Bags arrive at Richmond by ~6 PM Thu</strong> — they'll be at the front desk waiting when you check in. The hotel will deliver to your specific rooms when ready.</li>
+      </ul>
+      <p style="margin:8px 0 0 0;"><strong>Shinkansen oversized-luggage rule reminder (Tokaido line):</strong> bags with L+W+H ≥ 160 cm require reserved oversized-baggage seats; non-compliance = ¥1,000 penalty per bag. Yamato sidesteps this entirely.</p>
+    </div>
+
+    <div style="margin-top:10px; font-size:0.9em;"><strong>🎨 teamLab Planets tickets:</strong> <a href="https://planets.teamlab.art/tokyo/" target="_blank"><strong>planets.teamlab.art/tokyo</strong></a> · ~¥3,800/adult (~$25) · <strong>book weeks ahead — sells out fast</strong> · afternoon slot around 2 PM ideal. Baby carrier recommended (water sections are knee-deep, stroller-unfriendly). Allow ~2 hours inside.</div>
+
+    <div style="margin-top:10px; font-size:0.9em;"><strong>🍜 Food for the day (Tokyo return / farewell):</strong>
+      <ul style="margin:6px 0 0 0; padding-left:18px;">
+        <li><strong>Lunch (12:30 PM, Asakusa near Richmond):</strong>
+          <ul style="margin-top:4px;">
+            <li><strong><a href="https://www.google.com/maps/search/?api=1&query=Sushiro+Asakusa" target="_blank">Sushiro Asakusa</a></strong> · ★ 3.8 · sit-down conveyor · <strong>$ · ¥1,500–2,500 (~$9–16) /pp</strong> · cheapest decent sushi for a tired group · <a href="https://www.instagram.com/sushiro_official/" target="_blank">@sushiro_official</a></li>
+            <li><strong><a href="https://www.google.com/maps/search/?api=1&query=Uobei+Sushi+Shibuya+Dogenzaka" target="_blank">Uobei</a></strong> (Shibuya — only if you happen to detour) · ★ 3.9 · sit-down touchscreen · <strong>$ · ¥1,000–1,800 (~$6–11) /pp</strong> · ¥110 (~$0.70) per plate, mini-train delivery, kids love it · <a href="https://www.instagram.com/explore/search/keyword/?q=uobei%20sushi" target="_blank">IG</a></li>
+          </ul>
+        </li>
+        <li><strong>Farewell dinner in Asakusa (6:00 PM):</strong>
+          <ul style="margin-top:4px;">
+            <li><strong><a href="https://www.google.com/maps/search/?api=1&query=Sometaro+Asakusa+okonomiyaki" target="_blank">Sometaro</a></strong> · ★ 4.3 · sit-down on tatami · <strong>$ · ¥1,500–2,500 (~$9–16) /pp</strong> · 100-year-old okonomiyaki, cook-at-table, perfect last-night vibe · works for 12 in a private tatami room (call ahead) · <a href="https://www.instagram.com/explore/search/keyword/?q=sometaro%20asakusa" target="_blank">IG</a></li>
+            <li><strong><a href="https://www.google.com/maps/search/?api=1&query=Asakusa+Sushiken" target="_blank">Asakusa Sushiken</a></strong> · ★ 4.2 · sit-down · <strong>$$ · ¥3,500–6,000 (~$22–38) /pp</strong> · Asakusa neighborhood sushi-ya, can do a sushi spread for 12 · <a href="https://www.instagram.com/explore/search/keyword/?q=asakusa%20sushiken" target="_blank">IG</a></li>
+            <li><strong><a href="https://www.google.com/maps/search/?api=1&query=Asakusa+Yoroiya+ramen" target="_blank">Asakusa Yoroiya</a></strong> · ★ 4.3 · sit-down counter · <strong>$ · ¥1,200–1,800 (~$8–11) /pp</strong> · rich tonkotsu ramen institution near Sensō-ji · cleaner than the line at Ichiran · <a href="https://www.instagram.com/explore/search/keyword/?q=asakusa%20yoroiya" target="_blank">IG</a></li>
+            <li><strong><a href="https://www.google.com/maps/search/?api=1&query=Gyukatsu+Motomura+Asakusa" target="_blank">Gyūkatsu Motomura Asakusa</a></strong> · ★ 4.4 · sit-down counter · <strong>$$ · ¥2,500–3,500 (~$16–22) /pp</strong> · breaded beef cutlet you finish-cook on a hot stone at the table · cult favorite, kids find it fun · <a href="https://www.instagram.com/gyukatsu_motomura/" target="_blank">@gyukatsu_motomura</a></li>
+          </ul>
+        </li>
+        <li><strong>After-dinner:</strong>
+          <ul style="margin-top:4px;">
+            <li><strong><a href="https://www.google.com/maps/search/?api=1&query=Suzukien+Asakusa+matcha+gelato" target="_blank">Suzukien Asakusa</a></strong> · ★ 4.6 · takeout / standing · <strong>¥600–1,200 (~$4–8) /scoop</strong> · world's strongest matcha gelato (level 7 is intense) — bucket-list dessert · <a href="https://www.instagram.com/suzukien_nanaya/" target="_blank">@suzukien_nanaya</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+
+    <div style="margin-top:10px; font-size:0.88em; background:#fffbe6; padding:10px 14px; border-radius:8px; border-left:3px solid #d97706;"><strong>🎬 Optional detours + upscale farewell alternatives:</strong>
+      <ul style="margin:6px 0 0 0; padding-left:18px;">
+        <li><strong>ANDRA (Ueno · smash burger)</strong> — easy <strong>lunch alternative</strong> to Sushiro. <strong>Travel cost: ~5 min from Richmond Asakusa</strong> (Ginza Line Asakusa → Ueno 4 min + 4-min walk). Reid + Raiden would love it.</li>
+        <li><strong>Benizuru (Asakusa · soufflé pancakes)</strong> — morning-only ticket system; only a Day 8 breakfast option, not a Day 7 fit.</li>
+      </ul>
+    </div>
+
+    <div style="margin-top:10px; font-size:0.88em; background:#ecfeff; padding:10px 14px; border-radius:8px; border-left:3px solid #0891b2;"><strong>💆‍♀️ Optional add: Japanese head spa / scalp massage (Day 7 late morning):</strong> The big trending Tokyo wellness experience — viral on TikTok, properly therapeutic. The Velasquez Shinkansen lands Tokyo Station 11:40 AM and teamLab isn't until 2:30 PM, leaving a ~3-hour gap that's the only realistic slot all trip for this. Plan: 2–4 adults (or anyone who wants — Lala would love it, Ella might) peel off at Tokyo Station for a 60-min head spa nearby, while the rest takes bags to Richmond and grabs lunch. Reconvene at Richmond by 1:30 PM, all to teamLab 2:30 PM.
+      <ul style="margin:8px 0 0 0; padding-left:18px;">
+        <li><strong><a href="https://www.uka.co.jp/en/" target="_blank">Uka — Marunouchi or GINZA SIX</a></strong> · ★ 4.5 · sit-down spa · <strong>$$$ · ¥12,000–18,000 (~$75–113) /pp</strong> · 60-min Head Spa course ¥12,000 (~$75) · 90-min full course w/ shampoo + blow ¥18,000 (~$113) · 5–10 min from Tokyo Sta. · easy English booking · book 1–2 weeks ahead · <a href="https://www.instagram.com/uka_official/" target="_blank">@uka_official</a></li>
+        <li><strong><a href="https://en.hayatosalons.com/page/japan-headspa/" target="_blank">Hayato Salons (Ginza)</a></strong> · ★ 4.4 · sit-down spa · <strong>$$$ · ¥10,000–15,000 (~$63–94) /pp</strong> · 5-min walk from Tokyo Sta. · well-known to English-speaking visitors · easy English booking · <a href="https://www.instagram.com/explore/search/keyword/?q=hayato%20salons" target="_blank">IG</a></li>
+        <li><strong><a href="https://www.headspatokyo.com/" target="_blank">The Head Spa Tokyo</a></strong> (Roppongi/Akasaka, ~15 min from Tokyo Sta.) · ★ 4.6 · boutique spa · <strong>$$$ · ¥12,000–18,000 (~$75–113) /pp</strong> · foreigner-focused, often featured in travel guides · <a href="https://www.instagram.com/explore/search/keyword/?q=the%20head%20spa%20tokyo" target="_blank">IG</a></li>
+        <li><strong><a href="https://asmrtwixtokyoheadspa.com/" target="_blank">ASMR Twix Tokyo Head Spa</a></strong> · ★ 4.7 · sit-down spa · <strong>$$$$ · ¥18,000–25,000 (~$113–157) /pp</strong> · the TikTok-viral one with the dramatic ASMR videos · Shibuya + Asakusa locations · pricier but high-production · <a href="https://www.instagram.com/asmrtwix/" target="_blank">@asmrtwix</a></li>
+        <li><em>Tactical:</em> book 1–2 weeks ahead · most places require credit card to hold · 60 min is "essence," 90 min adds shampoo/treatment so you walk out with great hair · works as a 2-couple split (Ryan+Aileen, then Darren+Rona) so each pair gets a quiet hour while the other handles kid logistics. <strong>For Lala</strong>, call ahead to flag mobility — chairs recline flat but stairs into Japanese salon buildings are common.</li>
+        <li><em>Schedule shift if you do this:</em> non-spa adults handle bag drop at Richmond by ~12:00 PM, lunch pushed to 1:00–1:30 PM, head-spa adults arrive at Richmond ~1:00 PM via Ginza Line. teamLab 2:30 PM unaffected.</li>
+      </ul>
+    </div>
+
+    <div style="margin-top:10px; font-size:0.88em; background:#f3e8ff; padding:10px 14px; border-radius:8px; border-left:3px solid #7c3aed;"><strong>🥂 Upscale farewell dinner alternatives (instead of Asakusa casual):</strong>
+      <ul style="margin:6px 0 0 0; padding-left:18px;">
+        <li><strong><a href="https://www.thejaderoomgardenterrace.com/en/" target="_blank">The Jade Room + Garden Terrace</a></strong> — Tokyo EDITION Toranomon, 31F · ★ 4.4 · sit-down (private dining for 12) · <strong>$$$ · ¥15,000–25,000 (~$94–157) /pp</strong> · signature restaurant by Michelin-starred chef Tom Aikens with Tokyo Tower views · ~25 min from Richmond Asakusa (Ginza Line direct to Toranomon Hills) · <strong>Open Wed–Sun (good for Day 7 Thu ✓)</strong> · book 3–4 weeks ahead via the website or +81 3 5422 1630 · <a href="https://www.instagram.com/thejaderoomgardenterrace/" target="_blank">@thejaderoomgardenterrace</a></li>
+        <li><strong><a href="https://www.peninsula.com/en/tokyo/hotel-fine-dining/peter-modern-french" target="_blank">Peter — The Peninsula Tokyo</a></strong> · ★ 4.5 · sit-down (private/semi-private seating possible) · <strong>$$$$ · ¥18,000–30,000 (~$113–189) /pp</strong> · 24F modern French grill with Imperial Palace views · ~30 min from Richmond (Ginza Line → Hibiya 20 min + walk) · steaks + wagyu · contact Peninsula's event team for the 12-pax booking · <a href="https://www.instagram.com/peninsulatokyo/" target="_blank">@peninsulatokyo</a></li>
+        <li><strong><a href="https://www.est-tokyo.com/" target="_blank">est at Four Seasons Otemachi</a></strong> · ★ 4.7 · Michelin 1⭐ · La Liste 2026 score 94.50 · sit-down fine dining tasting menu · <strong>$$$$$ · ¥29,000+ (~$183+) /pp</strong> · <em>Not recommended for the full group of 12</em> — they rarely seat large parties and the pace doesn't suit baby Kai or Ella · <strong>Better as an adults-only 2–4 person sub-group splurge on a different day</strong> · <a href="https://www.instagram.com/est_tokyo/" target="_blank">@est_tokyo</a></li>
+        <li><em>Quick cost comparison for the group of 11 (Kai eats off parents):</em> Asakusa casual ~¥105,000 (~$660) · Jade Room ~¥175,000–280,000 (~$1,100–1,760) · Peter Peninsula ~¥200,000–330,000 (~$1,265–2,090). The casual Asakusa farewell is still the cheapest and most relaxed option for a tired last night; <strong>Jade Room is the sweet spot</strong> if you want a memorable final-night dinner with views.</li>
+      </ul>
+    </div>
+
+    <div style="margin-top:10px; font-size:0.88em; background:#e0f2fe; padding:10px 14px; border-radius:8px; border-left:3px solid #0369a1;"><strong>🍸 Adults-only nightcap after farewell dinner (Ryan, Aileen, Darren, Rona — while teens + Kai + Lala head to hotel):</strong> drop the kid-set at the hotel around 9 PM, then 4 adults out for one last rooftop-view cocktail. All bars below are 21+ friendly (<em>Japan's legal drinking age is 20 — Reid at 19 would need to stay back or order mocktails</em>).
+      <ul style="margin:6px 0 0 0; padding-left:18px;">
+        <li><strong><a href="https://www.thejaderoomgardenterrace.com/en/" target="_blank">Jade Room's Garden Terrace</a></strong> · ★ 4.4 · open-air rooftop bar (same venue as the dinner) · <strong>$$ · ¥2,000–2,800 (~$13–18) /cocktail</strong> · 31F, Tokyo Tower views, bamboo oaks + potted-garden setting · open till 11 PM Wed–Sun · <strong>zero travel if you dined here</strong> · <a href="https://www.instagram.com/thejaderoomgardenterrace/" target="_blank">@thejaderoomgardenterrace</a></li>
+        <li><strong><a href="https://www.hyatt.com/andaz/en-US/tyoaz-andaz-tokyo-toranomon-hills/dining/rooftop-bar" target="_blank">Andaz Tokyo Rooftop Bar (Recommended)</a></strong> · ★ 4.5 · semi-open-air rooftop · <strong>$$$ · ¥2,500–3,500 (~$16–22) /cocktail</strong> · 52F, 360° panoramic views over Tokyo Bay, Tokyo Tower, and the Rainbow Bridge · widely considered Tokyo's best view bar · matcha + yuzu signatures · 5-min walk from Tokyo EDITION Toranomon if you're at Jade Room · ~30 min from Richmond (Ginza Line direct to Toranomon Hills) · open till 11:30 PM · <a href="https://www.instagram.com/andaztokyo/" target="_blank">@andaztokyo</a></li>
+        <li><strong><a href="https://www.peninsula.com/en/tokyo/hotel-fine-dining/peter-hotel-bar" target="_blank">Peter: The Bar (Peninsula Tokyo)</a></strong> · ★ 4.4 · sit-down sleek hotel bar · <strong>$$$ · ¥2,200–3,000 (~$14–19) /cocktail</strong> · same 24F as the restaurant, separate bar room · Imperial Palace + Hibiya Park + Ginza skyline · 2,000+ drinks on the menu incl. rare whiskies · open till midnight · <strong>If you dined at Peter, just walk over</strong> · <a href="https://www.instagram.com/peninsulatokyo/" target="_blank">@peninsulatokyo</a></li>
+        <li><strong><a href="https://www.hyatt.com/park-hyatt/en-US/tyoph-park-hyatt-tokyo/dining/new-york-bar" target="_blank">New York Bar — Park Hyatt Shinjuku</a></strong> · ★ 4.6 · sit-down legendary hotel bar · <strong>$$$$ · ¥6,100–7,100 (~$38–45) /pp</strong> incl. ¥3,300 (~$21) cover after 8 PM + ¥2,800–3,800 (~$18–24) /cocktail · 52F panoramic Shinjuku skyline · live jazz nightly · the iconic "Lost in Translation" bar · ~40 min from Richmond (Ginza Line → JR/Marunouchi Line to Shinjuku + 10-min walk) · open till midnight weekdays, 1 AM Sat · <strong>smart-casual dress code enforced</strong> · <a href="https://www.instagram.com/parkhyatttokyo/" target="_blank">@parkhyatttokyo</a></li>
+        <li><em>My pick for your night:</em> <strong>if you're already at Jade Room for dinner, just stay on the Garden Terrace</strong> (zero friction, same venue). <strong>If you want the legendary Tokyo view experience, walk 5 min to Andaz.</strong> Plan to head back to Richmond by 11:30 PM to be fresh for the 9:30 AM Day 8 departure. Estimated tab for 4 adults: $80–120 (Jade Terrace / Andaz) or $150–200 (Peter / New York Bar).</li>
+      </ul>
+    </div>
+
+    <div class="day-cost">Est. daily spend: ~$2,035 (Shinkansen 11×$95 = $1,045 + teamLab 11×$25 = $275 + transit $55 + farewell dinner $660)</div>
+  </div>
+
+  <div class="day-card">
+    <div class="day-header"><span class="day-num">DAY 8</span><span class="day-date">Friday, July 3</span></div>
+    <div class="day-title">Easy Morning → Departure (Tsukiji Optional)</div>
+    <div class="day-activities">Sleep in. Tsukiji already done on Day 3, so this morning is about packing slowly, a konbini or Pelican Café toast breakfast, last-minute omiyage, and a low-stress ride to Narita. <strong>Target: leave the hotel by 9:30 AM.</strong> Anyone who wants a second Tsukiji visit can head over at 6 AM (optional early risers' plan below).</div>
+
+    <div style="margin-top:10px; font-size:0.88em; background:#eef2ff; padding:10px 14px; border-radius:8px; border-left:3px solid #4338ca;"><strong>⏱️ Time-block schedule — both families together from Richmond:</strong>
+      <ul style="margin:6px 0 0 0; padding-left:18px;">
+        <li><strong>7:30–8:30 AM</strong> — Wake, <strong>included Richmond breakfast buffet</strong> (80+ Japanese + Western options) · final pack</li>
+        <li><strong>8:30–9:20 AM</strong> — Check out, get all 12 + luggage assembled in lobby (this takes time, build buffer)</li>
+        <li><strong>9:20–9:30 AM</strong> — Richmond → Asakusa Station (~7-min walk with luggage; consider 2-3 cabs from the hotel for the heaviest bags + Lala)</li>
+        <li><strong>9:50–10:57 AM</strong> — <strong>Keisei Access Express Asakusa → Narita Airport Terminal 1</strong> (direct, ~67 min, ¥1,310/pp · one-seat ride, no transfers · 12 reserved seats)</li>
+        <li><strong>11:00 AM–1:30 PM</strong> — ZIPAIR check-in + bag drop (closes 13:35), security, immigration exit, airport lunch, last omiyage run at Royce' / Tatsu Sushi / Yoshinoya</li>
+        <li><strong>1:30–1:55 PM</strong> — Walk to gate, settle in</li>
+        <li><strong>1:55 PM</strong> — Boarding begins</li>
+        <li><strong>2:35 PM</strong> — <strong>ZG024 departs Narita</strong> · 🛬 arrive LAX 8:55 AM same day</li>
+      </ul>
+    </div>
+
+    <div style="margin-top:10px; font-size:0.88em; background:#f0f7ff; padding:10px 14px; border-radius:8px; border-left:3px solid #0f3460;"><strong>🚆 Travel times Day 8 (totals — single unified route now):</strong> <strong>Both families ~1h 15min hotel-to-airport door-to-door</strong> (Richmond Asakusa → Asakusa Sta. 7-min walk + Keisei Access Express 67 min direct), ¥1,310/pp. <strong>Group lands Narita ~10:57 AM</strong>, leaving ~3h buffer before 1:55 PM boarding. Total Day 8 transit cost: 12 × $9 = <strong>$108</strong> (vs $215 if everyone took the Skyliner instead — Access Express saves ~$107 group-wide, no transfers, simpler with luggage and a baby).</div>
+
+    <div style="margin-top:10px; font-size:0.88em; background:#fef9c3; padding:12px 16px; border-radius:8px; border-left:3px solid #ca8a04;">
+      <strong>🧳 Luggage strategy for Day 8 — your call: carry on the Access Express OR Yamato to Narita</strong>
+      <p style="margin:8px 0 4px 0;"><strong>Option A — Carry your bags on the Access Express (default, no extra cost):</strong> The Access Express is a one-train direct ride to the airport with reserved seats and modest luggage racks at the ends of the car. With 12 people in coordinated seats and bags at the car ends, this is doable (more comfortable than the Shinkansen because no car-change penalty, no oversized-luggage rule). The 7-min walk from Richmond to Asakusa Sta. is the only luggage-dragging moment. <strong>If you take 2–3 cabs from the hotel to Asakusa Station for the heaviest bags + Lala (~¥1,500 / $10 per cab)</strong>, you eliminate even that. Best for cost.</p>
+      <p style="margin:8px 0 4px 0;"><strong>Option B — Yamato Hands-Free Travel to Narita Airport (~$160–190 for 12 bags, split 50/50 = $80–95/family):</strong> Yamato will deliver your bags to Narita Airport's checked-baggage area for you. <strong>Catch:</strong> requires bags to be dropped at least <strong>2 days before departure</strong> for Tokyo→Narita transfers. So you'd need to drop bags at the Richmond front desk on <strong>Wed Jul 1 evening</strong> after Day 6 returns (you'd be in Kyoto Wed evening — doesn't work) OR ship from HAYASHI Kyoto on Wed morning straight to Narita (skipping Richmond entirely for those bags). Realistically: <strong>this option doesn't fit cleanly with your itinerary</strong> because of the Kyoto→Tokyo→Narita timeline. Skip unless you really hate dragging bags.</p>
+      <p style="margin:8px 0 0 0;"><strong>My recommendation: Option A + 2 cabs from Richmond to Asakusa Station.</strong> Cheap, simple, no Yamato timing puzzle. Total: ~$20 for cabs + the standard $108 Access Express fare. Done.</p>
+    </div>
+
+    <div style="margin-top:10px; font-size:0.88em; background:#fff3e0; padding:10px 14px; border-radius:8px; border-left:3px solid #e94560;"><strong>🍣 OPTIONAL early-riser Tsukiji re-visit:</strong> For anyone who loved Tsukiji on Day 3 and wants one more sushi breakfast before the flight — wake at 5:30 AM, leave hotel at 6:00, arrive Tsukiji 6:30, eat/shop until 8:15, back at hotel 8:45 to pack, leave with the group at 9:30 AM. Skip if anyone is tired — nobody has to go. This is also a great moment for final stall shopping at <a href="https://www.google.com/maps/search/?api=1&query=Aritsugu+Tsukiji+knives" target="_blank"><strong>Aritsugu</strong></a> (knives) or <a href="https://www.google.com/maps/search/?api=1&query=Marutake+Tsukiji+strawberry+daifuku" target="_blank"><strong>Marutake</strong></a> (strawberry daifuku for the plane).</div>
+
+    <div style="margin-top:10px; font-size:0.9em;"><strong>🍞 Breakfast + Narita airport food:</strong>
+      <ul style="margin:6px 0 0 0; padding-left:18px;">
+        <li><strong>Breakfast near Richmond Asakusa</strong> (if you skip the included buffet):
+          <ul style="margin-top:4px;">
+            <li><strong><a href="https://www.google.com/maps/search/?api=1&query=Pelican+Cafe+Asakusa" target="_blank">Pelican Café Asakusa</a></strong> · ★ 4.4 · sit-down (small, lines fast) · <strong>$ · ¥800–1,400 (~$5–9) /pp</strong> · iconic toast institution from a 1942 bakery — thick fluffy bread, butter, served with coffee · expect a 20-30 min wait · <a href="https://www.instagram.com/explore/search/keyword/?q=pelican%20cafe%20asakusa" target="_blank">IG</a></li>
+            <li><strong>7-Eleven / Lawson / FamilyMart</strong> · ★ 4.0 · takeout (24-hour) · <strong>¥150–500 (~$1–3) /item</strong> · onigiri, egg sandwiches, hot coffee — fastest grab-and-go · pick whichever's closest to the hotel · <a href="https://www.instagram.com/711sej/" target="_blank">@711sej</a></li>
+          </ul>
+        </li>
+        <li><strong>Narita Airport pre-security (Terminal 1):</strong>
+          <ul style="margin-top:4px;">
+            <li><strong><a href="https://www.google.com/maps/search/?api=1&query=Tatsu+Sushi+Narita+Airport+Terminal+1" target="_blank">Tatsu Sushi</a></strong> · ★ 4.1 · sit-down counter · <strong>$$ · ¥2,500–4,500 (~$16–28) /pp</strong> · last-chance airport sushi — surprisingly good for an airport · <a href="https://www.instagram.com/explore/search/keyword/?q=tatsu%20sushi%20narita" target="_blank">IG</a></li>
+            <li><strong><a href="https://www.google.com/maps/search/?api=1&query=Yoshinoya+Narita+Airport" target="_blank">Yoshinoya</a></strong> · ★ 3.8 · counter · <strong>$ · ¥600–1,000 (~$4–6) /pp</strong> · cheap fast gyudon (beef rice bowl) — last "real Japanese fast food" · <a href="https://www.instagram.com/yoshinoyajapan/" target="_blank">@yoshinoyajapan</a></li>
+            <li><strong><a href="https://www.google.com/maps/search/?api=1&query=Royce+Chocolate+Narita+Airport" target="_blank">Royce' Chocolate</a></strong> · ★ 4.5 · takeout shop · <strong>¥800–3,000 (~$5–19) /box</strong> · Hokkaido chocolate institution · last-minute omiyage gift boxes (Nama chocolate, Pure chocolate) · <a href="https://www.instagram.com/royce_official/" target="_blank">@royce_official</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+
+    <div style="margin-top:10px; font-size:0.88em; background:#fffbe6; padding:10px 14px; border-radius:8px; border-left:3px solid #d97706;"><strong>🎬 Optional viral-reel detour — Benizuru soufflé pancakes (Asakusa):</strong> If the Velasquez crew at <strong>Richmond Asakusa</strong> wants a final Instagram-worthy breakfast, <strong>Benizuru is a 5-min walk from the hotel</strong>. <strong>Important:</strong> Benizuru uses a morning-ticket system — you grab a time slot around 8 AM and pay a ¥1,000 (~$6) cash deposit per person that goes toward your bill. Pancake itself runs ¥2,000–2,400 (~$13–15). <strong>Time risk:</strong> time slots can run 30–90 min later than you arrive, so only do this if you're at the hotel door by 7:30 AM and okay with eating at 8:30–9:00 AM. Otherwise Pelican Café or konbini is faster.</div>
+
+    <div class="day-cost">Est. daily spend: ~$240 (<strong>Keisei Access Express 12×$9 = $108</strong> + breakfast included at Richmond for both families ✓ <em>(saves the line item entirely)</em> + last souvenir run ~$110 + luggage carts/tips ~$22). <em>Both families now end the trip at Richmond with included breakfast — saves ~$80 vs the prior split-route plan. Cost split: Velasquez ~$100, Kobayashi+Lala ~$140 (both rides Access Express, neither uses Skyliner anymore).</em></div>
+  </div>
+</div>
+
+<!-- ACTIVITIES & ATTRACTIONS SUMMARY -->
+<div class="section">
+  <h2><span class="icon">🎯</span> Activities & Attractions (v3 Updated)</h2>
+  <p class="lead">All bookable / ticketed activities at a glance, reflecting the v3 itinerary (Raiden out of Street Kart, Osaka half-day added on Day 5, Fushimi Inari moved to Day 6 sunrise).</p>
+  <table>
+    <thead>
+      <tr><th>Attraction</th><th>Day</th><th>Notes</th><th>Cost (group of 11 + baby)</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="label-cell">Sensō-ji Temple</td><td>Day 1</td><td>Evening walk, beautiful at night, free</td><td>Free</td></tr>
+      <tr><td class="label-cell">Akihabara &amp; Nakano Broadway</td><td>Day 2</td><td>Arcades, anime shops, maid café</td><td>~$200 fun budget</td></tr>
+      <tr><td class="label-cell"><strong>Street Kart Asakusa</strong> (go-kart tour)</td><td>Day 2</td><td>4 PM slot · <strong>5 drivers</strong> (Ryan, Aileen, Reid, Darren, Rona) · <a href="https://kart.st/asakusa.html" target="_blank">kart.st/asakusa.html</a> · IDP required · <strong>18+ only — Raiden (16) goes to Hanayashiki instead</strong></td><td>$170 (5 × $34)</td></tr>
+      <tr><td class="label-cell">Hanayashiki Amusement Park</td><td>Day 2</td><td>Raiden + MB + Izzy + Sabrina + Ella + baby Kai + Lala · <a href="https://www.hanayashiki.net/en" target="_blank">hanayashiki.net</a> · Lala senior discount ¥600</td><td>~$120</td></tr>
+      <tr><td class="label-cell">Tsukiji Outer Market</td><td>Day 3</td><td>Sushi breakfast + stall walk, 8–10 AM</td><td>~$330 food</td></tr>
+      <tr><td class="label-cell">Meiji Shrine + Harajuku</td><td>Day 3</td><td>Walking, free shrine + Takeshita Street</td><td>Free</td></tr>
+      <tr><td class="label-cell">Shibuya Sky observation deck</td><td>Day 3</td><td>Sunset slot 4:00 PM · book online</td><td>$198 (11 × $18)</td></tr>
+      <tr><td class="label-cell"><strong>Tokyo DisneySea</strong> <em>(swapped from Disneyland)</em></td><td>Day 4</td><td>Weekday ticket ~$75 · the unique-to-Tokyo nautical park with <strong>Fantasy Springs</strong> (Frozen / Tangled / Peter Pan, opened 2024)</td><td>$825 (11 × $75)</td></tr>
+      <tr><td class="label-cell">Fantasy Springs Premier Access <em>(NEW)</em></td><td>Day 4</td><td>Essential for the 3 Fantasy Springs rides · book in the Disney app at 9 AM park open · Frozen ¥4,500, Peter Pan ¥2,000, Rapunzel ¥2,000</td><td>~$180 (11 ppl × 3 rides)</td></tr>
+      <tr><td class="label-cell"><strong>Osaka Castle + Dotonbori</strong></td><td>Day 5</td><td>Half-day after Kyoto arrival · <strong>Keihan Main Line direct from HAYASHI Higashiyama → Osaka Temmabashi ~52 min</strong> (no Kyoto Sta. detour needed) · castle grounds free, keep entry ¥600</td><td>$28 keep + $88 Keihan round-trip (11×$8) — saves ~$200 vs Shinkansen</td></tr>
+      <tr><td class="label-cell"><strong>Fushimi Inari Taisha</strong></td><td>Day 6</td><td>6:20 AM arrival · <strong>Keihan Main Line direct from Kiyomizu-Gojō → Fushimi-Inari ~10 min</strong> · walk to Yotsutsuji lookout · iconic torii gates, free</td><td>Free (Keihan ¥220/pp)</td></tr>
+      <tr><td class="label-cell">Arashiyama Bamboo Grove + Tenryu-ji</td><td>Day 6</td><td>10:30 AM window · Tenryu-ji garden ticket ¥500</td><td>$39</td></tr>
+      <tr><td class="label-cell">Monkey Park Iwatayama</td><td>Day 6</td><td>20-min uphill hike · skip for Lala</td><td>$66 (11 × $6)</td></tr>
+      <tr><td class="label-cell">Kinkaku-ji (Golden Pavilion)</td><td>Day 6</td><td>Afternoon · ¥500/adult</td><td>$55 (11 × $5)</td></tr>
+      <tr><td class="label-cell">teamLab Planets Toyosu</td><td>Day 7</td><td>Afternoon slot · sells out weeks ahead</td><td>$275 (11 × $25)</td></tr>
+    </tbody>
+    <tfoot>
+      <tr class="total-row"><td colspan="3"><strong>ACTIVITIES TOTAL</strong></td><td><strong>~$2,614</strong></td></tr>
+    </tfoot>
+  </table>
+</div>
+
+<!-- FOOD BUDGET -->
+<div class="section">
+  <h2><span class="icon">🍜</span> Food Budget</h2>
+  <p class="lead">Having Airbnb kitchens is a budget game-changer. Breakfast from a nearby konbini or grocery store runs about $4–6/person, not $12 at a café. Budget below assumes one konbini-style breakfast, one mid-range lunch, and one sit-down dinner per person per day, plus snacks.</p>
+
+  <table>
+    <thead>
+      <tr><th>Meal</th><th>Per Adult</th><th>Group/Day (11 adults + baby)</th><th>× 8 Days</th><th>Total</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="label-cell">Breakfast (konbini / home)</td><td>$6</td><td>$70</td><td>8</td><td>$560</td></tr>
+      <tr><td class="label-cell">Lunch (ramen / bento / street food)</td><td>$12</td><td>$135</td><td>8</td><td>$1,080</td></tr>
+      <tr><td class="label-cell">Dinner (izakaya / sushi / yakiniku)</td><td>$25</td><td>$280</td><td>8</td><td>$2,240</td></tr>
+      <tr><td class="label-cell">Snacks, drinks, vending machines</td><td>$5</td><td>$60</td><td>8</td><td>$480</td></tr>
+      <tr><td class="label-cell">Baby (formula / baby food / snacks)</td><td>—</td><td>$10</td><td>8</td><td>$80</td></tr>
+    </tbody>
+    <tfoot>
+      <tr class="total-row"><td colspan="4"><strong>FOOD TOTAL</strong></td><td><strong>$4,440</strong></td></tr>
+    </tfoot>
+  </table>
+
+  <div class="why-box">
+    <h4>How to handle food between the two families</h4>
+    <p>Lala pays for nothing — her meal costs (~$396 total) are split 50/50 between the two families, so each family absorbs ~$198 of her food. Adding that to each family's own meals: <strong>Velasquez ≈ $2,178, Kobayashi ≈ $2,258</strong> (the $80 difference is the baby's formula/snacks). In practice, use Splitwise to track who paid for which group meal and settle up at the end.</p>
+  </div>
+</div>
+
+<!-- WHAT CHANGED IN V3 -->
+<div class="section">
+  <h2><span class="icon">📝</span> What Changed (Version History)</h2>
+  <h3>v3.1 (current) — Lodging booked + transit times locked in</h3>
+  <ul class="tip-list">
+    <li><strong>Lodging picks finalized.</strong> Tokyo: Senju-Ohashi 5BR (Listing 1309384035859974685) at $1,820/4 nights. Kyoto: Kyoran HAYASHI TOUZAN + SOUKAI sister machiya (Pair B, Listings 1335172566596170163 + 1335190660865823702) at $1,551/2 nights. Tokyo return night: ~$500 hotel TBD. Total lodging: <strong>$3,871 ($1,935.50/family)</strong>.</li>
+    <li><strong>All transit times rebuilt around real addresses.</strong> Tokyo days now reflect Senju-Ohashi/Kita-Senju routing (Tobu Skytree Line direct to Asakusa = 10 min, vs the old "Ueno" baseline). Kyoto days reflect HAYASHI's Higashiyama address (Keihan Line direct to Fushimi = 10 min; Gion is a 10-min walk home).</li>
+    <li><strong>Day 1 arrival uses Keisei Skyliner instead of Narita Express</strong> — faster + cheaper for the Senju-Ohashi destination (Skyliner to Nippori, JR Joban one stop to Kita-Senju, Tobu one stop to Senju-Ohashi).</li>
+    <li><strong>Day 5 Osaka run uses the Keihan Main Line direct from Higashiyama</strong> instead of detouring through Kyoto Sta. for the Shinkansen — the HAYASHI location makes Keihan a no-brainer (~52 min direct to Osaka Temmabashi for ¥640, saves ~$200 group-wide).</li>
+    <li><strong>Day 8 departure uses Keisei Skyliner Ueno → Narita</strong> (41 min) instead of NEX (60 min).</li>
+    <li><strong>Comparison sections stripped.</strong> Per your call, the unchosen Tokyo options and Kyoto pairs are no longer in the doc — only the booked picks plus the still-to-book Tokyo return night.</li>
+    <li><strong>Daily schedules condensed.</strong> Hour-by-hour bullets collapsed into 5–8 time-block windows per day (e.g., "9:30 AM–12:30 PM — Akihabara") — easier to scan, still shows how long you're at each place.</li>
+    <li><strong>Tokyo return-night hotel links added.</strong> APA Keisei Ueno, Toyoko Inn Asakusa, and Richmond Asakusa all have direct booking + Booking.com + Google Maps links.</li>
+    <li><strong>Velasquez return night booked — Richmond Hotel Asakusa (2 rooms, was for 5 ppl, now 6 with Lala added).</strong> <em>Note: this changelog entry was written before Lala moved over; see the more recent v3.1 entries for the updated state.</em></li>
+    <li><strong>Day 4 swapped from Tokyo Disneyland to Tokyo DisneySea.</strong> Whole group goes DisneySea for Fantasy Springs (Frozen, Tangled, Peter Pan). Added ~$180 Fantasy Springs Premier Access budget. Same station (Maihama), same ticket price, same commute time.</li>
+    <li><strong>Reel-viral restaurant detours added as optional stops</strong> — Benizuru (Asakusa soufflé pancakes), ANDRA (Ueno smash burger), Ginza Hachigou (Michelin ramen), Iroriya (kobore ikura don), Age.3 (Ginza cream sando), and Wagyumafia (Nakameguro wagyu sando) are now slotted as optional food detours on the days that pass near each location, with travel-time callouts so the group can pick what's worth the side-trip.</li>
+    <li><strong>Exact booking totals locked in from the confirmations:</strong>
+      <ul style="margin:4px 0 0 18px; list-style: disc;">
+        <li>Tokyo Senju-Ohashi Airbnb: <strong>$1,929.98</strong> (res HM9PP9WY3C · $1,021.76 paid Apr 19 / $908.22 due Jun 11)</li>
+        <li>Kyoto HAYASHI Velasquez unit: <strong>$741.04</strong> (res HMB5NYXWKR · $379.69 paid Apr 19 / $361.35 due Jun 15)</li>
+        <li>Richmond Asakusa: <strong>$587.43</strong> (Premier View Triple $368.64 + Precious Moderate Double $218.79, <strong>buffet breakfast included</strong>)</li>
+      </ul>
+      Cost summary and family split tables updated to reflect exact numbers. Kobayashi-side Kyoto unit + return-night hotel still TBD so those show as estimates. <strong>Bonus:</strong> Richmond's free breakfast replaces the Day 8 breakfast line-item, saving ~$60 on Day 8.</li>
+    <li><strong>Connectivity: eSIM promoted to the recommended pick</strong> (Airalo Moshi Moshi ~$18/phone). Each traveler gets their own connection, important when the group splits on Day 2, Day 4, and Day 8. Pocket Wi-Fi demoted to "backup option."</li>
+    <li><strong>Shinkansen oversized-luggage rule (160 cm) noted in Day 7.</strong> Tokaido Shinkansen requires a (free but reserved) "oversized baggage area" seat for suitcases with L+W+H ≥ 160 cm, ¥1,000 penalty for non-compliance. <strong>Yamato luggage forwarding (already in the plan for Day 5 and Day 7) sidesteps this entirely</strong> — bags ship door-to-door, you ride the Shinkansen with just daypacks.</li>
+    <li><strong>JR Pass explicitly declined.</strong> After the October 2023 price hike ($333/person for 7 days), the pass no longer pays off for Tokyo↔Kyoto-only trips. Your actual JR spend ≈ $210–220/person. Skipping the pass saves ~$110/person × 11 = ~$1,200 group-wide. See the "Why NOT a JR Pass" callout in the Pre-Trip To-Do List.</li>
+    <li><strong>Upscale farewell-dinner alternatives added to Day 7:</strong> The Jade Room + Garden Terrace (Tokyo EDITION Toranomon, Tokyo Tower views, Tom Aikens · ~$95–160/pp, Wed–Sun) and Peter at The Peninsula Tokyo (modern French, Imperial Palace views · ~$115–190/pp) as splurge options vs. the Asakusa casual dinner. est at Four Seasons Otemachi flagged as impractical for the full group (group size + baby/kid).</li>
+    <li><strong>Luke's Lobster (Omotesando Cat Street) added as Day 3 easy lunch option</strong> — it's already on your Harajuku route, no travel cost, no reservation needed. LUXIS Ebisu (Italian dining bar with sea-turtle aquarium) added as an adults-only sub-group dinner alternate.</li>
+    <li><strong>Adults-only nightcap options added to Day 7</strong> — rooftop/view bars for Ryan, Aileen, Darren, Rona after the farewell dinner while teens + Kai + Lala head back to the hotel. Picks: Jade Room's Garden Terrace (same venue if dining there), Andaz Tokyo Rooftop (52F, best view bar in Tokyo), Peter: The Bar (24F Peninsula, if dining at Peter), and New York Bar at Park Hyatt Shinjuku (the iconic Lost in Translation bar). <em>Note: Japan's legal drinking age is 20 — Reid at 19 stays back or does mocktails.</em></li>
+    <li><strong>Japanese head spa option added to Day 7</strong> — slotted in the ~3-hour gap between Shinkansen arrival (11:40 AM) and teamLab (2:30 PM). Top pick is Uka Marunouchi (5 min from Tokyo Sta., English booking, ¥12,000 for 60 min · ¥18,000 for 90 min). Works as a 2-couple split or includes Lala if she's interested. Tactical note in the day card on how to phase the lunch + bag drop around the spa slot.</li>
+    <li><strong>Split arrival paths — Kobayashi now arrives Day 2 (5 AM Sat Jun 27) at Haneda from Manila</strong> after their Boracay leg. Velasquez + Lala still on the original ZIPAIR Day 1 NRT arrival. Day 1 card updated to reflect 6 ppl checking in (not 12) with reduced food/transit cost (~$465 instead of ~$870). Day 2 card got a new amber "Kobayashi family arrival schedule" box at the top: 5 AM Haneda → 1 hr immigration → 2 taxis to Senju-Ohashi (~$160 total, ~45 min) → 8 AM at Airbnb → freshen up → meet Velasquez at Akihabara 9:30 AM. Plan B/C fall-back options included if Kobayashi is too jet-lagged to start at 9:30. Day 2 cost line bumped by $160 for the Kobayashi airport taxi. <strong>Tokyo Airbnb cost stays split 50/50 even though Kobayashi only sleeps 3 of the 4 nights</strong> — explicitly per Velasquez's choice, no Night-1 discount being claimed. Kobayashi-specific to-do added to the pre-trip list (book 2 taxis from Haneda for the 5 AM Sat arrival).</li>
+    <li><strong>Kobayashi Kyoto unit booked — HAYASHI · SOUKAI confirmed.</strong> Reservation <strong>HMFCYEFMBF</strong>, <strong>$884.32</strong> total ($453.02 paid Apr 19 / $431.30 due Jun 15, Amex 9006), host <strong>Miki</strong>, checkout 11 AM Thu Jul 2. Address now confirmed for both HAYASHI units: <strong>599 Nushiyachō, Higashiyama Ward, Kyoto 605-0934</strong>. Both Kyoto units now show ✓ confirmed in the cost table.</li>
+    <li><strong>Kobayashi return-night hotel — Richmond Asakusa Room 1 booked (1 of likely ~3 rooms).</strong> Confirmation <strong>5487359272</strong> (Priceline trip 322-132-183-96), billed to Ronalyn Drobot on Amex 9006, <strong>$338.89</strong> total ($308.08 + $30.81 tax). <strong>Both families now end the trip at the same Richmond Hotel Asakusa</strong> — easier farewell dinner + simpler Day 8 departure. <strong>Day 8 collapsed from a two-route departure into a single unified route</strong>: all 12 take the Keisei Access Express direct from Asakusa Station to Narita (saves ~$107 group-wide vs Skyliner, no transfers, easier with luggage + baby + Lala). <strong>Note:</strong> Richmond rooms cap at 3 adults each — for 7 Kobayashi+Lala people, plan on 2–3 more rooms (~$650 more). Cost tables updated with current confirmed totals + estimates for the additional Richmond rooms.</li>
+    <li><strong>Tokyo Senju-Ohashi exact address added — 2-chōme-23-9 Senjumidorichō, ONLY YOU HOTEL, Adachi City, Tokyo 120-0044.</strong> "ONLY YOU HOTEL" is the building/property brand the host operates under. New "Quick-reference: every booked address" table added at the top of the Lodging section so the family WhatsApp group / taxi drivers / Yamato luggage forwarding can grab any address in 2 seconds.</li>
+    <li><strong>Lala moved from Kobayashi side to Velasquez side for the Tokyo return night (Jul 2–3).</strong> Velasquez Richmond rooms now sleeping 6 (Ryan, Aileen, Reid, Raiden, Ella + Lala) instead of 5 — flagged room-capacity issue (2 rooms × max 5 ppl ≠ 6) with three resolution options including booking a 3rd small room for Lala. Kobayashi room math drops from 7 to 6 ppl (likely 1–2 more rooms instead of 2–3, est. $300–600 less).</li>
+    <li><strong>Tokyo return-night kept as separate per-family expense — no cross-payment between families for Day 7 night.</strong> Each family handles their own Richmond rooms directly (Velasquez covers Lala's share as part of their Richmond bill, Kobayashi covers their 6 rooms). <strong>Single remaining cross-payment: Velasquez owes Kobayashi $71.64 for the Kyoto 50/50 trueup</strong> — that's the only Splitwise-it amount across the whole trip's lodging. Cleaner than the prior Lala-share reimbursement math.</li>
+    <li><strong>Transit & Navigation Cheat Sheet added at the top of the doc</strong> — explains every train line we use (JR, Tokyo Metro, Toei, Tobu, Keisei, Keihan, etc.), how to use Suica, how to read the transit shorthand, plus quick Google Maps links to every major station and destination. Also includes a comprehensive <strong>Luggage Strategy / Yamato Forwarding subsection</strong> (TA-Q-BIN explainer, where to drop bags, daypack essentials, full trip cost table for forwarding 12 bags across the recommended legs ≈ $400–475 split 50/50).</li>
+    <li><strong>Day 1 transit completely rewritten with explicit step-by-step + Google Maps links</strong> — 10 numbered steps from Narita touchdown to Airbnb door (which counter at airport, where to transfer at Nippori, which platform direction at Kita-Senju, etc.). Plus a separate step-by-step for the Sensō-ji evening trip. Both sections explain "Tobu" + every other line referenced.</li>
+    <li><strong>Per-day "Luggage Strategy" callouts added to Days 1, 5, 7, and 8</strong> — tactical guidance for each leg: when to drop bags at Yamato, what to keep in backpacks, cost estimates per family. Day 1 + Day 5 + Day 7 strongly recommend Yamato; Day 8 documents a default "carry on Access Express + 2 cabs from hotel" plan since Yamato-to-airport doesn't fit cleanly with the Kyoto→Tokyo→Narita timeline.</li>
+    <li><strong>Pre-Trip To-Do list updated with Yamato coordination tasks</strong> — message Senju-Ohashi host + HAYASHI host Miki + Richmond front desk for pickups/drop-offs, pre-print Japanese-formatted destination addresses, pack day-of essentials backpacks for each person.</li>
+    <li><strong>All ~60 restaurant entries upgraded with structured details</strong> — every food spot across Days 1–8 (plus head spa salons + nightcap bars) now shows: <strong>format</strong> (sit-down/counter/standing/takeout/spa) · <strong>star rating</strong> (approximate Google/Tabelog-equivalent, ★ 3.5–4.7 range) · <strong>price tier</strong> ($ to $$$$$ + actual ¥ range AND USD conversion at ¥159/$1) · <strong>per-person cost</strong> · <strong>brief description</strong> · <strong>Instagram link</strong> (real handle where confident, IG keyword search where not). Currency conversions also added inline throughout the doc wherever a yen amount appears.</li>
+  </ul>
+  <h3 style="margin-top:18px;">v3 — Itinerary structure</h3>
+  <ul class="tip-list">
+    <li><strong>Street Kart (Day 2) — Raiden removed.</strong> Japan's 18+ age minimum rules him out even with a US license. Drivers: 6 → 5 (Ryan, Aileen, Reid, Darren, Rona). Raiden joined Hanayashiki group.</li>
+    <li><strong>Osaka half-day added (Day 5).</strong> Kobayashi family request. Half-day after Kyoto arrival.</li>
+    <li><strong>Fushimi Inari moved (Day 5 → Day 6 sunrise).</strong> Better crowd timing.</li>
+    <li><strong>Hour-by-hour schedule boxes</strong> added to every day (since condensed in v3.1).</li>
+  </ul>
+</div>
+
+</div><!-- /page -->
+</body>
+</html>
