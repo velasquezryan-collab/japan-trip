@@ -8,6 +8,7 @@
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
   body { font-family: 'Inter', -apple-system, sans-serif; background: #f0f2f5; color: #1a1a2e; line-height: 1.6; }
 
   .page { max-width: 960px; margin: 0 auto; padding: 40px 20px; }
@@ -59,13 +60,15 @@
   .day-card {
     border-left: 4px solid #e94560; border-radius: 12px; padding: 20px 20px 20px 24px;
     margin-bottom: 16px; background: #fafbfc;
+    scroll-margin-top: 75px;
   }
   .day-card:nth-child(even) { border-left-color: #0f3460; }
-  .day-header { display: flex; align-items: baseline; gap: 12px; margin-bottom: 8px; flex-wrap: wrap; }
-  .day-num { font-size: 0.8em; font-weight: 700; color: #e94560; background: #fde8ec; padding: 3px 10px; border-radius: 6px; }
-  .day-card:nth-child(even) .day-num { color: #0f3460; background: #e0eaf5; }
-  .day-date { font-size: 0.85em; color: #888; }
-  .day-title { font-size: 1.1em; font-weight: 700; color: #1a1a2e; }
+  .day-header { display: flex; align-items: center; gap: 16px; margin-bottom: 10px; flex-wrap: wrap; background: linear-gradient(90deg, #fde8ec 0%, #fff0 100%); border-radius: 10px; padding: 10px 16px; }
+  .day-card:nth-child(even) .day-header { background: linear-gradient(90deg, #e0eaf5 0%, #fff0 100%); }
+  .day-num { font-size: 1.5em; font-weight: 900; color: #e94560; background: #fff; padding: 4px 16px; border-radius: 8px; border: 2px solid #e94560; letter-spacing: 1px; white-space: nowrap; }
+  .day-card:nth-child(even) .day-num { color: #0f3460; border-color: #0f3460; }
+  .day-date { font-size: 1.25em; font-weight: 700; color: #1a1a2e; }
+  .day-title { font-size: 1.2em; font-weight: 700; color: #1a1a2e; margin-top: 2px; }
   .day-activities { color: #555; margin-top: 6px; }
   .day-cost { margin-top: 10px; font-size: 0.88em; color: #0f3460; font-weight: 600;
     background: #f0f7ff; padding: 8px 12px; border-radius: 8px; display: inline-block; }
@@ -187,7 +190,11 @@
   <ul class="tip-list">
     <li>☐ <strong>Buy 11 Tokyo DisneySea 1-Day Passports</strong> — Monday June 29 weekday pricing · ~$75/person × 11 = <strong>$825</strong> · <a href="https://www.tokyodisneyresort.jp/en/" target="_blank">tokyodisneyresort.jp</a> · <strong>60-day window just opened</strong> — buy now before popular dates sell out. <em>Note: Fantasy Springs Premier Access is NOT pre-bookable — that happens in-app at 9 AM on Day 4 when you tap into the park.</em></li>
     <li>✅ <strong>teamLab Planets Toyosu — DONE.</strong> 11 tickets booked for Day 7 (Thu Jul 2) afternoon slot ~2:30 PM. Bring confirmation to the entrance.</li>
-    <li>☐ <strong>Book Shibuya Sky observation deck</strong> — Day 3 (Sunday June 28), 4:00 PM sunset slot · 11 × $18 = <strong>~$198</strong> · <a href="https://www.shibuya-sky.tokyo/" target="_blank">shibuya-sky.tokyo</a> · sunset slots go first.</li>
+    <li>☐ <strong>Book Shibuya Sky observation deck</strong> — Day 3 (Sunday June 28), 4:00 PM sunset slot · 11 × $18 = <strong>~$198</strong> · <a href="https://www.klook.com/en-US/activity/70672-shibuya-sky-tokyo/" target="_blank">Buy on Klook (easy + secure for US buyers)</a> · sunset slots go first · free cancellation up to the day before.
+      <div style="margin-top:6px; background:#fef2f2; border-left:4px solid #dc2626; border-radius:6px; padding:8px 12px; font-size:0.9em; color:#7f1d1d;">
+        ⏳ <strong>NOT AVAILABLE YET</strong> — Klook currently only shows availability through June 2. Tickets for June 28 open on <strong>June 14, 2026</strong> (the 2-week booking window). That is <strong>27 days from today (May 18)</strong>. Set a reminder to go to Klook on the morning of June 14 — sunset slots sell out fast. Tickets release at midnight JST = ~10 AM ET / 7 AM PT.
+      </div>
+    </li>
     <li>☐ <strong>Start group restaurant reservations</strong> (12 people needs 30–60 days lead):
       <ul style="margin-top:4px;">
         <li><strong>Asakusa Imahan (sukiyaki)</strong> — Day 1 or Day 7 farewell dinner, reserve 2 tables of 6</li>
@@ -283,7 +290,20 @@
   <h2><span class="icon">🗓</span> Day-by-Day Itinerary</h2>
   <p class="lead">Eight days, biggest attractions hit in the mornings. Each day below shows the approximate daily spend for the whole group (food + activities + local transit, <em>excluding</em> lodging which is broken out separately above).</p>
 
-  <div class="day-card">
+  <!-- QUICK NAV -->
+  <div style="position:sticky; top:0; z-index:100; background:#1a1a2e; border-radius:10px; padding:10px 16px; margin-bottom:20px; display:flex; flex-wrap:wrap; gap:8px; align-items:center; box-shadow:0 2px 10px rgba(0,0,0,0.25);">
+    <span style="color:#aaa; font-size:0.8em; font-weight:600; letter-spacing:1px; text-transform:uppercase; margin-right:4px;">Jump to →</span>
+    <a href="#day1" style="text-decoration:none; background:#e94560; color:#fff; font-weight:700; font-size:0.85em; padding:5px 12px; border-radius:6px; white-space:nowrap;">Day 1 · Jun 26</a>
+    <a href="#day2" style="text-decoration:none; background:#0f3460; color:#fff; font-weight:700; font-size:0.85em; padding:5px 12px; border-radius:6px; white-space:nowrap;">Day 2 · Jun 27</a>
+    <a href="#day3" style="text-decoration:none; background:#e94560; color:#fff; font-weight:700; font-size:0.85em; padding:5px 12px; border-radius:6px; white-space:nowrap;">Day 3 · Jun 28</a>
+    <a href="#day4" style="text-decoration:none; background:#0f3460; color:#fff; font-weight:700; font-size:0.85em; padding:5px 12px; border-radius:6px; white-space:nowrap;">Day 4 · Jun 29</a>
+    <a href="#day5" style="text-decoration:none; background:#e94560; color:#fff; font-weight:700; font-size:0.85em; padding:5px 12px; border-radius:6px; white-space:nowrap;">Day 5 · Jun 30</a>
+    <a href="#day6" style="text-decoration:none; background:#0f3460; color:#fff; font-weight:700; font-size:0.85em; padding:5px 12px; border-radius:6px; white-space:nowrap;">Day 6 · Jul 1</a>
+    <a href="#day7" style="text-decoration:none; background:#e94560; color:#fff; font-weight:700; font-size:0.85em; padding:5px 12px; border-radius:6px; white-space:nowrap;">Day 7 · Jul 2</a>
+    <a href="#day8" style="text-decoration:none; background:#0f3460; color:#fff; font-weight:700; font-size:0.85em; padding:5px 12px; border-radius:6px; white-space:nowrap;">Day 8 · Jul 3</a>
+  </div>
+
+  <div class="day-card" id="day1">
     <div class="day-header"><span class="day-num">DAY 1</span><span class="day-date">Friday, June 26</span></div>
     <div class="day-title">Velasquez + Lala Arrive Narita · Sensō-ji at Dusk <span style="background:#0284c7; color:#fff; font-size:0.7em; padding:2px 8px; border-radius:4px; margin-left:6px;">VELASQUEZ + LALA ONLY</span></div>
     <div class="day-activities"><strong>6 of 12 arrive today:</strong> Velasquez family (5) + Lala on ZIPAIR ZG023 land at Narita 14:10. The <strong>Kobayashi family is in Manila tonight</strong> — they fly the JAL 11 PM red-eye Manila → Haneda after their Boracay leg, arriving Day 2 morning at 5 AM. Tonight is Velasquez+Lala settling in: Skyliner to Senju-Ohashi, check in, easy evening walk to Sensō-ji at dusk, early dinner in Asakusa, lights out for jet lag.</div>
@@ -458,7 +478,7 @@
     <div class="day-cost">Est. daily spend: ~$465 (Keisei Skyliner 6×$18 = $108 + JR Joban + Tobu 6×$2.50 = $15 + dinner for 6 ~$225 + snacks/water + breakfast stock-up for Kobayashi arrival ~$110 + pocket Wi-Fi rental pickup $4 + breakfast supplies $3). <em>Updated for the Velasquez+Lala-only arrival (6 ppl on Day 1 instead of 12). Kobayashi has their own Day 2 arrival cost line (~$160 for 2 taxis Haneda → Airbnb).</em></div>
   </div>
 
-  <div class="day-card">
+  <div class="day-card" id="day2">
     <div class="day-header"><span class="day-num">DAY 2</span><span class="day-date">Saturday, June 27</span></div>
     <div class="day-title">Kobayashi Arrives 5 AM at Haneda · Anime Day + Street Kart</div>
     <div class="day-activities"><strong>Two arrivals on Day 2:</strong> the <strong>Velasquez family + Lala</strong> wake at the Senju-Ohashi Airbnb after Day 1 arrival, while the <strong>Kobayashi family lands at Haneda 5 AM</strong> from the Manila red-eye (Boracay → Manila JAL leg). Kobayashi joins the group at Akihabara around 9:30 AM (or naps and joins for lunch — see options below). Same group plan from Akihabara onward: anime-immersion morning, maid-café lunch, Nakano Broadway, then late-afternoon split for Street Kart vs. Hanayashiki, regrouping in Asakusa for dinner.</div>
@@ -591,7 +611,7 @@
     <div class="day-cost">Est. daily spend: ~$1,350 (Suica $110 + Street Kart 5 drivers × $34 = $170 + Hanayashiki ~$120 + food $550 + gachapon/souvenir buffer $240 + <strong>Kobayashi airport-to-Airbnb 2 taxis ~$160</strong>). <em>Kobayashi taxi is a Kobayashi-only line item (not split with Velasquez).</em></div>
   </div>
 
-  <div class="day-card">
+  <div class="day-card" id="day3">
     <div class="day-header"><span class="day-num">DAY 3</span><span class="day-date">Sunday, June 28</span></div>
     <div class="day-title">Tsukiji Sushi Breakfast · Meiji · Harajuku · Shibuya</div>
     <div class="day-activities"><strong>Early-ish start (7 AM wake-up):</strong> head to <strong>Tsukiji Outer Market</strong> for sushi breakfast and a walk through the iconic food stalls. Back on the train mid-morning for Meiji Shrine. Midday: Takeshita Street crêpes in Harajuku. Afternoon: Shibuya Crossing and Shibuya Sky observation deck. Evening: yakitori at Omoide Yokochō in Shinjuku.</div>
@@ -892,7 +912,7 @@
     <div class="day-cost">Est. daily spend: ~$1,200 (Suica $110 + Tsukiji breakfast ~$330 + Shibuya Sky 11×$18 = $198 + other food $520 + misc $40). <em>Shopping spend (Brandy/Nike/Oakley/luxury secondhand) is per-family discretionary, not in the group budget.</em></div>
   </div>
 
-  <div class="day-card">
+  <div class="day-card" id="day4">
     <div class="day-header"><span class="day-num">DAY 4</span><span class="day-date">Monday, June 29</span></div>
     <div class="day-title">Tokyo DisneySea · Fantasy Springs</div>
     <div class="day-activities">Full day at <strong>Tokyo DisneySea</strong> in Urayasu — the unique-to-Tokyo nautical park with 8 themed "Ports of Call." Big hitters: Tower of Terror, Journey to the Center of the Earth, Soaring: Fantastic Flight, plus the new <strong>Fantasy Springs</strong> land (opened June 2024) with Frozen, Tangled, and Peter Pan rides. Monday is a weekday = cheaper tickets and shorter lines. <strong>Fantasy Springs Premier Access is essential</strong> — without it, those three rides are 2–3 hour waits.</div>
@@ -1014,7 +1034,7 @@
     <div class="day-cost">Est. daily spend: ~$1,680 (tickets 11×$75 = $825 + <strong>Premier Access Fantasy Springs 11 ppl × 3 rides ≈ $180</strong> + transit $110 + in-park food 11×$30 = $330 + treats/souvenirs $235). <em>Swap cost vs. Disneyland: +$180 for Premier Access.</em></div>
   </div>
 
-  <div class="day-card">
+  <div class="day-card" id="day5">
     <div class="day-header"><span class="day-num">DAY 5</span><span class="day-date">Tuesday, June 30</span></div>
     <div class="day-title">Bullet Train to Kyoto · Half-Day Osaka Hop (Kobayashi Request)</div>
     <div class="day-activities">Morning Shinkansen Tokyo → Kyoto, drop bags at the Kyoto machiya, then <strong>half-day Osaka side-trip</strong> for the Kobayashi family's ask: Osaka Castle grounds, Dotonbori neon + street food crawl, back to Kyoto by bedtime. This swaps the old Fushimi Inari afternoon, which moves to Day 6 sunrise (better crowd timing anyway).</div>
@@ -1134,7 +1154,7 @@
     <div style="margin-top:10px; font-size:0.88em; background:#fef9c3; padding:10px 14px; border-radius:8px; border-left:3px solid #ca8a04;"><strong>💸 Kyoto lodging 50/50 reconciliation (kicks in today since Kyoto check-in is Day 5):</strong> Combined Kyoto cost = $741.04 TOUZAN (Velasquez paid) + $884.32 SOUKAI (Kobayashi paid) = $1,625.36 · fair-share per family = $812.68. <strong>Velasquez owes Kobayashi $71.64</strong> to true up the split. Easiest to handle through Splitwise as part of the trip-end group reconciliation rather than a one-off transfer.</div>
   </div>
 
-  <div class="day-card">
+  <div class="day-card" id="day6">
     <div class="day-header"><span class="day-num">DAY 6</span><span class="day-date">Wednesday, July 1</span></div>
     <div class="day-title">Classic Kyoto — Fushimi Inari Sunrise, Bamboo, Monkeys, Golden Temple</div>
     <div class="day-activities">Early wake for <strong>Fushimi Inari at sunrise</strong> — orange torii gates in golden light with no crowds, the whole reason to do it this hour. Breakfast in central Kyoto, then Arashiyama Bamboo Grove, the Monkey Park hike, and Kinkaku-ji (Golden Temple) in the afternoon. Slow evening stroll through Gion's wooden lanes and dinner there.</div>
@@ -1247,7 +1267,7 @@
     <div class="day-cost">Est. daily spend: ~$900 (Keihan to Fushimi 11×$1.50 = $17 + Higashiyama→Arashiyama 3 taxis $70 + Arashiyama→Kinkaku-ji bus 11×$1.60 = $18 + Kinkaku-ji→Gion 3 taxis $50 + Fushimi Inari free + Tenryu-ji 11×$3.50 = $39 + Monkey Park 11×$6 = $66 + Kinkaku-ji 11×$5 = $55 + food $650 – buffer savings $65). <em>Proximity to Gion + Keihan direct to Fushimi saves ~$50 vs. the Nakagyo baseline.</em></div>
   </div>
 
-  <div class="day-card">
+  <div class="day-card" id="day7">
     <div class="day-header"><span class="day-num">DAY 7</span><span class="day-date">Thursday, July 2</span></div>
     <div class="day-title">Return to Tokyo — teamLab Planets & Farewell Dinner</div>
     <div class="day-activities">Morning Shinkansen Kyoto → Tokyo. Drop bags at the Tokyo hotel (or use station coin lockers if too early for check-in). Lunch. Afternoon: <a href="https://www.google.com/maps/search/?api=1&query=teamLab+Planets+Toyosu+Tokyo" target="_blank"><strong>teamLab Planets Toyosu</strong></a> — immersive digital art, walk barefoot through water and light rooms. Evening: farewell group dinner in Asakusa.</div>
@@ -1496,7 +1516,7 @@
     <div class="day-cost">Est. daily spend: ~$2,035 (Shinkansen 11×$95 = $1,045 + teamLab 11×$25 = $275 + transit $55 + farewell dinner $660)</div>
   </div>
 
-  <div class="day-card">
+  <div class="day-card" id="day8">
     <div class="day-header"><span class="day-num">DAY 8</span><span class="day-date">Friday, July 3</span></div>
     <div class="day-title">Easy Morning → Departure (Tsukiji Optional)</div>
     <div class="day-activities">Sleep in. Tsukiji already done on Day 3, so this morning is about packing slowly, a konbini or Pelican Café toast breakfast, last-minute omiyage, and a low-stress ride to Narita. <strong>Target: leave the hotel by 9:30 AM.</strong> Anyone who wants a second Tsukiji visit can head over at 6 AM (optional early risers' plan below).</div>
@@ -2125,5 +2145,220 @@
 </div>
 
 </div><!-- /page -->
+
+<!-- ===================== FEEDBACK WIDGET ===================== -->
+<style>
+  #feedback-btn {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    z-index: 9999;
+    background: #e94560;
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    padding: 13px 20px;
+    font-size: 1em;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 18px rgba(233,69,96,0.45);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+    font-family: inherit;
+  }
+  #feedback-btn:hover {
+    background: #c73652;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(233,69,96,0.55);
+  }
+  #feedback-btn .fb-icon { font-size: 1.2em; }
+
+  #feedback-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    z-index: 10000;
+    align-items: flex-end;
+    justify-content: flex-end;
+    padding: 28px;
+  }
+  #feedback-overlay.open { display: flex; }
+
+  #feedback-panel {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.22);
+    width: 360px;
+    max-width: calc(100vw - 40px);
+    padding: 24px;
+    animation: fb-slide-in 0.22s ease;
+  }
+  @keyframes fb-slide-in {
+    from { opacity: 0; transform: translateY(20px) scale(0.97); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  #feedback-panel h3 {
+    margin: 0 0 4px 0;
+    font-size: 1.1em;
+    color: #1a1a2e;
+  }
+  #feedback-panel p {
+    margin: 0 0 14px 0;
+    font-size: 0.88em;
+    color: #666;
+  }
+  #feedback-name {
+    width: 100%;
+    box-sizing: border-box;
+    border: 1.5px solid #ddd;
+    border-radius: 8px;
+    padding: 9px 12px;
+    font-size: 0.92em;
+    font-family: inherit;
+    margin-bottom: 10px;
+    outline: none;
+    transition: border-color 0.15s;
+  }
+  #feedback-name:focus { border-color: #e94560; }
+  #feedback-text {
+    width: 100%;
+    box-sizing: border-box;
+    border: 1.5px solid #ddd;
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 0.92em;
+    font-family: inherit;
+    resize: vertical;
+    min-height: 110px;
+    outline: none;
+    transition: border-color 0.15s;
+  }
+  #feedback-text:focus { border-color: #e94560; }
+  #feedback-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 14px;
+  }
+  #feedback-send {
+    flex: 1;
+    background: #e94560;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 11px;
+    font-size: 0.95em;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.15s;
+  }
+  #feedback-send:hover { background: #c73652; }
+  #feedback-cancel {
+    background: #f1f1f1;
+    color: #555;
+    border: none;
+    border-radius: 8px;
+    padding: 11px 16px;
+    font-size: 0.95em;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.15s;
+  }
+  #feedback-cancel:hover { background: #e0e0e0; }
+  #feedback-thanks {
+    display: none;
+    text-align: center;
+    padding: 16px 0 8px;
+  }
+  #feedback-thanks .fb-check { font-size: 2.2em; }
+  #feedback-thanks p { color: #333; margin-top: 8px; font-size: 0.95em; }
+</style>
+
+<!-- Floating button + hover hint -->
+<style>
+  #feedback-hint {
+    background: #1a1a2e;
+    color: #fff;
+    font-size: 0.78em;
+    font-weight: 500;
+    padding: 7px 12px;
+    border-radius: 8px;
+    max-width: 220px;
+    text-align: center;
+    line-height: 1.4;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.25);
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    pointer-events: none;
+  }
+  #feedback-wrap:hover #feedback-hint {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+<div id="feedback-wrap" style="position:fixed; bottom:28px; right:28px; z-index:9999; display:flex; flex-direction:column; align-items:flex-end; gap:8px;">
+  <div id="feedback-hint">
+    See something wrong or want to add something? Hit the button below — I'll get it updated! 👇
+  </div>
+  <button id="feedback-btn" style="position:static;" onclick="document.getElementById('feedback-overlay').classList.add('open'); document.getElementById('feedback-name').focus();">
+    <span class="fb-icon">💬</span> Feedback
+  </button>
+</div>
+
+<!-- Modal overlay -->
+<div id="feedback-overlay" onclick="if(event.target===this)closeFeedback()">
+  <div id="feedback-panel">
+    <h3>💬 Leave a note or suggestion</h3>
+    <p>See something to fix, add, or change? Drop it here and Ryan will get it.</p>
+    <input id="feedback-name" type="text" placeholder="Your name (optional)" />
+    <textarea id="feedback-text" placeholder="Type your feedback, correction, or idea…"></textarea>
+    <div id="feedback-actions">
+      <button id="feedback-send" onclick="sendFeedback()">Send Feedback ✉️</button>
+      <button id="feedback-cancel" onclick="closeFeedback()">Cancel</button>
+    </div>
+    <div id="feedback-thanks">
+      <div class="fb-check">✅</div>
+      <p><strong>Got it!</strong> Your email app will open with the message ready to send.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+  function closeFeedback() {
+    var overlay = document.getElementById('feedback-overlay');
+    overlay.classList.remove('open');
+    setTimeout(function() {
+      document.getElementById('feedback-thanks').style.display = 'none';
+      document.getElementById('feedback-actions').style.display = 'flex';
+      document.getElementById('feedback-text').value = '';
+      document.getElementById('feedback-name').value = '';
+    }, 300);
+  }
+
+  function sendFeedback() {
+    var name = document.getElementById('feedback-name').value.trim();
+    var msg  = document.getElementById('feedback-text').value.trim();
+    if (!msg) {
+      document.getElementById('feedback-text').focus();
+      document.getElementById('feedback-text').style.borderColor = '#e94560';
+      return;
+    }
+    var from    = name ? name + ' via Japan Trip Planner' : 'Japan Trip Planner';
+    var subject = encodeURIComponent('Japan Trip Feedback' + (name ? ' from ' + name : ''));
+    var body    = encodeURIComponent(
+      (name ? 'From: ' + name + '\n\n' : '') + msg + '\n\n---\nSent from the Japan Trip Itinerary page'
+    );
+    window.location.href = 'mailto:velasquezryan@yahoo.com?subject=' + subject + '&body=' + body;
+    document.getElementById('feedback-actions').style.display = 'none';
+    document.getElementById('feedback-thanks').style.display  = 'block';
+  }
+</script>
+<!-- ===================== END FEEDBACK WIDGET ===================== -->
+
 </body>
 </html>
